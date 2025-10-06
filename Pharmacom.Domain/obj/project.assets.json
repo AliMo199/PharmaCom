@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\alofi\\OneDrive\\Desktop\\Lelouch\\Visual Studio projs\\PharmaCom\\Pharmacom.Domain\\Pharmacom.Domain.csproj",
-      "projectName": "Pharmacom.Domain",
-      "projectPath": "C:\\Users\\alofi\\OneDrive\\Desktop\\Lelouch\\Visual Studio projs\\PharmaCom\\Pharmacom.Domain\\Pharmacom.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\Pharmacom.Domain\\PharmaCom.Domain.csproj",
+      "projectName": "PharmaCom.Domain",
+      "projectPath": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\Pharmacom.Domain\\PharmaCom.Domain.csproj",
       "packagesPath": "C:\\Users\\alofi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\alofi\\OneDrive\\Desktop\\Lelouch\\Visual Studio projs\\PharmaCom\\Pharmacom.Domain\\obj\\",
+      "outputPath": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\Pharmacom.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

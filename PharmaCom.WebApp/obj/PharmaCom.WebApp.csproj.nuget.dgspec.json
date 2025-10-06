@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\alofi\\OneDrive\\Desktop\\Lelouch\\Visual Studio projs\\PharmaCom\\PharmaCom.WebApp\\PharmaCom.WebApp.csproj": {}
+    "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\PharmaCom.WebApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\alofi\\OneDrive\\Desktop\\Lelouch\\Visual Studio projs\\PharmaCom\\PharmaCom.WebApp\\PharmaCom.WebApp.csproj": {
+    "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\PharmaCom.WebApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\alofi\\OneDrive\\Desktop\\Lelouch\\Visual Studio projs\\PharmaCom\\PharmaCom.WebApp\\PharmaCom.WebApp.csproj",
+        "projectUniqueName": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\PharmaCom.WebApp.csproj",
         "projectName": "PharmaCom.WebApp",
-        "projectPath": "C:\\Users\\alofi\\OneDrive\\Desktop\\Lelouch\\Visual Studio projs\\PharmaCom\\PharmaCom.WebApp\\PharmaCom.WebApp.csproj",
+        "projectPath": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\PharmaCom.WebApp.csproj",
         "packagesPath": "C:\\Users\\alofi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\alofi\\OneDrive\\Desktop\\Lelouch\\Visual Studio projs\\PharmaCom\\PharmaCom.WebApp\\obj\\",
+        "outputPath": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
