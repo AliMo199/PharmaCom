@@ -1,2 +1,0 @@
-﻿Repositories interfaces.
-Unit of Work interface.

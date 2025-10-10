@@ -1,82 +1,14 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\",
+  "WorkspaceRootPath": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{70B7EE9A-28F7-44CA-824C-D2B6C0A21AC3}|PharmaCom.DataInfrastructure\\PharmaCom.DataInfrastructure.csproj|d:\\depi.net\\graduationproject\\pharmacom\\pharmacom.datainfrastructure\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70B7EE9A-28F7-44CA-824C-D2B6C0A21AC3}|PharmaCom.DataInfrastructure\\PharmaCom.DataInfrastructure.csproj|solutionrelative:pharmacom.datainfrastructure\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{70B7EE9A-28F7-44CA-824C-D2B6C0A21AC3}|PharmaCom.DataInfrastructure\\PharmaCom.DataInfrastructure.csproj|c:\\users\\alofi\\onedrive\\desktop\\pharmacom\\pharmacom.datainfrastructure\\implementation\\genericrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{70B7EE9A-28F7-44CA-824C-D2B6C0A21AC3}|PharmaCom.DataInfrastructure\\PharmaCom.DataInfrastructure.csproj|solutionrelative:pharmacom.datainfrastructure\\implementation\\genericrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E9D8AE0C-46B2-4EA9-B7C9-A98962FB512A}|Pharmacom.Domain\\PharmaCom.Domain.csproj|d:\\depi.net\\graduationproject\\pharmacom\\pharmacom.domain\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E9D8AE0C-46B2-4EA9-B7C9-A98962FB512A}|Pharmacom.Domain\\PharmaCom.Domain.csproj|solutionrelative:pharmacom.domain\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{70B7EE9A-28F7-44CA-824C-D2B6C0A21AC3}|PharmaCom.DataInfrastructure\\PharmaCom.DataInfrastructure.csproj|d:\\depi.net\\graduationproject\\pharmacom\\pharmacom.datainfrastructure\\migrations\\20251010001629_modelsandidentityinit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70B7EE9A-28F7-44CA-824C-D2B6C0A21AC3}|PharmaCom.DataInfrastructure\\PharmaCom.DataInfrastructure.csproj|solutionrelative:pharmacom.datainfrastructure\\migrations\\20251010001629_modelsandidentityinit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|d:\\depi.net\\graduationproject\\pharmacom\\pharmacom.webapp\\pharmacom.webapp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\pharmacom.webapp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|d:\\depi.net\\graduationproject\\pharmacom\\pharmacom.webapp\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|d:\\depi.net\\graduationproject\\pharmacom\\pharmacom.webapp\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|d:\\depi.net\\graduationproject\\pharmacom\\pharmacom.webapp\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|d:\\depi.net\\graduationproject\\pharmacom\\pharmacom.webapp\\views\\shared\\error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\views\\shared\\error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9D8AE0C-46B2-4EA9-B7C9-A98962FB512A}|Pharmacom.Domain\\PharmaCom.Domain.csproj|d:\\depi.net\\graduationproject\\pharmacom\\pharmacom.domain\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E9D8AE0C-46B2-4EA9-B7C9-A98962FB512A}|Pharmacom.Domain\\PharmaCom.Domain.csproj|solutionrelative:pharmacom.domain\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9D8AE0C-46B2-4EA9-B7C9-A98962FB512A}|Pharmacom.Domain\\PharmaCom.Domain.csproj|d:\\depi.net\\graduationproject\\pharmacom\\pharmacom.domain\\models\\prescription.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E9D8AE0C-46B2-4EA9-B7C9-A98962FB512A}|Pharmacom.Domain\\PharmaCom.Domain.csproj|solutionrelative:pharmacom.domain\\models\\prescription.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9D8AE0C-46B2-4EA9-B7C9-A98962FB512A}|Pharmacom.Domain\\PharmaCom.Domain.csproj|d:\\depi.net\\graduationproject\\pharmacom\\pharmacom.domain\\models\\orderitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E9D8AE0C-46B2-4EA9-B7C9-A98962FB512A}|Pharmacom.Domain\\PharmaCom.Domain.csproj|solutionrelative:pharmacom.domain\\models\\orderitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9D8AE0C-46B2-4EA9-B7C9-A98962FB512A}|Pharmacom.Domain\\PharmaCom.Domain.csproj|d:\\depi.net\\graduationproject\\pharmacom\\pharmacom.domain\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E9D8AE0C-46B2-4EA9-B7C9-A98962FB512A}|Pharmacom.Domain\\PharmaCom.Domain.csproj|solutionrelative:pharmacom.domain\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9D8AE0C-46B2-4EA9-B7C9-A98962FB512A}|Pharmacom.Domain\\PharmaCom.Domain.csproj|d:\\depi.net\\graduationproject\\pharmacom\\pharmacom.domain\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E9D8AE0C-46B2-4EA9-B7C9-A98962FB512A}|Pharmacom.Domain\\PharmaCom.Domain.csproj|solutionrelative:pharmacom.domain\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9D8AE0C-46B2-4EA9-B7C9-A98962FB512A}|Pharmacom.Domain\\PharmaCom.Domain.csproj|d:\\depi.net\\graduationproject\\pharmacom\\pharmacom.domain\\models\\cartitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E9D8AE0C-46B2-4EA9-B7C9-A98962FB512A}|Pharmacom.Domain\\PharmaCom.Domain.csproj|solutionrelative:pharmacom.domain\\models\\cartitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9D8AE0C-46B2-4EA9-B7C9-A98962FB512A}|Pharmacom.Domain\\PharmaCom.Domain.csproj|d:\\depi.net\\graduationproject\\pharmacom\\pharmacom.domain\\models\\cart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E9D8AE0C-46B2-4EA9-B7C9-A98962FB512A}|Pharmacom.Domain\\PharmaCom.Domain.csproj|solutionrelative:pharmacom.domain\\models\\cart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9D8AE0C-46B2-4EA9-B7C9-A98962FB512A}|Pharmacom.Domain\\PharmaCom.Domain.csproj|d:\\depi.net\\graduationproject\\pharmacom\\pharmacom.domain\\models\\address.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E9D8AE0C-46B2-4EA9-B7C9-A98962FB512A}|Pharmacom.Domain\\PharmaCom.Domain.csproj|solutionrelative:pharmacom.domain\\models\\address.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{70B7EE9A-28F7-44CA-824C-D2B6C0A21AC3}|PharmaCom.DataInfrastructure\\PharmaCom.DataInfrastructure.csproj|d:\\depi.net\\graduationproject\\pharmacom\\pharmacom.datainfrastructure\\pharmacom.datainfrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{70B7EE9A-28F7-44CA-824C-D2B6C0A21AC3}|PharmaCom.DataInfrastructure\\PharmaCom.DataInfrastructure.csproj|solutionrelative:pharmacom.datainfrastructure\\pharmacom.datainfrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|d:\\depi.net\\graduationproject\\pharmacom\\pharmacom.webapp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|d:\\depi.net\\graduationproject\\pharmacom\\pharmacom.webapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E9D8AE0C-46B2-4EA9-B7C9-A98962FB512A}|Pharmacom.Domain\\PharmaCom.Domain.csproj|c:\\users\\alofi\\onedrive\\desktop\\pharmacom\\pharmacom.domain\\repositories\\igenericrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9D8AE0C-46B2-4EA9-B7C9-A98962FB512A}|Pharmacom.Domain\\PharmaCom.Domain.csproj|solutionrelative:pharmacom.domain\\repositories\\igenericrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -86,253 +18,44 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 3,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "20251010001629_ModelsAndIdentityInit.cs",
-              "DocumentMoniker": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.DataInfrastructure\\Migrations\\20251010001629_ModelsAndIdentityInit.cs",
-              "RelativeDocumentMoniker": "PharmaCom.DataInfrastructure\\Migrations\\20251010001629_ModelsAndIdentityInit.cs",
-              "ToolTip": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.DataInfrastructure\\Migrations\\20251010001629_ModelsAndIdentityInit.cs",
-              "RelativeToolTip": "PharmaCom.DataInfrastructure\\Migrations\\20251010001629_ModelsAndIdentityInit.cs",
-              "ViewState": "AgIAAIIAAAAAAAAAAAAQwH4AAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-10T00:16:29.982Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "_ViewImports.cshtml",
-              "DocumentMoniker": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\Views\\_ViewImports.cshtml",
-              "RelativeDocumentMoniker": "PharmaCom.WebApp\\Views\\_ViewImports.cshtml",
-              "ToolTip": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\Views\\_ViewImports.cshtml",
-              "RelativeToolTip": "PharmaCom.WebApp\\Views\\_ViewImports.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAXAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-10T00:14:08.387Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "HomeController.cs",
-              "DocumentMoniker": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\Controllers\\HomeController.cs",
-              "RelativeDocumentMoniker": "PharmaCom.WebApp\\Controllers\\HomeController.cs",
-              "ToolTip": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\Controllers\\HomeController.cs",
-              "RelativeToolTip": "PharmaCom.WebApp\\Controllers\\HomeController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "GenericRepository.cs",
+              "DocumentMoniker": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.DataInfrastructure\\Implementation\\GenericRepository.cs",
+              "RelativeDocumentMoniker": "PharmaCom.DataInfrastructure\\Implementation\\GenericRepository.cs",
+              "ToolTip": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.DataInfrastructure\\Implementation\\GenericRepository.cs",
+              "RelativeToolTip": "PharmaCom.DataInfrastructure\\Implementation\\GenericRepository.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAkwCgAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-10T00:13:33.199Z",
+              "WhenOpened": "2025-10-10T00:44:22.32Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "ApplicationUser.cs",
-              "DocumentMoniker": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\Pharmacom.Domain\\Models\\ApplicationUser.cs",
-              "RelativeDocumentMoniker": "Pharmacom.Domain\\Models\\ApplicationUser.cs",
-              "ToolTip": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\Pharmacom.Domain\\Models\\ApplicationUser.cs",
-              "RelativeToolTip": "Pharmacom.Domain\\Models\\ApplicationUser.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Title": "IGenericRepository.cs",
+              "DocumentMoniker": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\Pharmacom.Domain\\Repositories\\IGenericRepository.cs",
+              "RelativeDocumentMoniker": "Pharmacom.Domain\\Repositories\\IGenericRepository.cs",
+              "ToolTip": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\Pharmacom.Domain\\Repositories\\IGenericRepository.cs",
+              "RelativeToolTip": "Pharmacom.Domain\\Repositories\\IGenericRepository.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAQwA4AAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T22:47:34.248Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ErrorViewModel.cs",
-              "DocumentMoniker": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\Models\\ErrorViewModel.cs",
-              "RelativeDocumentMoniker": "PharmaCom.WebApp\\Models\\ErrorViewModel.cs",
-              "ToolTip": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\Models\\ErrorViewModel.cs",
-              "RelativeToolTip": "PharmaCom.WebApp\\Models\\ErrorViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-10T00:13:44.262Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ApplicationDBContext.cs",
-              "DocumentMoniker": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.DataInfrastructure\\Data\\ApplicationDBContext.cs",
-              "RelativeDocumentMoniker": "PharmaCom.DataInfrastructure\\Data\\ApplicationDBContext.cs",
-              "ToolTip": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.DataInfrastructure\\Data\\ApplicationDBContext.cs",
-              "RelativeToolTip": "PharmaCom.DataInfrastructure\\Data\\ApplicationDBContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T22:51:57.638Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Error.cshtml",
-              "DocumentMoniker": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\Views\\Shared\\Error.cshtml",
-              "RelativeDocumentMoniker": "PharmaCom.WebApp\\Views\\Shared\\Error.cshtml",
-              "ToolTip": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\Views\\Shared\\Error.cshtml",
-              "RelativeToolTip": "PharmaCom.WebApp\\Views\\Shared\\Error.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-10T00:10:01.856Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "Cart.cs",
-              "DocumentMoniker": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\Pharmacom.Domain\\Models\\Cart.cs",
-              "RelativeDocumentMoniker": "Pharmacom.Domain\\Models\\Cart.cs",
-              "ToolTip": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\Pharmacom.Domain\\Models\\Cart.cs",
-              "RelativeToolTip": "Pharmacom.Domain\\Models\\Cart.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAAAAwAAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T23:08:48.621Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "CartItem.cs",
-              "DocumentMoniker": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\Pharmacom.Domain\\Models\\CartItem.cs",
-              "RelativeDocumentMoniker": "Pharmacom.Domain\\Models\\CartItem.cs",
-              "ToolTip": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\Pharmacom.Domain\\Models\\CartItem.cs",
-              "RelativeToolTip": "Pharmacom.Domain\\Models\\CartItem.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAqwA4AAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T23:08:53.887Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Category.cs",
-              "DocumentMoniker": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\Pharmacom.Domain\\Models\\Category.cs",
-              "RelativeDocumentMoniker": "Pharmacom.Domain\\Models\\Category.cs",
-              "ToolTip": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\Pharmacom.Domain\\Models\\Category.cs",
-              "RelativeToolTip": "Pharmacom.Domain\\Models\\Category.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T23:05:07.465Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "PharmaCom.WebApp",
-              "DocumentMoniker": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\PharmaCom.WebApp.csproj",
-              "RelativeDocumentMoniker": "PharmaCom.WebApp\\PharmaCom.WebApp.csproj",
-              "ToolTip": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\PharmaCom.WebApp.csproj",
-              "RelativeToolTip": "PharmaCom.WebApp\\PharmaCom.WebApp.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-10-09T23:56:38.041Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "Address.cs",
-              "DocumentMoniker": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\Pharmacom.Domain\\Models\\Address.cs",
-              "RelativeDocumentMoniker": "Pharmacom.Domain\\Models\\Address.cs",
-              "ToolTip": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\Pharmacom.Domain\\Models\\Address.cs",
-              "RelativeToolTip": "Pharmacom.Domain\\Models\\Address.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAAAA0AAAAvAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T22:47:23.92Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Order.cs",
-              "DocumentMoniker": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\Pharmacom.Domain\\Models\\Order.cs",
-              "RelativeDocumentMoniker": "Pharmacom.Domain\\Models\\Order.cs",
-              "ToolTip": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\Pharmacom.Domain\\Models\\Order.cs",
-              "RelativeToolTip": "Pharmacom.Domain\\Models\\Order.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAA1wA0AAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T22:51:36.002Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "OrderItem.cs",
-              "DocumentMoniker": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\Pharmacom.Domain\\Models\\OrderItem.cs",
-              "RelativeDocumentMoniker": "Pharmacom.Domain\\Models\\OrderItem.cs",
-              "ToolTip": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\Pharmacom.Domain\\Models\\OrderItem.cs",
-              "RelativeToolTip": "Pharmacom.Domain\\Models\\OrderItem.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAqwA4AAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T22:49:43.965Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Prescription.cs",
-              "DocumentMoniker": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\Pharmacom.Domain\\Models\\Prescription.cs",
-              "RelativeDocumentMoniker": "Pharmacom.Domain\\Models\\Prescription.cs",
-              "ToolTip": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\Pharmacom.Domain\\Models\\Prescription.cs",
-              "RelativeToolTip": "Pharmacom.Domain\\Models\\Prescription.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAAAAsAAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T22:50:02.228Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Product.cs",
-              "DocumentMoniker": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\Pharmacom.Domain\\Models\\Product.cs",
-              "RelativeDocumentMoniker": "Pharmacom.Domain\\Models\\Product.cs",
-              "ToolTip": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\Pharmacom.Domain\\Models\\Product.cs",
-              "RelativeToolTip": "Pharmacom.Domain\\Models\\Product.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAA8wBUAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T23:07:31.544Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "PharmaCom.DataInfrastructure",
-              "DocumentMoniker": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.DataInfrastructure\\PharmaCom.DataInfrastructure.csproj",
-              "RelativeDocumentMoniker": "PharmaCom.DataInfrastructure\\PharmaCom.DataInfrastructure.csproj",
-              "ToolTip": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.DataInfrastructure\\PharmaCom.DataInfrastructure.csproj",
-              "RelativeToolTip": "PharmaCom.DataInfrastructure\\PharmaCom.DataInfrastructure.csproj",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-10-09T23:57:55.778Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\appsettings.json",
-              "RelativeDocumentMoniker": "PharmaCom.WebApp\\appsettings.json",
-              "ToolTip": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\appsettings.json",
-              "RelativeToolTip": "PharmaCom.WebApp\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-10-09T23:38:32.595Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\Program.cs",
-              "RelativeDocumentMoniker": "PharmaCom.WebApp\\Program.cs",
-              "ToolTip": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\Program.cs",
-              "RelativeToolTip": "PharmaCom.WebApp\\Program.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAkwCoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-06T22:22:51.968Z",
+              "WhenOpened": "2025-10-10T00:41:20.946Z",
               "EditorCaption": ""
             }
           ]
