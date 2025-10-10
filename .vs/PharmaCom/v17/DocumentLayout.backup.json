@@ -7,10 +7,6 @@
       "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|c:\\users\\alofi\\onedrive\\desktop\\pharmacom\\pharmacom.webapp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{70B7EE9A-28F7-44CA-824C-D2B6C0A21AC3}|PharmaCom.DataInfrastructure\\PharmaCom.DataInfrastructure.csproj|c:\\users\\alofi\\onedrive\\desktop\\pharmacom\\pharmacom.datainfrastructure\\implementation\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{70B7EE9A-28F7-44CA-824C-D2B6C0A21AC3}|PharmaCom.DataInfrastructure\\PharmaCom.DataInfrastructure.csproj|solutionrelative:pharmacom.datainfrastructure\\implementation\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -26,34 +22,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\Program.cs",
-              "RelativeDocumentMoniker": "PharmaCom.WebApp\\Program.cs",
-              "ToolTip": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\Program.cs",
-              "RelativeToolTip": "PharmaCom.WebApp\\Program.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAIAxwA8AAABPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-10T02:49:26.45Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\appsettings.json",
-              "RelativeDocumentMoniker": "PharmaCom.WebApp\\appsettings.json",
-              "ToolTip": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\appsettings.json",
-              "RelativeToolTip": "PharmaCom.WebApp\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAABBAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-10-10T02:46:51.587Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
@@ -68,7 +38,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\Program.cs",
+              "RelativeDocumentMoniker": "PharmaCom.WebApp\\Program.cs",
+              "ToolTip": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\Program.cs",
+              "RelativeToolTip": "PharmaCom.WebApp\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAwwA4AAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-10T02:49:26.45Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "UnitOfWork.cs",
               "DocumentMoniker": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.DataInfrastructure\\Implementation\\UnitOfWork.cs",
               "RelativeDocumentMoniker": "PharmaCom.DataInfrastructure\\Implementation\\UnitOfWork.cs",
@@ -76,12 +59,11 @@
               "RelativeToolTip": "PharmaCom.DataInfrastructure\\Implementation\\UnitOfWork.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-10T02:28:26.454Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-10T02:28:26.454Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "IUnitOfWork.cs",
               "DocumentMoniker": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\Pharmacom.Domain\\Repositories\\IUnitOfWork.cs",
               "RelativeDocumentMoniker": "Pharmacom.Domain\\Repositories\\IUnitOfWork.cs",
@@ -89,8 +71,7 @@
               "RelativeToolTip": "Pharmacom.Domain\\Repositories\\IUnitOfWork.cs",
               "ViewState": "AgIAAAgAAAAAAAAAAAAxwBEAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-10T02:22:15.649Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-10T02:22:15.649Z"
             }
           ]
         }

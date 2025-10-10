@@ -4904,23 +4904,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\lenovo\\.nuget\\packages\\": {},
+    "C:\\Users\\alofi\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Courses\\Repos\\PharmaCom\\PharmaCom.DataInfrastructure\\PharmaCom.DataInfrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.DataInfrastructure\\PharmaCom.DataInfrastructure.csproj",
       "projectName": "PharmaCom.DataInfrastructure",
-      "projectPath": "D:\\Courses\\Repos\\PharmaCom\\PharmaCom.DataInfrastructure\\PharmaCom.DataInfrastructure.csproj",
-      "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
-      "outputPath": "D:\\Courses\\Repos\\PharmaCom\\PharmaCom.DataInfrastructure\\obj\\",
+      "projectPath": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.DataInfrastructure\\PharmaCom.DataInfrastructure.csproj",
+      "packagesPath": "C:\\Users\\alofi\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.DataInfrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\alofi\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -4929,15 +4929,14 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "D:\\Courses\\Repos\\PharmaCom\\Pharmacom.Domain\\PharmaCom.Domain.csproj": {
-              "projectPath": "D:\\Courses\\Repos\\PharmaCom\\Pharmacom.Domain\\PharmaCom.Domain.csproj"
+            "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\Pharmacom.Domain\\PharmaCom.Domain.csproj": {
+              "projectPath": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\Pharmacom.Domain\\PharmaCom.Domain.csproj"
             }
           }
         }
