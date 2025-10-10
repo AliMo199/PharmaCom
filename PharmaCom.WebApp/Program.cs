@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using PharmaCom.DataInfrastructure.Data;
+
 namespace PharmaCom.WebApp
 {
     public class Program
@@ -8,6 +11,9 @@ namespace PharmaCom.WebApp
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddDbContext<ApplicationDBContext>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("cs")));
 
             var app = builder.Build();
 

@@ -1,23 +1,112 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\PharmaCom.WebApp.csproj": {}
+    "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\PharmaCom.WebApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\PharmaCom.WebApp.csproj": {
+    "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.DataInfrastructure\\PharmaCom.DataInfrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\PharmaCom.WebApp.csproj",
-        "projectName": "PharmaCom.WebApp",
-        "projectPath": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\PharmaCom.WebApp.csproj",
-        "packagesPath": "C:\\Users\\alofi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\obj\\",
+        "projectUniqueName": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.DataInfrastructure\\PharmaCom.DataInfrastructure.csproj",
+        "projectName": "PharmaCom.DataInfrastructure",
+        "projectPath": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.DataInfrastructure\\PharmaCom.DataInfrastructure.csproj",
+        "packagesPath": "C:\\Users\\Original Nassar\\.nuget\\packages\\",
+        "outputPath": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.DataInfrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\alofi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Original Nassar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "D:\\Depi.Net\\GraduationProject\\PharmaCom\\Pharmacom.Domain\\PharmaCom.Domain.csproj": {
+                "projectPath": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\Pharmacom.Domain\\PharmaCom.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.9, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Depi.Net\\GraduationProject\\PharmaCom\\Pharmacom.Domain\\PharmaCom.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\Pharmacom.Domain\\PharmaCom.Domain.csproj",
+        "projectName": "PharmaCom.Domain",
+        "projectPath": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\Pharmacom.Domain\\PharmaCom.Domain.csproj",
+        "packagesPath": "C:\\Users\\Original Nassar\\.nuget\\packages\\",
+        "outputPath": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\Pharmacom.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Original Nassar\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -49,6 +138,89 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\PharmaCom.WebApp.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\PharmaCom.WebApp.csproj",
+        "projectName": "PharmaCom.WebApp",
+        "projectPath": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\PharmaCom.WebApp.csproj",
+        "packagesPath": "C:\\Users\\Original Nassar\\.nuget\\packages\\",
+        "outputPath": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Original Nassar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.DataInfrastructure\\PharmaCom.DataInfrastructure.csproj": {
+                "projectPath": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.DataInfrastructure\\PharmaCom.DataInfrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.9, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -68,7 +240,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

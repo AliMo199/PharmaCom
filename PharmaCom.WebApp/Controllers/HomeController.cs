@@ -1,5 +1,5 @@
+using Assignment.Models;
 using Microsoft.AspNetCore.Mvc;
-using PharmaCom.WebApp.Models;
 using System.Diagnostics;
 
 namespace PharmaCom.WebApp.Controllers
