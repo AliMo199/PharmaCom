@@ -10,3 +10,15 @@ D:\Depi.Net\GraduationProject\PharmaCom\PharmaCom.Service\obj\Debug\net9.0\Pharm
 D:\Depi.Net\GraduationProject\PharmaCom\PharmaCom.Service\obj\Debug\net9.0\refint\PharmaCom.Service.dll
 D:\Depi.Net\GraduationProject\PharmaCom\PharmaCom.Service\obj\Debug\net9.0\PharmaCom.Service.pdb
 D:\Depi.Net\GraduationProject\PharmaCom\PharmaCom.Service\obj\Debug\net9.0\ref\PharmaCom.Service.dll
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.Service\bin\Debug\net9.0\PharmaCom.Service.deps.json
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.Service\bin\Debug\net9.0\PharmaCom.Service.dll
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.Service\bin\Debug\net9.0\PharmaCom.Service.pdb
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.Service\obj\Debug\net9.0\PharmaCom.Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.Service\obj\Debug\net9.0\PharmaCom.Service.AssemblyInfoInputs.cache
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.Service\obj\Debug\net9.0\PharmaCom.Service.AssemblyInfo.cs
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.Service\obj\Debug\net9.0\PharmaCom.Service.csproj.CoreCompileInputs.cache
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.Service\obj\Debug\net9.0\PharmaCom.Service.sourcelink.json
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.Service\obj\Debug\net9.0\PharmaCom.Service.dll
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.Service\obj\Debug\net9.0\refint\PharmaCom.Service.dll
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.Service\obj\Debug\net9.0\PharmaCom.Service.pdb
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.Service\obj\Debug\net9.0\ref\PharmaCom.Service.dll

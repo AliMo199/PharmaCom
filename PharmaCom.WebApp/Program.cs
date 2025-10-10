@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PharmaCom.DataInfrastructure.Data;
+using PharmaCom.DataInfrastructure.Implementation;
+using PharmaCom.Domain.Repositories;
 
 namespace PharmaCom.WebApp
 {
@@ -14,6 +16,7 @@ namespace PharmaCom.WebApp
 
             builder.Services.AddDbContext<ApplicationDBContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("cs")));
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             var app = builder.Build();
 
