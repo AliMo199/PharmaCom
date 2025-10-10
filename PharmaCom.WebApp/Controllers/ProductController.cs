@@ -91,7 +91,7 @@ namespace PharmaCom.WebApp.Controllers
         // POST: /Product/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> ConfirmDelete(int id)
         {
             var product = await _UnitOfWork.Product.GetByIdAsync(id);
             if (product == null)
