@@ -2,4 +2,9 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/PharmaCom.WebApp/Controllers/ProductController.cs
+###############################
+# Visual Studio folders
+###############################
+.vs/
+.vscode/
+.idea/
