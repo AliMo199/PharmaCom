@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PharmaCom.DataInfrastructure.Implementation;
-using Pharm
+using PharmaCom.Domain.Models;
 using PharmaCom.Domain.Repositories;
 
 namespace PharmaCom.WebApp.Controllers

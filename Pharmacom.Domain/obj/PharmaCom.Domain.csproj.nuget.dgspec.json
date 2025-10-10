@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\Pharmacom.Domain\\PharmaCom.Domain.csproj": {}
+    "D:\\Courses\\Repos\\PharmaCom\\Pharmacom.Domain\\PharmaCom.Domain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\Pharmacom.Domain\\PharmaCom.Domain.csproj": {
+    "D:\\Courses\\Repos\\PharmaCom\\Pharmacom.Domain\\PharmaCom.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\Pharmacom.Domain\\PharmaCom.Domain.csproj",
+        "projectUniqueName": "D:\\Courses\\Repos\\PharmaCom\\Pharmacom.Domain\\PharmaCom.Domain.csproj",
         "projectName": "PharmaCom.Domain",
-        "projectPath": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\Pharmacom.Domain\\PharmaCom.Domain.csproj",
-        "packagesPath": "C:\\Users\\alofi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\Pharmacom.Domain\\obj\\",
+        "projectPath": "D:\\Courses\\Repos\\PharmaCom\\Pharmacom.Domain\\PharmaCom.Domain.csproj",
+        "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
+        "outputPath": "D:\\Courses\\Repos\\PharmaCom\\Pharmacom.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\alofi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
