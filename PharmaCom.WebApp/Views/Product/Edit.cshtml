@@ -1,4 +1,74 @@
-﻿@page
-@model PharmaCom.WebApp.Views.Product.EditModel
+﻿@model PharmaCom.Domain.Models.Product
+
 @{
+    ViewData["Title"] = "Edit Product";
 }
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-header bg-warning text-white text-center">
+                    <h4 class="mb-0">Edit Product</h4>
+                </div>
+
+                <div class="card-body p-4">
+                    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="Id" />
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label fw-bold"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Description" class="form-label fw-bold"></label>
+                            <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Price" class="form-label fw-bold"></label>
+                            <input asp-for="Price" class="form-control" />
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="CategoryId" class="form-label fw-bold"></label>
+                            <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-select">
+                                <option value="">-- Select Category --</option>
+                            </select>
+                            <span asp-validation-for="CategoryId" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="ImageURLString" class="form-label fw-bold">Product Image</label>
+                            <input asp-for="ImageURLString" type="file" class="form-control" />
+                            <span asp-validation-for="ImageURLString" class="text-danger"></span>
+                        </div>
+
+                        @if (!string.IsNullOrEmpty(Model.ImageURLString))
+                        {
+                            <div class="text-center mb-3">
+                                <p class="fw-bold mb-2">Current Image:</p>
+                                <img src="@Model.ImageURLString" alt="Product Image" class="img-fluid rounded shadow-sm" style="max-height: 200px;" />
+                            </div>
+                        }
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left"></i> Back to List
+                            </a>
+                            <button type="submit" class="btn btn-warning text-white">
+                                <i class="bi bi-arrow-right bi-save"></i> Update Product
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
