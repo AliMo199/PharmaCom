@@ -1,0 +1,77 @@
+﻿# Visual Studio / Rider / VS Code
+.vs/
+.vscode/
+*.suo
+*.user
+*.userprefs
+*.userosscache
+*.plist
+*.ide/
+
+# Visual Studio telemetry / cache / designer
+**/.vs/**
+
+# Build results
+[Bb]in/
+[Oo]bj/
+**/bin/
+**/obj/
+
+# Rider
+.idea/
+
+# Dotnet publish / packaging
+*.nupkg
+*.snupkg
+*.nuspec
+*.publishsettings
+
+# Visual Studio Code Copilot/Indices (and other DB/cache files)
+**/*.db
+**/*.cache
+**/*.vsscc
+
+# Logs
+*.log
+
+# Runtime
+*.pid
+*.seed
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# Visual Studio temporary files
+*.user
+*.sdf
+*.opensdf
+*.VC.db
+*.VC.opendb
+
+# Symbols and compiled artifacts
+*.pdb
+*.dll
+*.exe
+*.app
+*.appx
+*.msix
+*.so
+*.dylib
+
+# Test results
+TestResults/
+
+# NuGet packages
+packages/
+*.nupkg
+
+# JetBrains
+*.iml
+out/
+
+# Ignore VS Designer/backup JSON files
+**/DocumentLayout*.json
+
+# Keep track of this file
+!.gitignore

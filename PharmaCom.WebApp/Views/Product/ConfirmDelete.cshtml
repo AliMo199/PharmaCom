@@ -1,0 +1,61 @@
+﻿@model PharmaCom.Domain.Models.Product
+
+@{
+    ViewData["Title"] = "Confirm Product Deletion";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-header bg-danger text-white text-center">
+                    <h4 class="mb-0">Delete Product</h4>
+                </div>
+
+                <div class="card-body p-4 text-center">
+                    <h5 class="text-dark mb-4">
+                        Are you sure you want to delete this product?
+                    </h5>
+
+                    <div class="border rounded-3 p-3 bg-light text-start">
+                        <dl class="row mb-0">
+                            <dt class="col-sm-4">Name</dt>
+                            <dd class="col-sm-8">@Model.Name</dd>
+
+                            <dt class="col-sm-4">Description</dt>
+                            <dd class="col-sm-8">@Model.Description</dd>
+
+                            <dt class="col-sm-4">Price</dt>
+                            <dd class="col-sm-8">@Model.Price.ToString("C")</dd>
+
+
+                            <dt class="col-sm-4">Category</dt>
+                            <dd class="col-sm-8">@Model.Category?.Name</dd>
+                        </dl>
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(Model.ImageURLString))
+                    {
+                        <div class="mt-4">
+                            <img src="@Model.ImageURLString" alt="Product Image"
+                                 class="img-fluid rounded shadow-sm" style="max-height: 200px;" />
+                        </div>
+                    }
+
+                    <form asp-action="DeleteConfirmed" method="post" class="mt-4">
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left"></i> Cancel
+                            </a>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-trash"></i> Delete Product
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
