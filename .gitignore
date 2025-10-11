@@ -1,14 +1,96 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
-
-###############################
-# Visual Studio folders
-###############################
+﻿## Visual Studio ##
 .vs/
 .vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Build results ##
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+TestResults/
+[Aa]pp_Data/
+[Bb]uild/
+out/
+artifacts/
+
+## Visual Studio 2019/2022 cache/options directory ##
+.vsconfig
+
+## ASP.NET Scaffolding cache ##
+ScaffoldingReadMe.txt
+
+## NuGet Packages ##
+*.nupkg
+# The packages folder can be restored from the project’s .csproj or .sln
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+!**/[Pp]ackages/repositories.config
+
+## Entity Framework Core ##
+*.dbmdl
+*.jfm
+Migrations/**/obj/
+*.sqlite
+*.mdf
+*.ldf
+
+## User-specific files ##
+*.rsuser
+*.userprefs
+*.vspscc
+*.vssscc
+
+## IIS Express ##
+.vsconfig
+iisexpress/
+*.vsidx
+*.vscode/
+ApplicationHost.config
+
+## Rider ##
 .idea/
-/PharmaCom.WebApp/obj/Debug/net9.0/compressed
-/PharmaCom.DataInfrastructure/obj/Debug/net9.0
-/Pharmacom.Domain/obj/Debug/net9.0
-/.vs/PharmaCom/v17/.suo
+*.sln.iml
+
+## Logs and temp files ##
+*.log
+*.tlog
+*.tmp
+*.temp
+*.cache
+*.pdb
+
+## Compiled binary files ##
+*.exe
+*.dll
+*.so
+*.dylib
+*.class
+
+## Publish output ##
+publish/
+wwwroot/lib/
+wwwroot/node_modules/
+
+## Node (if you use npm or yarn for frontend) ##
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+## Configuration and secrets ##
+appsettings.Development.json
+secrets.json
+.env
+.env.*
+
+## Misc ##
+*.DS_Store
+Thumbs.db
+*.bak
+*.old
+*.orig
