@@ -126,11 +126,11 @@ namespace PharmaCom.WebApp.Controllers
             if (product == null)
                 return NotFound();
 
-            return View(product);
+            return View("ConfirmDelete", product);
         }
 
         // POST: /Product/Delete
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ConfirmDelete(int id)
         {
