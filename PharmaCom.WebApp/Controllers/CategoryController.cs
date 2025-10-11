@@ -48,7 +48,6 @@ namespace PharmaCom.WebApp.Controllers
                 _unitOfWork.Save();
                 return RedirectToAction(nameof(Index));
             }
-
             return View(category);
         }
 
