@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PharmaCom.DataInfrastructure.Implementation;
 using PharmaCom.Domain.Models;
 using PharmaCom.Domain.Repositories;
@@ -31,6 +32,7 @@ namespace PharmaCom.WebApp.Controllers
             return View(product);
         }
 
+        #region Create
         // GET: /Product/Create
         public IActionResult Create()
         {
@@ -50,14 +52,18 @@ namespace PharmaCom.WebApp.Controllers
             }
             return View(product);
         }
+        #endregion
 
+        #region Edit
         // GET: /Product/Edit
+        [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             var product = await _UnitOfWork.Product.GetByIdAsync(id);
             if (product == null)
                 return NotFound();
 
+            ViewBag.Categories = new SelectList(await _UnitOfWork.Category.GetAllAsync(), "Id", "Name", product.CategoryId);
             return View(product);
         }
 
@@ -78,6 +84,41 @@ namespace PharmaCom.WebApp.Controllers
             return View(product);
         }
 
+        //// POST: /Product/Edit (ChatGPT enhanced with image upload)
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int id, Product model, IFormFile ImageFile)
+        //{
+        //    if (id != model.Id)
+        //        return BadRequest();
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        if (ImageFile != null && ImageFile.Length > 0)
+        //        {
+        //            var fileName = Path.GetFileName(ImageFile.FileName);
+        //            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/products", fileName);
+
+        //            using (var stream = new FileStream(filePath, FileMode.Create))
+        //            {
+        //                await ImageFile.CopyToAsync(stream);
+        //            }
+
+        //            model.ImageURLString = "/images/products/" + fileName;
+        //        }
+
+        //        _UnitOfWork.Product.Update(model);
+        //        _UnitOfWork.Save();
+
+        //        return RedirectToAction(nameof(Index));
+        //    }
+
+        //    ViewBag.Categories = new SelectList(await _UnitOfWork.Category.GetAllAsync(), "Id", "Name", model.CategoryId);
+        //    return View(model);
+        //}
+        #endregion
+
+        #region Delete && ConfirmDelete
         // GET: /Product/Delete
         public async Task<IActionResult> Delete(int id)
         {
@@ -102,5 +143,6 @@ namespace PharmaCom.WebApp.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+        #endregion
     }
 }
