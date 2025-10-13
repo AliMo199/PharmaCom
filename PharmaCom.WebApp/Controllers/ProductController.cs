@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using PharmaCom.DataInfrastructure.Implementation;
 using PharmaCom.Domain.Models;
 using PharmaCom.Domain.Repositories;
 
@@ -18,7 +17,7 @@ namespace PharmaCom.WebApp.Controllers
         // GET: /Product
         public async Task<IActionResult> Index()
         {
-            var products = await _UnitOfWork.Product.GetAllAsync();
+            var products = await _UnitOfWork.Product.GetAllProductWithCategoryAsync();
             return View(products);
         }
 
@@ -36,6 +35,7 @@ namespace PharmaCom.WebApp.Controllers
         // GET: /Product/Create
         public IActionResult Create()
         {
+            ViewBag.Categories = new SelectList(_UnitOfWork.Category.GetAllAsync().Result, "Id", "Name");
             return View();
         }
 
@@ -50,6 +50,7 @@ namespace PharmaCom.WebApp.Controllers
                 _UnitOfWork.Save();
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.Categories = new SelectList(_UnitOfWork.Category.GetAllAsync().Result, "Id", "Name");
             return View(product);
         }
         #endregion
@@ -118,30 +119,19 @@ namespace PharmaCom.WebApp.Controllers
         //}
         #endregion
 
-        #region Delete && ConfirmDelete
+        #region Delete
         // GET: /Product/Delete
         public async Task<IActionResult> Delete(int id)
         {
             var product = await _UnitOfWork.Product.GetByIdAsync(id);
             if (product == null)
                 return NotFound();
-
-            return View("ConfirmDelete", product);
-        }
-
-        // POST: /Product/Delete
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ConfirmDelete(int id)
-        {
-            var product = await _UnitOfWork.Product.GetByIdAsync(id);
-            if (product == null)
-                return NotFound();
-
-            _UnitOfWork.Product.Remove(product);
-            _UnitOfWork.Save();
-
-            return RedirectToAction(nameof(Index));
+            else
+            {
+                _UnitOfWork.Product.Remove(product);
+                _UnitOfWork.Save();
+                return RedirectToAction(nameof(Index));
+            }
         }
         #endregion
     }

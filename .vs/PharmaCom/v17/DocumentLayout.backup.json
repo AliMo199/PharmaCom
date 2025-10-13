@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|c:\\users\\alofi\\onedrive\\desktop\\pharmacom\\pharmacom.webapp\\views\\category\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\views\\category\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|c:\\users\\alofi\\onedrive\\desktop\\pharmacom\\pharmacom.webapp\\views\\category\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\views\\category\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|c:\\users\\alofi\\onedrive\\desktop\\pharmacom\\pharmacom.webapp\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|c:\\users\\alofi\\onedrive\\desktop\\pharmacom\\pharmacom.webapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{70B7EE9A-28F7-44CA-824C-D2B6C0A21AC3}|PharmaCom.DataInfrastructure\\PharmaCom.DataInfrastructure.csproj|c:\\users\\alofi\\onedrive\\desktop\\pharmacom\\pharmacom.datainfrastructure\\implementation\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70B7EE9A-28F7-44CA-824C-D2B6C0A21AC3}|PharmaCom.DataInfrastructure\\PharmaCom.DataInfrastructure.csproj|solutionrelative:pharmacom.datainfrastructure\\implementation\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9D8AE0C-46B2-4EA9-B7C9-A98962FB512A}|Pharmacom.Domain\\PharmaCom.Domain.csproj|c:\\users\\alofi\\onedrive\\desktop\\pharmacom\\pharmacom.domain\\repositories\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E9D8AE0C-46B2-4EA9-B7C9-A98962FB512A}|Pharmacom.Domain\\PharmaCom.Domain.csproj|solutionrelative:pharmacom.domain\\repositories\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,40 +42,55 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\Views\\Category\\Index.cshtml",
+              "RelativeDocumentMoniker": "PharmaCom.WebApp\\Views\\Category\\Index.cshtml",
+              "ToolTip": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\Views\\Category\\Index.cshtml",
+              "RelativeToolTip": "PharmaCom.WebApp\\Views\\Category\\Index.cshtml",
+              "ViewState": "AgIAAAQAAAAAAAAAAAApwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-13T23:27:10.204Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CategoryController.cs",
+              "DocumentMoniker": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\Controllers\\CategoryController.cs",
+              "RelativeDocumentMoniker": "PharmaCom.WebApp\\Controllers\\CategoryController.cs",
+              "ToolTip": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\Controllers\\CategoryController.cs",
+              "RelativeToolTip": "PharmaCom.WebApp\\Controllers\\CategoryController.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAhwBkAAABWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-13T23:22:18.329Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\Views\\Category\\Details.cshtml",
+              "RelativeDocumentMoniker": "PharmaCom.WebApp\\Views\\Category\\Details.cshtml",
+              "ToolTip": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\Views\\Category\\Details.cshtml",
+              "RelativeToolTip": "PharmaCom.WebApp\\Views\\Category\\Details.cshtml",
+              "ViewState": "AgIAABkAAAAAAAAAAAApwDMAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-13T23:01:20.261Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\Program.cs",
               "RelativeDocumentMoniker": "PharmaCom.WebApp\\Program.cs",
               "ToolTip": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\Program.cs",
               "RelativeToolTip": "PharmaCom.WebApp\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAEAAAAAAAAAAADgvwoAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-10T02:49:26.45Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UnitOfWork.cs",
-              "DocumentMoniker": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.DataInfrastructure\\Implementation\\UnitOfWork.cs",
-              "RelativeDocumentMoniker": "PharmaCom.DataInfrastructure\\Implementation\\UnitOfWork.cs",
-              "ToolTip": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.DataInfrastructure\\Implementation\\UnitOfWork.cs",
-              "RelativeToolTip": "PharmaCom.DataInfrastructure\\Implementation\\UnitOfWork.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAABAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-10T02:28:26.454Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "IUnitOfWork.cs",
-              "DocumentMoniker": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\Pharmacom.Domain\\Repositories\\IUnitOfWork.cs",
-              "RelativeDocumentMoniker": "Pharmacom.Domain\\Repositories\\IUnitOfWork.cs",
-              "ToolTip": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\Pharmacom.Domain\\Repositories\\IUnitOfWork.cs",
-              "RelativeToolTip": "Pharmacom.Domain\\Repositories\\IUnitOfWork.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAxwBEAAAA1AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-10T02:22:15.649Z"
             }
           ]
         }

@@ -1,7 +1,8 @@
-﻿ @model PharmaCom.Domain.Models.Category
+﻿ @model Category
 
 @{
     ViewData["Title"] = "Category Details";
+    Layout = "_DashboardLayout";
 }
 
 <div class="container mt-5">
@@ -15,8 +16,39 @@
             <dt class="col-sm-2">Name</dt>
             <dd class="col-sm-10">@Model.Name</dd>
         </dl>
-
-        <a asp-action="Index" class="btn btn-secondary btn-rounded">Back</a>
+		@if(Model.Products.Any()){
+		<h3 class="mt-4">Products in this Category</h3>
+		<dl class="row">
+		<table class="table mt-1">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Name</th>
+					<th>Brand</th>
+					<th>Price</th>
+					<th>Form</th>
+					<th>Category</th>
+					<th>Is Rx Required</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var product in Model.Products)
+				{
+					<tr>
+						<td>@product.Id</td>
+						<td>@product.Name</td>
+						<td>@product.Brand</td>
+						<td>@product.Price.ToString("C")</td>
+						<td>@product.Form</td>
+						<td>@product.Category?.Name</td>
+						<td>@(product.IsRxRequired ? "Yes" : "No")</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+		</dl>
+		}
     </div>
+    <a asp-action="Index" class="btn btn-secondary btn-rounded mt-2">Back</a>
 </div>
 

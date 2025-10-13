@@ -1,7 +1,8 @@
-﻿@model PharmaCom.Domain.Models.Product
+﻿@model Product
 
 @{
     ViewData["Title"] = "Add New Product";
+    Layout = "_DashboardLayout";
 }
 
 <div class="container mt-5">
@@ -21,6 +22,11 @@
                             <input asp-for="Name" class="form-control" placeholder="Enter product name" />
                             <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
+                        <div class="mb-3">
+                            <label asp-for="Brand" class="form-label fw-bold"></label>
+                            <input asp-for="Brand" class="form-control" placeholder="Enter product brand" />
+                            <span asp-validation-for="Brand" class="text-danger"></span>
+                        </div>
 
                         <div class="mb-3">
                             <label asp-for="Description" class="form-label fw-bold"></label>
@@ -32,6 +38,11 @@
                             <label asp-for="Price" class="form-label fw-bold"></label>
                             <input asp-for="Price" class="form-control" placeholder="Enter product price" />
                             <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Form" class="form-label fw-bold"></label>
+                            <input asp-for="Form" class="form-control" placeholder="Enter product form (e.g., tablet, syrup)" />
+                            <span asp-validation-for="Form" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
@@ -46,6 +57,11 @@
                             <label asp-for="ImageURLString" class="form-label fw-bold">Product Image</label>
                             <input asp-for="ImageURLString" type="file" class="form-control" />
                             <span asp-validation-for="ImageURLString" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-bold">Is Prescription Required?</label>
+                            <input asp-for="IsRxRequired" type="checkbox" class="form-check-input" value="true" />
+                            <span asp-validation-for="IsRxRequired" class="text-danger"></span>
                         </div>
 
                         <div class="d-flex justify-content-between mt-4">

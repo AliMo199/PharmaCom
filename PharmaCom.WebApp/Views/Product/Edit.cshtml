@@ -1,7 +1,8 @@
-﻿@model PharmaCom.Domain.Models.Product
+﻿@model Product
 
 @{
     ViewData["Title"] = "Edit Product";
+    Layout = "_DashboardLayout";
 }
 
 <div class="container mt-5">
@@ -25,6 +26,12 @@
                         </div>
 
                         <div class="mb-3">
+                            <label asp-for="Brand" class="form-label fw-bold"></label>
+                            <input asp-for="Brand" class="form-control" />
+                            <span asp-validation-for="Brand" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
                             <label asp-for="Description" class="form-label fw-bold"></label>
                             <textarea asp-for="Description" class="form-control" rows="3"></textarea>
                             <span asp-validation-for="Description" class="text-danger"></span>
@@ -34,6 +41,12 @@
                             <label asp-for="Price" class="form-label fw-bold"></label>
                             <input asp-for="Price" class="form-control" />
                             <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Form" class="form-label fw-bold"></label>
+                            <input asp-for="Form" class="form-control" />
+                            <span asp-validation-for="Form" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
@@ -48,6 +61,11 @@
                             <label asp-for="ImageURLString" class="form-label fw-bold">Product Image</label>
                             <input asp-for="ImageURLString" type="file" class="form-control" />
                             <span asp-validation-for="ImageURLString" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-bold">Is Prescription Required?</label>
+                            <input asp-for="IsRxRequired" type="checkbox" class="form-check-input" value="true" />
+                            <span asp-validation-for="IsRxRequired" class="text-danger"></span>
                         </div>
 
                         @if (!string.IsNullOrEmpty(Model.ImageURLString))

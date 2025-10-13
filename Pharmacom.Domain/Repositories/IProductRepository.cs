@@ -9,6 +9,7 @@ namespace PharmaCom.Domain.Repositories
 {
     public interface IProductRepository : IGenericRepository<Product>
     {
+        Task<List<Product>> GetAllProductWithCategoryAsync();
         Task<Product?> GetProductWithCategoryAsync(int id);
         Task<IEnumerable<Product>> GetProductsByCategoryAsync(int categoryId);
 

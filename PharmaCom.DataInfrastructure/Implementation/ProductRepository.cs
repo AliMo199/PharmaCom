@@ -19,6 +19,13 @@ namespace PharmaCom.DataInfrastructure.Implementation
             _context = context;
         }
 
+        public async Task<List<Product>?> GetAllProductWithCategoryAsync()
+        {
+            return await _context.Products
+                .Include(p => p.Category)
+                .ToListAsync();
+        }
+
         public async Task<Product?> GetProductWithCategoryAsync(int id)
         {
             return await _context.Products

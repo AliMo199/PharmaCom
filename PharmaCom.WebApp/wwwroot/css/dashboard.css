@@ -1,0 +1,74 @@
+
+.bi {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+}
+
+/*
+ * Sidebar
+ */
+
+@media (min-width: 768px) {
+  .sidebar .offcanvas-lg {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 48px;
+  }
+  .navbar-search {
+    display: block;
+  }
+}
+
+.sidebar .nav-link {
+  font-size: .875rem;
+  font-weight: 500;
+}
+
+.sidebar .nav-link.active {
+  color: #2470dc;
+}
+
+.sidebar-heading {
+  font-size: .75rem;
+}
+
+/*
+ * Navbar
+ */
+
+.navbar-brand {
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+  background-color: rgba(0, 0, 0, .25);
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+}
+
+.navbar .form-control {
+  padding: .75rem 1rem;
+}
+
+/* Make the sidebar column fill the viewport height */
+.sidebar {
+    min-height: 100vh; /* ensure at least full viewport height */
+    align-self: flex-start; /* prevent stretching behavior in flex rows */
+}
+
+/* For md+ the offcanvas element is shown as the sidebar: make it sticky + full height */
+@media (min-width: 768px) {
+    .sidebar .offcanvas-md {
+        position: sticky; /* stays in flow but pinned to top */
+        top: 0;
+        height: 100vh; /* full viewport height */
+        overflow: hidden; /* contain inner scrolling area */
+    }
+    /* allow inner content to scroll if it's taller than viewport */
+    .sidebar .offcanvas-body {
+        height: 100%;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    #sidebarMenu {
+        position: fixed; /* stay fixed when scrolling */
+    }
+}
