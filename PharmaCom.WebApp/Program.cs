@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using PharmaCom.DataInfrastructure.Data;
 using PharmaCom.DataInfrastructure.Implementation;
 using PharmaCom.Domain.Repositories;
+using PharmaCom.Service.Implementation;
+using PharmaCom.Service.Interfaces;
 using Stripe;
 
 namespace PharmaCom.WebApp
@@ -18,6 +20,8 @@ namespace PharmaCom.WebApp
             builder.Services.AddDbContext<ApplicationDBContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("cs")));
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<ICartService, CartService>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
             var stripeSettings = builder.Configuration.GetSection("Stripe");
             StripeConfiguration.ApiKey = stripeSettings["SecretKey"];
 

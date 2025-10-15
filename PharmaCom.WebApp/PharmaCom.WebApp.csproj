@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PharmaCom.DataInfrastructure\PharmaCom.DataInfrastructure.csproj" />
+    <ProjectReference Include="..\PharmaCom.Service\PharmaCom.Service.csproj" />
   </ItemGroup>
 
 </Project>
