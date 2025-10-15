@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PharmaCom.DataInfrastructure\PharmaCom.DataInfrastructure.csproj" />
+    <ProjectReference Include="..\Pharmacom.Domain\PharmaCom.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
