@@ -11,10 +11,10 @@ namespace PharmaCom.Domain.Repositories
     {
         Task<Order?> GetOrderWithDetailsAsync(int orderId);
 
-        //Task<IEnumerable<Order>> GetOrdersByUserIdAsync(int userId);
+        Task<IEnumerable<Order>> GetOrdersByUserIdAsync(string userId);
 
-        //Task<IEnumerable<Order>> GetOrdersByStatusAsync(string status);
+        Task<IEnumerable<Order>> GetOrdersByStatusAsync(string status);
 
-        //Task<IEnumerable<Order>> GetRecentOrdersAsync(int count);
+        Task<Order?> GetOrderBySessionIdAsync(string sessionId);
     }
 }

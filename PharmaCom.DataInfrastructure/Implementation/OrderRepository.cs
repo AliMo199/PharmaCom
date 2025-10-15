@@ -26,38 +26,35 @@ namespace PharmaCom.DataInfrastructure.Implementation
                     .ThenInclude(oi => oi.Product)
                 .Include(o => o.Address)
                 .Include(o => o.Prescription)
-                //.Include(o => o.ApplicationUser)
+                .Include(o => o.ApplicationUser)
                 .FirstOrDefaultAsync(o => o.Id == orderId);
         }
 
-        //public async Task<IEnumerable<Order>> GetOrdersByUserIdAsync(int userId)
-        //{
-        //    return await _context.Orders
-        //        .Include(o => o.OrderItems)
-        //        .Include(o => o.Address)
-        //        .Where(o => o.ApplicationUserId == userId)
-        //        .OrderByDescending(o => o.OrderDate)
-        //        .ToListAsync();
-        //}
+        public async Task<IEnumerable<Order>> GetOrdersByUserIdAsync(string userId)
+        {
+            return await _context.Orders
+                .Include(o => o.OrderItems)
+                .Include(o => o.Address)
+                .Where(o => o.ApplicationUserId == userId)
+                .OrderByDescending(o => o.OrderDate)
+                .ToListAsync();
+        }
 
-        //public async Task<IEnumerable<Order>> GetOrdersByStatusAsync(string status)
-        //{
-        //    return await _context.Orders
-        //        .Include(o => o.OrderItems)
-        //        .Include(o => o.ApplicationUser)
-        //        .Where(o => o.Status == status)
-        //        .OrderByDescending(o => o.OrderDate)
-        //        .ToListAsync();
-        //}
+        public async Task<IEnumerable<Order>> GetOrdersByStatusAsync(string status)
+        {
+            return await _context.Orders
+                .Include(o => o.OrderItems)
+                .Include(o => o.ApplicationUser)
+                .Where(o => o.Status == status)
+                .OrderByDescending(o => o.OrderDate)
+                .ToListAsync();
+        }
 
-        //public async Task<IEnumerable<Order>> GetRecentOrdersAsync(int count)
-        //{
-        //    return await _context.Orders
-        //        .Include(o => o.OrderItems)
-        //        .Include(o => o.ApplicationUser)
-        //        .OrderByDescending(o => o.OrderDate)
-        //        .Take(count)
-        //        .ToListAsync();
-        //}
+        public async Task<Order?> GetOrderBySessionIdAsync(string sessionId)
+        {
+            return await _context.Orders
+                .Include(o => o.OrderItems)
+                .FirstOrDefaultAsync(o => o.SessionId == sessionId);
+        }
     }
 }

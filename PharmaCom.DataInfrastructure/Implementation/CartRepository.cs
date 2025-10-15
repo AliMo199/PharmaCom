@@ -24,18 +24,24 @@ namespace PharmaCom.DataInfrastructure.Implementation
                 .Include(c => c.Items)
                     .ThenInclude(i => i.Product)
                         .ThenInclude(p => p.Category)
-                //.Include(c => c.ApplicationUser)
+                .Include(c => c.ApplicationUser)
                 .FirstOrDefaultAsync(c => c.Id == cartId);
         }
 
-        //public async Task<Cart?> GetCartByUserIdAsync(int userId)
-        //{
-        //    return await _context.Carts
-        //        .Include(c => c.Items)
-        //            .ThenInclude(i => i.Product)
-        //                .ThenInclude(p => p.Category)
-        //        .Include(c => c.ApplicationUser)
-        //        .FirstOrDefaultAsync(c => c.ApplicationUserId == userId);
-        //}
+        public async Task<Cart?> GetCartByUserIdAsync(string userId)
+        {
+            return await _context.Carts
+                .Include(c => c.Items)
+                    .ThenInclude(i => i.Product)
+                        .ThenInclude(p => p.Category)
+                .Include(c => c.ApplicationUser)
+                .FirstOrDefaultAsync(c => c.ApplicationUserId == userId);
+        }
+
+        public async Task<CartItem?> GetCartItemByProductAsync(int cartId, int productId)
+        {
+            return await _context.CartItems
+                .FirstOrDefaultAsync(ci => ci.CartId == cartId && ci.ProductId == productId);
+        }
     }
 }

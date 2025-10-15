@@ -264,7 +264,6 @@ C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\comp
 C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\compressed\a15tvge8et-ys2tyb6s49.gz
 C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\compressed\0hbpg07sh3-026e6kk7rh.gz
 C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\compressed\8rr2n436bt-8odm1nyag1.gz
-C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\compressed\tvfhfhaxj9-wqlcxxxx2y.gz
 C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\compressed\pb0emrlbb8-8rul5e3bii.gz
 C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\compressed\j1d7ogc8yf-4t013wmvxa.gz
 C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\compressed\b90z8oi78p-wvublzrdv8.gz
@@ -540,3 +539,4 @@ D:\Depi.Net\GraduationProject\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\Pharma
 D:\Depi.Net\GraduationProject\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\PharmaCom.WebApp.genruntimeconfig.cache
 D:\Depi.Net\GraduationProject\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\ref\PharmaCom.WebApp.dll
 D:\Depi.Net\GraduationProject\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\compressed\tvfhfhaxj9-mqfscrn3nv.gz
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\compressed\tvfhfhaxj9-pmpr1vcjrf.gz

@@ -1,26 +1,10 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\",
+  "WorkspaceRootPath": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|d:\\depi.net\\graduationproject\\pharmacom\\pharmacom.webapp\\views\\shared\\_dashboardlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\views\\shared\\_dashboardlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|d:\\depi.net\\graduationproject\\pharmacom\\pharmacom.webapp\\wwwroot\\css\\dashboard.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\wwwroot\\css\\dashboard.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|d:\\depi.net\\graduationproject\\pharmacom\\pharmacom.webapp\\views\\product\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\views\\product\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|d:\\depi.net\\graduationproject\\pharmacom\\pharmacom.webapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|c:\\users\\alofi\\onedrive\\desktop\\pharmacom\\pharmacom.webapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|d:\\depi.net\\graduationproject\\pharmacom\\pharmacom.webapp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,69 +14,29 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\Views\\Product\\Create.cshtml",
-              "RelativeDocumentMoniker": "PharmaCom.WebApp\\Views\\Product\\Create.cshtml",
-              "ToolTip": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\Views\\Product\\Create.cshtml",
-              "RelativeToolTip": "PharmaCom.WebApp\\Views\\Product\\Create.cshtml",
-              "ViewState": "AgIAAEUAAAAAAAAAAAAAAA8AAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-14T22:22:10.145Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "dashboard.css",
-              "DocumentMoniker": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\wwwroot\\css\\dashboard.css",
-              "RelativeDocumentMoniker": "PharmaCom.WebApp\\wwwroot\\css\\dashboard.css",
-              "ToolTip": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\wwwroot\\css\\dashboard.css",
-              "RelativeToolTip": "PharmaCom.WebApp\\wwwroot\\css\\dashboard.css",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADUAAABBAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-10-14T21:56:13.629Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "_DashboardLayout.cshtml",
-              "DocumentMoniker": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\Views\\Shared\\_DashboardLayout.cshtml",
-              "RelativeDocumentMoniker": "PharmaCom.WebApp\\Views\\Shared\\_DashboardLayout.cshtml",
-              "ToolTip": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\Views\\Shared\\_DashboardLayout.cshtml*",
-              "RelativeToolTip": "PharmaCom.WebApp\\Views\\Shared\\_DashboardLayout.cshtml*",
-              "ViewState": "AgIAAEYBAAAAAAAAAAAAAFMBAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-14T21:55:39.154Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\appsettings.json",
-              "RelativeDocumentMoniker": "PharmaCom.WebApp\\appsettings.json",
-              "ToolTip": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\appsettings.json",
-              "RelativeToolTip": "PharmaCom.WebApp\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-10-14T21:36:14.588Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "Program.cs",
-              "DocumentMoniker": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\Program.cs",
               "RelativeDocumentMoniker": "PharmaCom.WebApp\\Program.cs",
-              "ToolTip": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\Program.cs",
+              "ToolTip": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\Program.cs",
               "RelativeToolTip": "PharmaCom.WebApp\\Program.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAQwBEAAABTAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-10T02:49:26.45Z",
               "EditorCaption": ""

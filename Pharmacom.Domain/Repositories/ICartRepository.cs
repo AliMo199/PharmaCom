@@ -10,7 +10,7 @@ namespace PharmaCom.Domain.Repositories
     public interface ICartRepository : IGenericRepository<Cart>
     {
         Task<Cart?> GetCartWithItemsAsync(int cartId);
-
-        //Task<Cart?> GetCartByUserIdAsync(int userId);
+        Task<Cart?> GetCartByUserIdAsync(string userId);
+        Task<CartItem?> GetCartItemByProductAsync(int cartId, int productId);
     }
 }
