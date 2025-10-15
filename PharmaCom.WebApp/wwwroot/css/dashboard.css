@@ -10,11 +10,12 @@
  */
 
 @media (min-width: 768px) {
-  .sidebar .offcanvas-lg {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 48px;
-  }
+    .sidebar .offcanvas-lg {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 48px;
+        margin-top: 3rem;
+    }
   .navbar-search {
     display: block;
   }
@@ -50,8 +51,7 @@
 
 /* Make the sidebar column fill the viewport height */
 .sidebar {
-    min-height: 100vh; /* ensure at least full viewport height */
-    align-self: flex-start; /* prevent stretching behavior in flex rows */
+    min-height: 100vh; /* ensure at least full viewport height */ 
 }
 
 /* For md+ the offcanvas element is shown as the sidebar: make it sticky + full height */
@@ -61,6 +61,7 @@
         top: 0;
         height: 100vh; /* full viewport height */
         overflow: hidden; /* contain inner scrolling area */
+        margin-top: 3rem;
     }
     /* allow inner content to scroll if it's taller than viewport */
     .sidebar .offcanvas-body {
