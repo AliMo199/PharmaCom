@@ -6,12 +6,21 @@ using System.Threading.Tasks;
 
 namespace PharmaCom.Domain.Static
 {
-    public class ST
+    public static class ST
     {
-        public string Pending = "Pending";
-        public string Approved = "Approved";
-        public string Rejected = "Rejected";
-        public string Completed = "Completed";
+        public static List<string> Statuses = new List<string>
+        {
+            "Pending",
+            "Approved",
+            "Rejected",
+            "Completed",
+            "Payment Received"
+        };
+        public static string Pending = "Pending";
+        public static string Approved = "Approved";
+        public static string Rejected = "Rejected";
+        public static string Completed = "Completed";
+        public static string PaymentReceived = "Payment Received";
 
     }
 }

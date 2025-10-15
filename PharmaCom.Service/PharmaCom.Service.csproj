@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Stripe.net" Version="49.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\PharmaCom.DataInfrastructure\PharmaCom.DataInfrastructure.csproj" />
     <ProjectReference Include="..\Pharmacom.Domain\PharmaCom.Domain.csproj" />
   </ItemGroup>

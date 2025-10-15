@@ -31,12 +31,21 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+<<<<<<< HEAD
+              "Title": "OrderService.cs",
+              "DocumentMoniker": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.Service\\Implementation\\OrderService.cs",
+              "RelativeDocumentMoniker": "PharmaCom.Service\\Implementation\\OrderService.cs",
+              "ToolTip": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.Service\\Implementation\\OrderService.cs",
+              "RelativeToolTip": "PharmaCom.Service\\Implementation\\OrderService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFcAAABDAAAAAAAAAA==",
+=======
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\Program.cs",
               "RelativeDocumentMoniker": "PharmaCom.WebApp\\Program.cs",
               "ToolTip": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\Program.cs",
               "RelativeToolTip": "PharmaCom.WebApp\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAtAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+>>>>>>> parent of 20b6ecb (ADDED OrderService along with the interface, Adjusted some classes ,and Added Setup for Stripe Payment)
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-10T02:49:26.45Z",
               "EditorCaption": ""
