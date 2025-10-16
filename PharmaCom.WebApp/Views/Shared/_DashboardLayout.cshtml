@@ -283,13 +283,14 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2" href="#">
-                                    <svg class="bi" aria-hidden="true">
-                                        <use xlink:href="#file-earmark"></use>
-                                    </svg>
-                                    Orders
-                                </a>
-                            </li>
+                               <a class="nav-link d-flex align-items-center gap-2" asp-area="" asp-controller="Order" asp-action="Index">
+                                   <svg class="bi" aria-hidden="true">
+                                       <use xlink:href="#file-earmark"></use>
+                                   </svg>
+                                   Orders
+                               </a>
+                           </li>
+
                             <li class="nav-item">
                                 <a asp-controller="Product" asp-action="Index" class="nav-link d-flex align-items-center gap-2">
                                     <svg class="bi" aria-hidden="true">

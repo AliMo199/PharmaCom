@@ -10,6 +10,7 @@
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Design": "9.0.9",
           "PharmaCom.DataInfrastructure": "1.0.0",
+          "PharmaCom.Service": "1.0.0",
           "Stripe.net": "49.0.0"
         },
         "runtime": {
@@ -1024,6 +1025,19 @@
             "fileVersion": "1.0.0.0"
           }
         }
+      },
+      "PharmaCom.Service/1.0.0": {
+        "dependencies": {
+          "PharmaCom.DataInfrastructure": "1.0.0",
+          "PharmaCom.Domain": "1.0.0",
+          "Stripe.net": "49.0.0"
+        },
+        "runtime": {
+          "PharmaCom.Service.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -1606,6 +1620,11 @@
       "sha512": ""
     },
     "PharmaCom.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PharmaCom.Service/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

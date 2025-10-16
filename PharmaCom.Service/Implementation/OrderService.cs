@@ -167,5 +167,10 @@ namespace PharmaCom.Service.Implementation
         {
             return await _unitOfWork.Order.GetOrderWithDetailsAsync(orderId);
         }
+
+        public async Task<Order> GetOrderBySessionIdAsync(string sessionId)
+        {
+            return await _unitOfWork.Order.GetOrderBySessionIdAsync(sessionId);
+        }
     }
 }
