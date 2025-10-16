@@ -30,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -39,10 +39,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Bookmark",
@@ -60,7 +56,7 @@
               "RelativeDocumentMoniker": "PharmaCom.WebApp\\Views\\Order\\Index.cshtml",
               "ToolTip": "D:\\,Net\\Project\\PharmaCom.WebApp\\Views\\Order\\Index.cshtml",
               "RelativeToolTip": "PharmaCom.WebApp\\Views\\Order\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAkAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-10-16T20:06:40.412Z",
               "EditorCaption": ""
@@ -75,8 +71,7 @@
               "RelativeToolTip": "PharmaCom.WebApp\\Views\\Product\\Index.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-16T20:06:28.608Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-16T20:06:28.608Z"
             },
             {
               "$type": "Document",
@@ -88,8 +83,7 @@
               "RelativeToolTip": "PharmaCom.WebApp\\Controllers\\OrderController.cs",
               "ViewState": "AgIAAHUAAAAAAAAAAAAowHYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-16T20:03:04.637Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-16T20:03:04.637Z"
             },
             {
               "$type": "Document",
@@ -101,8 +95,7 @@
               "RelativeToolTip": "PharmaCom.WebApp\\Program.cs",
               "ViewState": "AgIAACEAAAAAAAAAAAAmwDAAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-16T19:58:10.866Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-16T19:58:10.866Z"
             },
             {
               "$type": "Document",
@@ -114,8 +107,7 @@
               "RelativeToolTip": "PharmaCom.DataInfrastructure\\Implementation\\OrderRepository.cs",
               "ViewState": "AgIAABMAAAAAAAAAAAAQwBwAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-16T19:54:12.038Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-16T19:54:12.038Z"
             }
           ]
         }
