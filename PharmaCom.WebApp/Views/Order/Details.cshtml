@@ -1,0 +1,53 @@
+﻿@model PharmaCom.WebApp.ViewModels.OrderDetailViewModel
+
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<div class="container mt-5">
+    <h1>Order #@Model.Id</h1>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Order Information</h4>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Order Date:</strong> @Model.OrderDate.ToLongDateString()</li>
+                <li class="list-group-item"><strong>Status:</strong> <span class="badge bg-success">@Model.Status</span></li>
+                <li class="list-group-item"><strong>Total:</strong> @Model.TotalAmount.ToString("C", new System.Globalization.CultureInfo("ar-EG"))</li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <h4>Shipping Address</h4>
+            <ul class="list-group">
+                <li class="list-group-item">@Model.ShippingAddress.Line1</li>
+                <li class="list-group-item">@Model.ShippingAddress.City, @Model.ShippingAddress.Governorate</li>
+            </ul>
+        </div>
+    </div>
+
+    <h4 class="mt-5">Order Items</h4>
+    <table class="table table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OrderItems)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Price.ToString("C", new System.Globalization.CultureInfo("ar-EG"))</td>
+                    <td>@item.Subtotal.ToString("C", new System.Globalization.CultureInfo("ar-EG"))</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    
+    <a asp-action="Index" class="btn btn-secondary mt-3">Back to Orders</a>
+</div>

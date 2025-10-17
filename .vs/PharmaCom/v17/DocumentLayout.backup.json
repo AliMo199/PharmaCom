@@ -1,10 +1,26 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\",
+  "WorkspaceRootPath": "D:\\,Net\\Project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8B7ED4C4-3A85-41E4-918F-B3B124538C1D}|PharmaCom.Service\\PharmaCom.Service.csproj|c:\\users\\alofi\\onedrive\\desktop\\pharmacom\\pharmacom.service\\implementation\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8B7ED4C4-3A85-41E4-918F-B3B124538C1D}|PharmaCom.Service\\PharmaCom.Service.csproj|solutionrelative:pharmacom.service\\implementation\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|d:\\,net\\project\\pharmacom.webapp\\views\\order\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\views\\order\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|d:\\,net\\project\\pharmacom.webapp\\views\\product\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\views\\product\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|d:\\,net\\project\\pharmacom.webapp\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|d:\\,net\\project\\pharmacom.webapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{70B7EE9A-28F7-44CA-824C-D2B6C0A21AC3}|PharmaCom.DataInfrastructure\\PharmaCom.DataInfrastructure.csproj|d:\\,net\\project\\pharmacom.datainfrastructure\\implementation\\orderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{70B7EE9A-28F7-44CA-824C-D2B6C0A21AC3}|PharmaCom.DataInfrastructure\\PharmaCom.DataInfrastructure.csproj|solutionrelative:pharmacom.datainfrastructure\\implementation\\orderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -29,16 +45,76 @@
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "OrderService.cs",
-              "DocumentMoniker": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.Service\\Implementation\\OrderService.cs",
-              "RelativeDocumentMoniker": "PharmaCom.Service\\Implementation\\OrderService.cs",
-              "ToolTip": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.Service\\Implementation\\OrderService.cs",
-              "RelativeToolTip": "PharmaCom.Service\\Implementation\\OrderService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\,Net\\Project\\PharmaCom.WebApp\\Views\\Order\\Index.cshtml",
+              "RelativeDocumentMoniker": "PharmaCom.WebApp\\Views\\Order\\Index.cshtml",
+              "ToolTip": "D:\\,Net\\Project\\PharmaCom.WebApp\\Views\\Order\\Index.cshtml",
+              "RelativeToolTip": "PharmaCom.WebApp\\Views\\Order\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-16T20:06:40.412Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\,Net\\Project\\PharmaCom.WebApp\\Views\\Product\\Index.cshtml",
+              "RelativeDocumentMoniker": "PharmaCom.WebApp\\Views\\Product\\Index.cshtml",
+              "ToolTip": "D:\\,Net\\Project\\PharmaCom.WebApp\\Views\\Product\\Index.cshtml",
+              "RelativeToolTip": "PharmaCom.WebApp\\Views\\Product\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-16T20:06:28.608Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "OrderController.cs",
+              "DocumentMoniker": "D:\\,Net\\Project\\PharmaCom.WebApp\\Controllers\\OrderController.cs",
+              "RelativeDocumentMoniker": "PharmaCom.WebApp\\Controllers\\OrderController.cs",
+              "ToolTip": "D:\\,Net\\Project\\PharmaCom.WebApp\\Controllers\\OrderController.cs",
+              "RelativeToolTip": "PharmaCom.WebApp\\Controllers\\OrderController.cs",
+              "ViewState": "AgIAAHUAAAAAAAAAAAAowHYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-15T23:24:40.698Z",
+              "WhenOpened": "2025-10-16T20:03:04.637Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\,Net\\Project\\PharmaCom.WebApp\\Program.cs",
+              "RelativeDocumentMoniker": "PharmaCom.WebApp\\Program.cs",
+              "ToolTip": "D:\\,Net\\Project\\PharmaCom.WebApp\\Program.cs",
+              "RelativeToolTip": "PharmaCom.WebApp\\Program.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAmwDAAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-16T19:58:10.866Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "OrderRepository.cs",
+              "DocumentMoniker": "D:\\,Net\\Project\\PharmaCom.DataInfrastructure\\Implementation\\OrderRepository.cs",
+              "RelativeDocumentMoniker": "PharmaCom.DataInfrastructure\\Implementation\\OrderRepository.cs",
+              "ToolTip": "D:\\,Net\\Project\\PharmaCom.DataInfrastructure\\Implementation\\OrderRepository.cs",
+              "RelativeToolTip": "PharmaCom.DataInfrastructure\\Implementation\\OrderRepository.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAQwBwAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-16T19:54:12.038Z",
               "EditorCaption": ""
             }
           ]

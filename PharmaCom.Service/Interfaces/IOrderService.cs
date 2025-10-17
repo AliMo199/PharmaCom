@@ -18,5 +18,7 @@ namespace PharmaCom.Service.Interfaces
         Task<IEnumerable<Order>> GetUserOrdersAsync(string userId);
         Task<IEnumerable<Order>> GetOrdersByStatusAsync(string status);
         Task<Order> GetOrderWithDetailsAsync(int orderId);
+        Task<Order> GetOrderBySessionIdAsync(string sessionId);
+
     }
 }
