@@ -11,3 +11,16 @@ D:\,Net\Project\Pharmacom.Domain\obj\Debug\net9.0\PharmaCom.Domain.dll
 D:\,Net\Project\Pharmacom.Domain\obj\Debug\net9.0\refint\PharmaCom.Domain.dll
 D:\,Net\Project\Pharmacom.Domain\obj\Debug\net9.0\PharmaCom.Domain.pdb
 D:\,Net\Project\Pharmacom.Domain\obj\Debug\net9.0\ref\PharmaCom.Domain.dll
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\Pharmacom.Domain\bin\Debug\net9.0\PharmaCom.Domain.deps.json
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\Pharmacom.Domain\bin\Debug\net9.0\PharmaCom.Domain.dll
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\Pharmacom.Domain\bin\Debug\net9.0\PharmaCom.Domain.pdb
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\Pharmacom.Domain\obj\Debug\net9.0\PharmaCom.Domain.csproj.AssemblyReference.cache
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\Pharmacom.Domain\obj\Debug\net9.0\PharmaCom.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\Pharmacom.Domain\obj\Debug\net9.0\PharmaCom.Domain.AssemblyInfoInputs.cache
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\Pharmacom.Domain\obj\Debug\net9.0\PharmaCom.Domain.AssemblyInfo.cs
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\Pharmacom.Domain\obj\Debug\net9.0\PharmaCom.Domain.csproj.CoreCompileInputs.cache
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\Pharmacom.Domain\obj\Debug\net9.0\PharmaCom.Domain.sourcelink.json
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\Pharmacom.Domain\obj\Debug\net9.0\PharmaCom.Domain.dll
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\Pharmacom.Domain\obj\Debug\net9.0\refint\PharmaCom.Domain.dll
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\Pharmacom.Domain\obj\Debug\net9.0\PharmaCom.Domain.pdb
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\Pharmacom.Domain\obj\Debug\net9.0\ref\PharmaCom.Domain.dll

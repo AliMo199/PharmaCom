@@ -21,7 +21,7 @@ namespace PharmaCom.API.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetCart()
+        public async Task<IActionResult> Index()
         {
             try
             {

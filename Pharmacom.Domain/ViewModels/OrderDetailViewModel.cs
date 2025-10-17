@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PharmaCom.WebApp.ViewModels
+namespace PharmaCom.Domain.ViewModels
 {
     public class OrderDetailViewModel
     {

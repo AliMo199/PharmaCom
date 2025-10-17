@@ -528,3 +528,5 @@ D:\,Net\Project\PharmaCom.WebApp\obj\Debug\net9.0\refint\PharmaCom.WebApp.dll
 D:\,Net\Project\PharmaCom.WebApp\obj\Debug\net9.0\PharmaCom.WebApp.pdb
 D:\,Net\Project\PharmaCom.WebApp\obj\Debug\net9.0\PharmaCom.WebApp.genruntimeconfig.cache
 D:\,Net\Project\PharmaCom.WebApp\obj\Debug\net9.0\ref\PharmaCom.WebApp.dll
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.WebApp\bin\Debug\net9.0\PharmaCom.Service.dll
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.WebApp\bin\Debug\net9.0\PharmaCom.Service.pdb

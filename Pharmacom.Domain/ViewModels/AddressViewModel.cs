@@ -1,4 +1,4 @@
-﻿namespace PharmaCom.WebApp.ViewModels
+﻿namespace PharmaCom.Domain.ViewModels
 {
     public class AddressViewModel
     {

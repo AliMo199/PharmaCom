@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PharmaCom.Service.Interfaces;
-using PharmaCom.WebApp.ViewModels; // <-- Using the new ViewModels
+using PharmaCom.Domain.ViewModels;
 using Stripe.Checkout;
 using System.Linq;
 using System.Security.Claims;
@@ -9,14 +9,15 @@ using System.Threading.Tasks;
 
 namespace PharmaCom.WebApp.Controllers
 {
-    //[Authorize]
     public class OrderController : Controller
     {
         private readonly IOrderService _orderService;
+        private readonly ICartService _cartService;
 
-        public OrderController(IOrderService orderService)
+        public OrderController(IOrderService orderService, ICartService cartService)
         {
             _orderService = orderService;
+            _cartService = cartService;
         }
 
         // GET: /Order
@@ -25,7 +26,6 @@ namespace PharmaCom.WebApp.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var ordersFromDb = await _orderService.GetUserOrdersAsync(userId);
 
-            // Convert DB models to ViewModels
             var orderViewModels = ordersFromDb.Select(o => new OrderViewModel
             {
                 Id = o.Id,
@@ -46,7 +46,6 @@ namespace PharmaCom.WebApp.Controllers
                 return NotFound();
             }
 
-            // Convert the detailed DB model to the detailed ViewModel
             var orderDetailViewModel = new OrderDetailViewModel
             {
                 Id = orderFromDb.Id,
@@ -54,14 +53,12 @@ namespace PharmaCom.WebApp.Controllers
                 Status = orderFromDb.Status,
                 TotalAmount = orderFromDb.TotalAmount,
 
-                // --- THIS IS THE FIX ---
-                // We check if the address is null before trying to read from it.
                 ShippingAddress = orderFromDb.Address != null ? new AddressViewModel
                 {
                     Line1 = orderFromDb.Address.Line1,
                     City = orderFromDb.Address.City,
                     Governorate = orderFromDb.Address.Governorate
-                } : new AddressViewModel(), // If it's null, create an empty AddressViewModel
+                } : new AddressViewModel(),
 
                 OrderItems = orderFromDb.OrderItems.Select(oi => new OrderItemViewModel
                 {
@@ -77,9 +74,15 @@ namespace PharmaCom.WebApp.Controllers
         // POST: /Order/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(int addressId)
+        public async Task<IActionResult> Checkout(int addressId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var cartTotal = await _cartService.CalculateCartTotalAsync(userId);
+            if (cartTotal == 0)
+            {
+                TempData["Error"] = "Your cart is empty";
+                return RedirectToAction("Index", "Cart");
+            }
             try
             {
                 var order = await _orderService.CreateOrderFromCartAsync(userId, addressId);
@@ -102,7 +105,7 @@ namespace PharmaCom.WebApp.Controllers
         {
             if (string.IsNullOrEmpty(session_id))
             {
-                return BadRequest("Session ID is required.");
+                return BadRequest("Invalid Session.");
             }
 
             var success = await _orderService.ProcessStripePaymentSuccessAsync(session_id);
@@ -114,6 +117,30 @@ namespace PharmaCom.WebApp.Controllers
             }
 
             return View("Failure");
+        }
+
+        [Authorize(Roles = "Admin,Pharmacist")]
+        public async Task<IActionResult> Manage()
+        {
+            var pendingOrders = await _orderService.GetOrdersByStatusAsync("Payment Received");
+            return View(pendingOrders);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin,Pharmacist")]
+        public async Task<IActionResult> UpdateStatus(int orderId, string status)
+        {
+            try
+            {
+                await _orderService.UpdateOrderStatusAsync(orderId, status);
+                TempData["Success"] = $"Order status updated to {status}";
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = $"Error updating order status: {ex.Message}";
+            }
+
+            return RedirectToAction("Manage");
         }
     }
 }
