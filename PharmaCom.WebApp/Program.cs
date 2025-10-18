@@ -22,6 +22,7 @@ namespace PharmaCom.WebApp
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<ICartService, CartService>();
             builder.Services.AddScoped<IOrderService, OrderService>();
+            builder.Services.AddScoped<IProductService, PharmaCom.Service.Implementation.ProductService>();
             var stripeSettings = builder.Configuration.GetSection("Stripe");
             StripeConfiguration.ApiKey = stripeSettings["SecretKey"];
 

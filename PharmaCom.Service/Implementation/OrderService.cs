@@ -172,5 +172,75 @@ namespace PharmaCom.Service.Implementation
         {
             return await _unitOfWork.Order.GetOrderBySessionIdAsync(sessionId);
         }
+
+        public async Task<PagedResult<Order>> GetOrdersPagedAsync(
+            int pageNumber,
+            int pageSize,
+            string? searchTerm = null,
+            string? userId = null,
+            string? status = null,
+            DateTime? minDate = null,
+            DateTime? maxDate = null,
+            decimal? minAmount = null,
+            decimal? maxAmount = null,
+            bool? hasPrescription = null,
+            string sortBy = "OrderDate",
+            bool sortDescending = true)
+        {
+            // VALIDATION
+
+            // Page number must be at least 1
+            if (pageNumber < 1)
+                pageNumber = 1;
+
+            // Page size must be between 1 and 50 (prevent abuse)
+            if (pageSize < 1)
+                pageSize = 10; // Default for orders
+            else if (pageSize > 50)
+                pageSize = 50; // Maximum
+
+            // Trim search term
+            searchTerm = searchTerm?.Trim();
+
+            // Validate amount range
+            if (minAmount.HasValue && minAmount.Value < 0)
+                minAmount = 0;
+
+            if (maxAmount.HasValue && maxAmount.Value < 0)
+                maxAmount = null;
+
+            // If min > max, swap them
+            if (minAmount.HasValue && maxAmount.HasValue && minAmount.Value > maxAmount.Value)
+            {
+                (minAmount, maxAmount) = (maxAmount, minAmount);
+            }
+
+            // Validate date range
+            if (minDate.HasValue && maxDate.HasValue && minDate.Value > maxDate.Value)
+            {
+                (minDate, maxDate) = (maxDate, minDate);
+            }
+
+            // Validate sort field
+            var validSortFields = new[] { "orderdate", "totalamount", "status" };
+            if (!validSortFields.Contains(sortBy?.ToLower()))
+                sortBy = "OrderDate"; // default
+
+            // CALL REPOSITORY
+            return await _unitOfWork.Order.GetOrdersPagedAsync(
+                pageNumber,
+                pageSize,
+                searchTerm,
+                userId,
+                status,
+                minDate,
+                maxDate,
+                minAmount,
+                maxAmount,
+                hasPrescription,
+                sortBy,
+                sortDescending);
+
+        }
     }
 }

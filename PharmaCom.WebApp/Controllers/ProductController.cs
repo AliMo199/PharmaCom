@@ -17,7 +17,7 @@ namespace PharmaCom.WebApp.Controllers
         // GET: /Product
         public async Task<IActionResult> Index()
         {
-            var products = await _UnitOfWork.Product.GetAllProductWithCategoryAsync();
+            var products = await _UnitOfWork.Product.GetAllProductsWithCategoryAsync();
             return View(products);
         }
 
