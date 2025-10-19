@@ -108,7 +108,9 @@ namespace PharmaCom.DataInfrastructure.Implementation
                     ? query.OrderByDescending(p => p.Price).ThenBy(p => p.Name)
                     : query.OrderBy(p => p.Price).ThenBy(p => p.Name),
 
-                "newest" => query.OrderByDescending(p => p.Id),
+                "date" => sortDescending
+                    ? query.OrderByDescending(p => p.Id)
+                    : query.OrderBy(p => p.Id),
 
                 "name" => sortDescending
                     ? query.OrderByDescending(p => p.Name)

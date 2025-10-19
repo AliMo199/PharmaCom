@@ -70,7 +70,7 @@ namespace PharmaCom.Service.Implementation
             }
 
             // Validate sort field
-            var validSortFields = new[] { "name", "price", "newest" };
+            var validSortFields = new[] { "name", "price", "date" };
             if (!validSortFields.Contains(sortBy?.ToLower()))
                 sortBy = "Name"; // default
 

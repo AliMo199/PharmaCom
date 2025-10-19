@@ -2,29 +2,78 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PharmaCom.Domain.Models;
 using PharmaCom.Domain.Repositories;
+using PharmaCom.Service.Interfaces;
 
 namespace PharmaCom.WebApp.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly IUnitOfWork _UnitOfWork;
+        private readonly IProductService _productService;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ProductController(IUnitOfWork unitOfWork)
+        public ProductController(IProductService productService, IUnitOfWork unitOfWork)
         {
-            _UnitOfWork = unitOfWork;
+            _productService = productService;
+            _unitOfWork = unitOfWork;
         }
 
-        // GET: /Product
-        public async Task<IActionResult> Index()
+        // GET: /Product/Index (with pagination and search)
+        public async Task<IActionResult> Index(
+            int pageNumber = 1,
+            string? searchTerm = null,
+            int? categoryId = null,
+            string? brand = null,
+            string? form = null,
+            string? isRxRequired = null,  // string? for form binding
+            decimal? minPrice = null,
+            decimal? maxPrice = null,
+            string sortBy = "Name",
+            bool sortDescending = false)
         {
-            var products = await _UnitOfWork.Product.GetAllProductsWithCategoryAsync();
-            return View(products);
+            // Convert string isRxRequired to bool? for service
+            bool? rxRequired = isRxRequired switch
+            {
+                "true" => true,
+                "false" => false,
+                _ => null
+            };
+
+            var pagedProducts = await _productService.GetProductsPagedAsync(
+                pageNumber,
+                25,  // Page size
+                searchTerm,
+                categoryId,
+                brand,
+                form,
+                rxRequired,
+                minPrice,
+                maxPrice,
+                sortBy,
+                sortDescending);
+
+            // Dropdown data
+            ViewBag.Categories = await _unitOfWork.Category.GetAllAsync();
+            ViewBag.Brands = await _productService.GetAllBrandsAsync();
+            ViewBag.Forms = await _productService.GetAllFormsAsync();
+
+            // Preserve filter state
+            ViewBag.CurrentSearchTerm = searchTerm;
+            ViewBag.CurrentCategoryId = categoryId;
+            ViewBag.CurrentBrand = brand;
+            ViewBag.CurrentForm = form;
+            ViewBag.CurrentIsRxRequired = isRxRequired;
+            ViewBag.CurrentMinPrice = minPrice;
+            ViewBag.CurrentMaxPrice = maxPrice;
+            ViewBag.CurrentSortBy = sortBy;
+            ViewBag.CurrentSortDescending = sortDescending;
+
+            return View(pagedProducts);
         }
 
         // GET: /Product/Details
         public async Task<IActionResult> Details(int id)
         {
-            var product = await _UnitOfWork.Product.GetProductWithCategoryAsync(id);
+            var product = await _productService.GetProductWithCategoryAsync(id);
             if (product == null)
                 return NotFound();
 
@@ -33,9 +82,9 @@ namespace PharmaCom.WebApp.Controllers
 
         #region Create
         // GET: /Product/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewBag.Categories = new SelectList(_UnitOfWork.Category.GetAllAsync().Result, "Id", "Name");
+            ViewBag.Categories = new SelectList(await _unitOfWork.Category.GetAllAsync(), "Id", "Name");
             return View();
         }
 
@@ -46,29 +95,27 @@ namespace PharmaCom.WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _UnitOfWork.Product.AddAsync(product);
-                _UnitOfWork.Save();
+                await _productService.CreateProductAsync(product);
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag.Categories = new SelectList(_UnitOfWork.Category.GetAllAsync().Result, "Id", "Name");
+
+            ViewBag.Categories = new SelectList(await _unitOfWork.Category.GetAllAsync(), "Id", "Name");
             return View(product);
         }
         #endregion
 
         #region Edit
-        // GET: /Product/Edit
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var product = await _UnitOfWork.Product.GetByIdAsync(id);
+            var product = await _productService.GetProductByIdAsync(id);
             if (product == null)
                 return NotFound();
 
-            ViewBag.Categories = new SelectList(await _UnitOfWork.Category.GetAllAsync(), "Id", "Name", product.CategoryId);
+            ViewBag.Categories = new SelectList(await _unitOfWork.Category.GetAllAsync(), "Id", "Name", product.CategoryId);
             return View(product);
         }
 
-        // POST: /Product/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Product product)
@@ -78,60 +125,24 @@ namespace PharmaCom.WebApp.Controllers
 
             if (ModelState.IsValid)
             {
-                _UnitOfWork.Product.Update(product);
-                _UnitOfWork.Save();
+                await _productService.UpdateProductAsync(product);
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewBag.Categories = new SelectList(await _unitOfWork.Category.GetAllAsync(), "Id", "Name", product.CategoryId);
             return View(product);
         }
-
-        //// POST: /Product/Edit (ChatGPT enhanced with image upload)
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, Product model, IFormFile ImageFile)
-        //{
-        //    if (id != model.Id)
-        //        return BadRequest();
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        if (ImageFile != null && ImageFile.Length > 0)
-        //        {
-        //            var fileName = Path.GetFileName(ImageFile.FileName);
-        //            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/products", fileName);
-
-        //            using (var stream = new FileStream(filePath, FileMode.Create))
-        //            {
-        //                await ImageFile.CopyToAsync(stream);
-        //            }
-
-        //            model.ImageURLString = "/images/products/" + fileName;
-        //        }
-
-        //        _UnitOfWork.Product.Update(model);
-        //        _UnitOfWork.Save();
-
-        //        return RedirectToAction(nameof(Index));
-        //    }
-
-        //    ViewBag.Categories = new SelectList(await _UnitOfWork.Category.GetAllAsync(), "Id", "Name", model.CategoryId);
-        //    return View(model);
-        //}
         #endregion
 
         #region Delete
-        // GET: /Product/Delete
         public async Task<IActionResult> Delete(int id)
         {
-            var product = await _UnitOfWork.Product.GetByIdAsync(id);
+            var product = await _productService.GetProductByIdAsync(id);
             if (product == null)
                 return NotFound();
-            else
-            {
-                _UnitOfWork.Product.Remove(product);
-                _UnitOfWork.Save();
-                return RedirectToAction(nameof(Index));
-            }
+
+            await _productService.DeleteProductAsync(id);
+            return RedirectToAction(nameof(Index));
         }
         #endregion
     }

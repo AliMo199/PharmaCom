@@ -1,44 +1,281 @@
-﻿@model List<Product>
+﻿@model PagedResult<Product>
 
 @{
-	ViewData["Title"] = "Products list";
-	Layout = "_DashboardLayout";
-}
-<div class="container mt-2">
-<h1>Products list</h1>
-<a asp-action="Create" class="btn btn-success">Create New Product</a>
-<table class="table mt-1">
-	<thead>
-		<tr>
-			<th>Id</th>
-			<th>Name</th>
-			<th>Brand</th>
-			<th>Price</th>
-			<th>Form</th>
-			<th>Category</th>
-			<th>Is Rx Required</th>
-			<th>Actions</th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var product in Model)
-		{
-			<tr>
-				<td>@product.Id</td>
-				<td>@product.Name</td>
-				<td>@product.Brand</td>
-				<td>@product.Price.ToString("C")</td>
-				<td>@product.Form</td>
-				<td>@product.Category?.Name</td>
-				<td>@(product.IsRxRequired ? "Yes" : "No")</td>
-				<td>
-					<a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-primary btn-sm">Edit</a>
-					<a asp-action="Details" asp-route-id="@product.Id" class="btn btn-info btn-sm">Details</a>
-					<a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger btn-sm">Delete</a>
-				</td>
-			</tr>
-		}
-	</tbody>
-</table>
+    ViewData["Title"] = "Products List";
+    Layout = "_DashboardLayout";
 
+    int currentPage = Model.PageNumber;
+    int totalPages = Model.TotalPages;
+
+    string? searchTerm = ViewBag.CurrentSearchTerm as string;
+    int? currentCategoryId = ViewBag.CurrentCategoryId as int?;
+    string? currentBrand = ViewBag.CurrentBrand as string;
+    string? currentForm = ViewBag.CurrentForm as string;
+    string? currentIsRxRequired = ViewBag.CurrentIsRxRequired as string;
+    decimal? currentMinPrice = ViewBag.CurrentMinPrice as decimal?;
+    decimal? currentMaxPrice = ViewBag.CurrentMaxPrice as decimal?;
+    string sortBy = ViewBag.CurrentSortBy as string ?? "Name";
+    bool sortDescending = ViewBag.CurrentSortDescending ?? false;
+}
+
+<div class="container mt-2">
+    <h1>Products list</h1>
+    <form asp-action="Index" method="get" class="mb-4">
+        <div class="row g-2 align-items-end">
+            <div class="col-md-3">
+                <label for="searchTerm" class="form-label">Search</label>
+                <input type="text" name="searchTerm" id="searchTerm" class="form-control"
+                       value="@searchTerm" placeholder="Search by name or description..." />
+            </div>
+
+            <!-- Category -->
+            <div class="col-md-2">
+                <label for="categoryId" class="form-label">Category</label>
+                <select name="categoryId" id="categoryId" class="form-select">
+                    <option value="">All</option>
+                    @foreach (var cat in ViewBag.Categories)
+                    {
+                        if (currentCategoryId == cat.Id)
+                        {
+                            <option value="@cat.Id" selected>@cat.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@cat.Id">@cat.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <!-- Brand -->
+            <div class="col-md-2">
+                <label for="brand" class="form-label">Brand</label>
+                <select name="brand" id="brand" class="form-select">
+                    <option value="">All</option>
+                    @foreach (var b in ViewBag.Brands)
+                    {
+                        if (currentBrand == b)
+                        {
+                            <option value="@b" selected>@b</option>
+                        }
+                        else
+                        {
+                            <option value="@b">@b</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <!-- Form -->
+            <div class="col-md-2">
+                <label for="form" class="form-label">Form</label>
+                <select name="form" id="form" class="form-select">
+                    <option value="">All</option>
+                    @foreach (var f in ViewBag.Forms)
+                    {
+                        if (currentForm == f)
+                        {
+                            <option value="@f" selected>@f</option>
+                        }
+                        else
+                        {
+                            <option value="@f">@f</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <!-- Rx Required -->
+            <div class="col-md-2">
+                <label for="isRxRequired" class="form-label">Rx Required</label>
+                <select name="isRxRequired" id="isRxRequired" class="form-select">
+                    <option value="">All</option>
+                    @if (currentIsRxRequired == "true")
+                    {
+                        <option value="true" selected>Yes</option>
+                        <option value="false">No</option>
+                    }
+                    else if (currentIsRxRequired == "false")
+                    {
+                        <option value="true">Yes</option>
+                        <option value="false" selected>No</option>
+                    }
+                    else
+                    {
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <!-- Price + Sorting -->
+        <div class="row g-2 mt-2 align-items-end">
+            <div class="col-md-2">
+                <label class="form-label">Min Price</label>
+                <input type="number" name="minPrice" class="form-control" value="@(currentMinPrice?.ToString("0.##"))" />
+            </div>
+
+            <div class="col-md-2">
+                <label class="form-label">Max Price</label>
+                <input type="number" name="maxPrice" class="form-control" value="@(currentMaxPrice?.ToString("0.##"))" />
+            </div>
+
+            <!-- Sort By -->
+            <div class="col-md-2">
+                <label class="form-label">Sort By</label>
+                <select name="sortBy" class="form-select">
+                    @if (sortBy == "Name")
+                    {
+                        <option value="Name" selected>Name</option>
+                    }
+                    else
+                    {
+                        <option value="Name">Name</option>
+                    }
+
+                    @if (sortBy == "Price")
+                    {
+                        <option value="Price" selected>Price</option>
+                    }
+                    else
+                    {
+                        <option value="Price">Price</option>
+                    }
+
+                    @if (sortBy == "Date")
+                    {
+                        <option value="Date" selected>Date</option>
+                    }
+                    else
+                    {
+                        <option value="Date">Date</option>
+                    }
+                </select>
+            </div>
+
+            <!-- Sort Order -->
+            <div class="col-md-2">
+                <label class="form-label">Order</label>
+                <select name="sortDescending" class="form-select">
+                    @if (sortDescending)
+                    {
+                        <option value="false">Ascending</option>
+                        <option value="true" selected>Descending</option>
+                    }
+                    else
+                    {
+                        <option value="false" selected>Ascending</option>
+                        <option value="true">Descending</option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary w-100">Filter</button>
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+                <a asp-action="Index" class="btn btn-secondary w-100">Reset</a>
+            </div>
+        </div>
+    </form>
+
+    @if (Model.Items.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-striped align-middle">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Brand</th>
+                        <th>Form</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Rx Required</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model.Items)
+                    {
+                        <tr>
+                            <td>@product.Name</td>
+                            <td>@product.Brand</td>
+                            <td>@product.Form</td>
+                            <td>@product.Category?.Name</td>
+                            <td>@product.Price.ToString("C")</td>
+                            <td>@(product.IsRxRequired ? "Yes" : "No")</td>
+                            <td class="d-flex gap-2 align-items-center overflow-hidden">
+                                <a asp-action="Details" asp-route-id="@product.Id" class="btn btn-sm btn-info">View</a>
+                                <a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-sm btn-warning">Edit</a>
+                                <a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-sm btn-danger"
+                                   onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <nav aria-label="Product pagination">
+            <ul class="pagination justify-content-center mt-3">
+                <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                    <a class="page-link"
+                       asp-action="Index"
+                       asp-route-pageNumber="@(currentPage - 1)"
+                       asp-route-searchTerm="@searchTerm"
+                       asp-route-categoryId="@currentCategoryId"
+                       asp-route-brand="@currentBrand"
+                       asp-route-form="@currentForm"
+                       asp-route-isRxRequired="@currentIsRxRequired"
+                       asp-route-minPrice="@currentMinPrice"
+                       asp-route-maxPrice="@currentMaxPrice"
+                       asp-route-sortBy="@sortBy"
+                       asp-route-sortDescending="@sortDescending">Previous</a>
+                </li>
+
+                @for (int i = 1; i <= totalPages; i++)
+                {
+                    <li class="page-item @(i == currentPage ? "active" : "")">
+                        <a class="page-link"
+                           asp-action="Index"
+                           asp-route-pageNumber="@i"
+                           asp-route-searchTerm="@searchTerm"
+                           asp-route-categoryId="@currentCategoryId"
+                           asp-route-brand="@currentBrand"
+                           asp-route-form="@currentForm"
+                           asp-route-isRxRequired="@currentIsRxRequired"
+                           asp-route-minPrice="@currentMinPrice"
+                           asp-route-maxPrice="@currentMaxPrice"
+                           asp-route-sortBy="@sortBy"
+                           asp-route-sortDescending="@sortDescending">@i</a>
+                    </li>
+                }
+
+                <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                    <a class="page-link"
+                       asp-action="Index"
+                       asp-route-pageNumber="@(currentPage + 1)"
+                       asp-route-searchTerm="@searchTerm"
+                       asp-route-categoryId="@currentCategoryId"
+                       asp-route-brand="@currentBrand"
+                       asp-route-form="@currentForm"
+                       asp-route-isRxRequired="@currentIsRxRequired"
+                       asp-route-minPrice="@currentMinPrice"
+                       asp-route-maxPrice="@currentMaxPrice"
+                       asp-route-sortBy="@sortBy"
+                       asp-route-sortDescending="@sortDescending">Next</a>
+                </li>
+            </ul>
+        </nav>
+    }
+    else
+    {
+        <div class="alert alert-info text-center mt-4">
+            No products found.
+        </div>
+    }
+
+    <a asp-action="Create" class="btn btn-success mt-3 mb-3">+ Add New Product</a>
 </div>
