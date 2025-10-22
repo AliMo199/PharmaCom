@@ -1,0 +1,264 @@
+﻿@* _MainThemeLayout.cshtml *@
+@inject PharmaCom.Domain.Repositories.IUnitOfWork UnitOfWork
+@inject PharmaCom.Service.Interfaces.ICartService CartService
+@inject Microsoft.AspNetCore.Identity.UserManager<PharmaCom.Domain.Models.ApplicationUser> UserManager
+
+@{
+    var categories = await UnitOfWork.Category.GetAllAsync();
+    int cartItemCount = 0;
+
+    if (User.Identity?.IsAuthenticated == true)
+    {
+        var user = await UserManager.GetUserAsync(User);
+        if (user != null)
+        {
+            var userId = int.Parse(user.Id);
+            var cart = await CartService.GetOrCreateUserCartAsync(userId.ToString());
+            if (cart != null)
+            {
+                cartItemCount = await CartService.GetCartItemsCountAsync(cart.Id.ToString());
+            }
+        }
+    }
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@ViewData["Title"] - Pharma</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Rubik:400,700|Crimson+Text:400,400i" rel="stylesheet">
+
+    <!-- Icon Font -->
+    <link rel="stylesheet" href="~/fonts/icomoon/style.css">
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/css/jquery-ui.css">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/css/aos.css">
+    <link rel="stylesheet" href="~/css/style.css">
+
+    @* Page-specific styles *@
+    @RenderSection("Styles", required: false)
+</head>
+
+<body>
+    <div class="site-wrap">
+
+        <!-- ========== NAVBAR (STAYS THE SAME) ========== -->
+        <div class="site-navbar py-2">
+
+            <!-- Search Overlay -->
+            <div class="search-wrap">
+                <div class="container">
+                    <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
+                    <form asp-controller="Home" asp-action="Store" method="get">
+                        <input type="text"
+                               name="searchTerm"
+                               class="form-control"
+                               placeholder="Search products and hit enter..."
+                               value="@((string)ViewBag.SearchTerm ?? "")" />
+                    </form>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="d-flex align-items-center justify-content-between">
+                    <!-- Logo -->
+                    <div class="logo">
+                        <div class="site-logo">
+                            <a asp-controller="Home" asp-action="Index" class="js-logo-clone">Pharma</a>
+                        </div>
+                    </div>
+
+                    <!-- Main Navigation -->
+                    <div class="main-nav d-none d-lg-block">
+                        <nav class="site-navigation text-right text-md-center" role="navigation">
+                            <ul class="site-menu js-clone-nav d-none d-lg-block">
+                                <li class="@(ViewBag.CurrentPage?.ToString().ToLower() == "home" ? "active" : "")">
+                                    <a asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
+                                <li class="@(ViewBag.CurrentPage?.ToString().ToLower() == "store" ? "active" : "")">
+                                    <a asp-controller="Home" asp-action="Store">Store</a>
+                                </li>
+
+                                @* Categories Dropdown *@
+                                @if (categories != null && categories.Any())
+                                {
+                                    <li class="has-children">
+                                        <a href="#">Categories</a>
+                                        <ul class="dropdown">
+                                            @foreach (var category in categories.Take(10))
+                                            {
+                                                <li>
+                                                    <a asp-controller="Product" asp-action="Index" asp-route-categoryId="@category.Id">
+                                                        @category.Name
+                                                    </a>
+                                                </li>
+                                            }
+                                            @if (categories.Count() > 10)
+                                            {
+                                                <li><a asp-controller="Category" asp-action="Index">View All Categories</a></li>
+                                            }
+                                        </ul>
+                                    </li>
+                                }
+
+                                <li class="@(ViewBag.CurrentPage?.ToString().ToLower() == "about" ? "active" : "")">
+                                    <a asp-controller="Home" asp-action="About">About</a>
+                                </li>
+                                <li class="@(ViewBag.CurrentPage?.ToString().ToLower() == "contact" ? "active" : "")">
+                                    <a asp-controller="Home" asp-action="Contact">Contact</a>
+                                </li>
+
+                                @* Show Orders and Admin links if authenticated *@
+                                @if (User.Identity?.IsAuthenticated == true)
+                                {
+                                    <li class="@(ViewBag.CurrentPage?.ToString().ToLower() == "order" ? "active" : "")">
+                                        <a asp-controller="Order" asp-action="Index">My Orders</a>
+                                    </li>
+
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <li class="has-children">
+                                            <a href="#">Admin</a>
+                                            <ul class="dropdown">
+                                                <li><a asp-controller="Category" asp-action="Index">Manage Categories</a></li>
+                                                <li><a asp-controller="Product" asp-action="Create">Add Product</a></li>
+                                                <li><a asp-controller="Order" asp-action="AdminOrders">All Orders</a></li>
+                                            </ul>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Icons (Search, Cart, Mobile Menu) -->
+                    <div class="icons">
+                        <!-- Search Icon -->
+                        <a href="#" class="icons-btn d-inline-block js-search-open">
+                            <span class="icon-search"></span>
+                        </a>
+
+                        <!-- Cart Icon with Dynamic Count -->
+                        <a asp-controller="Cart" asp-action="Index" class="icons-btn d-inline-block bag">
+                            <span class="icon-shopping-bag"></span>
+                            @if (cartItemCount > 0)
+                            {
+                                <span class="number">@cartItemCount</span>
+                            }
+                        </a>
+
+                        <!-- User Account Icon -->
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <a asp-area="Identity" asp-page="/Account/Manage/Index" class="icons-btn d-inline-block" title="Account">
+                                <span class="icon-person"></span>
+                            </a>
+                        }
+                        else
+                        {
+                            <a asp-area="Identity" asp-page="/Account/Login" class="icons-btn d-inline-block" title="Login">
+                                <span class="icon-person"></span>
+                            </a>
+                        }
+
+                        <!-- Mobile Menu Toggle -->
+                        <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none">
+                            <span class="icon-menu"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== BREADCRUMB SECTION (OPTIONAL PER PAGE) ========== -->
+        @RenderSection("Breadcrumb", required: false)
+
+        <!-- ========== MAIN CONTENT (CHANGES PER PAGE) ========== -->
+        <main>
+            @RenderBody()
+        </main>
+
+        <!-- ========== PROMO BANNER SECTION (OPTIONAL PER PAGE) ========== -->
+        @RenderSection("PromoBanner", required: false)
+
+        <!-- ========== FOOTER (STAYS THE SAME) ========== -->
+        <footer class="site-footer">
+            <div class="container">
+                <div class="row">
+                    <!-- About Us -->
+                    <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
+                        <div class="block-7">
+                            <h3 class="footer-heading mb-4">About Us</h3>
+                            <p>PharmaCom is your trusted online pharmacy providing quality medications and healthcare products with fast, reliable delivery.</p>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div class="col-lg-3 mx-auto mb-5 mb-lg-0">
+                        <h3 class="footer-heading mb-4">Quick Links</h3>
+                        <ul class="list-unstyled">
+                            <li><a asp-controller="Product" asp-action="Index">All Products</a></li>
+                            <li><a asp-controller="Home" asp-action="About">About Us</a></li>
+                            <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+                            @if (User.Identity?.IsAuthenticated == true)
+                            {
+                                <li><a asp-controller="Order" asp-action="Index">My Orders</a></li>
+                            }
+                            else
+                            {
+                                <li><a asp-area="Identity" asp-page="/Account/Register">Register</a></li>
+                            }
+                        </ul>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="block-5 mb-5">
+                            <h3 class="footer-heading mb-4">Contact Info</h3>
+                            <ul class="list-unstyled">
+                                <li class="address">203 Fake St. Mountain View, San Francisco, California, USA</li>
+                                <li class="phone"><a href="tel://23923929210">+2 392 3929 210</a></li>
+                                <li class="email"><a href="mailto:info@pharmacom.com">info@pharmacom.com</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Copyright -->
+                <div class="row pt-5 mt-5 text-center">
+                    <div class="col-md-12">
+                        <p>
+                            Copyright &copy; @DateTime.Now.Year All rights reserved |
+                            This template is made with <i class="icon-heart" aria-hidden="true"></i> by
+                            <a href="https://colorlib.com" target="_blank" class="text-primary">Colorlib</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="~/js/jquery-3.3.1.min.js"></script>
+    <script src="~/js/jquery-ui.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/js/aos.js"></script>
+    <script src="~/js/main.js"></script>
+
+    @* Page-specific scripts *@
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

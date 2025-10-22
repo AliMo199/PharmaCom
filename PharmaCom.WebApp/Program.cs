@@ -1,6 +1,9 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PharmaCom.DataInfrastructure.Data;
 using PharmaCom.DataInfrastructure.Implementation;
+using PharmaCom.DataInfrastructure.Seeders;
+using PharmaCom.Domain.Models;
 using PharmaCom.Domain.Repositories;
 using PharmaCom.Service.Implementation;
 using PharmaCom.Service.Interfaces;
@@ -26,7 +29,19 @@ namespace PharmaCom.WebApp
             var stripeSettings = builder.Configuration.GetSection("Stripe");
             StripeConfiguration.ApiKey = stripeSettings["SecretKey"];
 
+            // Register Identity services
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDBContext>()
+                .AddDefaultTokenProviders();
+
             var app = builder.Build();
+
+            // Seed data directly on startup (runs every time, but seeder checks for existing data)
+            using (var scope = app.Services.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<ApplicationDBContext>();
+                DataSeeder.Seed(context);
+            }
 
             // Configure the HTTP request pipeline. 
             if (!app.Environment.IsDevelopment())

@@ -1,0 +1,230 @@
+﻿@model PharmaCom.Domain.Models.Product
+@{
+    Layout = "~/Views/Shared/_MainThemeLayout.cshtml";
+    ViewData["Title"] = Model?.Name ?? "Product Details";
+}
+
+@* @section Breadcrumb {
+    <div class="bg-light py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mb-0">
+                    <a asp-controller="Home" asp-action="Index">Home</a>
+                    <span class="mx-2 mb-0">/</span>
+                    <a asp-controller="Home" asp-action="Store">Store</a>
+                    <span class="mx-2 mb-0">/</span>
+                    <strong class="text-black">@Model.Name</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+} *@
+
+<main class="site-section">
+    <div class="container">
+        <div class="row">
+            <!-- Left product image (or gallery) -->
+            <div class="col-md-5 mr-auto">
+                <div class="border text-center product-card">
+                    @if (Model.IsRxRequired)
+                    {
+                        <span class="rx-badge">Rx</span>
+                    }
+                    <img src="@(Model.ImageURLString ?? "/images/product_placeholder.png")"
+                         alt="@Model.Name" class="img-fluid p-5" />
+                </div>
+
+            </div>
+
+            <!-- Right product details -->
+            <div class="col-md-6">
+                <h2 class="text-black">@Model.Name</h2>
+                <p>@Model.Description</p>
+
+                <!-- Example discounted price display -->
+                <!-- Adjust or remove if no discount logic is used -->
+                @{
+                    // If you have product.OriginalPrice or similar, you can show discount
+                    var hasDiscount = false;
+                    var originalPrice = (decimal)0.0;
+                    if (originalPrice > Model.Price)
+                    {
+                        hasDiscount = true;
+                    }
+                }
+
+                <p>
+                    @if (hasDiscount)
+                    {
+                        <del>\@originalPrice.ToString("C")</del>
+                    }
+                    <strong class="text-primary h4">\@(Model.Price.ToString("C"))</strong>
+                </p>
+
+                <!-- Quantity form -->
+                <div class="mb-5" style="max-width: 220px;">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-primary js-btn-minus" type="button">&#8722;</button>
+                        </div>
+                        <input type="text" class="form-control text-center" value="1" placeholder=""
+                               aria-label="Quantity" aria-describedby="button-addon1" />
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-primary js-btn-plus" type="button">&#43;</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add to Cart Form -->
+                <form asp-controller="Cart" asp-action="AddItem" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="productId" value="@Model.Id" />
+                    <!-- Or you can dynamically fetch quantity from the above input if you wire it properly -->
+                    <input type="hidden" name="quantity" value="1" />
+                    <button type="submit"
+                            class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">
+                        Add To Cart
+                    </button>
+                </form>
+
+                <!-- Example Tabs (Ordering Info / Specifications) -->
+                <!-- If you have dynamic tab content for your product, insert it below -->
+                <div class="mt-5">
+                    <ul class="nav nav-pills mb-3 custom-pill" id="pills-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active"
+                               id="pills-home-tab"
+                               data-toggle="pill"
+                               href="#pills-home"
+                               role="tab"
+                               aria-controls="pills-home"
+                               aria-selected="true">
+                                Ordering Information
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               id="pills-profile-tab"
+                               data-toggle="pill"
+                               href="#pills-profile"
+                               role="tab"
+                               aria-controls="pills-profile"
+                               aria-selected="false">
+                                Specifications
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="pills-tabContent">
+                        <!-- Ordering Information Tab -->
+                        <div class="tab-pane fade show active"
+                             id="pills-home"
+                             role="tabpanel"
+                             aria-labelledby="pills-home-tab">
+                            <!-- Example table. If you have dynamic content, replace accordingly -->
+                            <table class="table custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Material</th>
+                                        <th>Description</th>
+                                        <th>Packaging</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">OTC022401</th>
+                                        <td>Pain Management: Acetaminophen PM Extra-Strength Caplets, 500 mg, 100/Bottle</td>
+                                        <td>1 BT</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">OTC022401</th>
+                                        <td>Pain Management: Acetaminophen PM Extra-Strength Caplets, 500 mg, 100/Bottle</td>
+                                        <td>144/CS</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">OTC022401</th>
+                                        <td>Pain Management: Acetaminophen PM Extra-Strength Caplets, 500 mg, 100/Bottle</td>
+                                        <td>1 EA</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Specifications Tab -->
+                        <div class="tab-pane fade"
+                             id="pills-profile"
+                             role="tabpanel"
+                             aria-labelledby="pills-profile-tab">
+                            <!-- Example table. If you have dynamic content, replace accordingly -->
+                            <table class="table custom-table">
+                                <tbody>
+                                    <tr>
+                                        <td>HPIS CODE</td>
+                                        <td class="bg-light">999_200_40_0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>HEALTHCARE PROVIDERS ONLY</td>
+                                        <td class="bg-light">No</td>
+                                    </tr>
+                                    <tr>
+                                        <td>LATEX FREE</td>
+                                        <td class="bg-light">Yes, No</td>
+                                    </tr>
+                                    <tr>
+                                        <td>MEDICATION ROUTE</td>
+                                        <td class="bg-light">Topical</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- .row -->
+    </div> <!-- .container -->
+</main>
+
+@section Scripts {
+    <script>
+        // Example +/- button for quantity
+        $(function() {
+            $('.js-btn-minus').on('click', function(e){
+                e.preventDefault();
+                var $input = $(this).closest('.input-group').find('input.form-control');
+                var value = parseInt($input.val()) || 0;
+                if(value > 1) {
+                    $input.val(value - 1);
+                }
+            });
+
+            $('.js-btn-plus').on('click', function(e){
+                e.preventDefault();
+                var $input = $(this).closest('.input-group').find('input.form-control');
+                var value = parseInt($input.val()) || 0;
+                $input.val(value + 1);
+            });
+        });
+    </script>
+}
+
+@section Styles {
+    <style>
+        .product-card {
+            position: relative; /* Ensures absolutely-positioned child is placed correctly */
+        }
+
+        .rx-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #dc3545;
+            color: white;
+            padding: 2px 8px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            border-radius: 3px;
+            z-index: 10;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+    </style>
+}

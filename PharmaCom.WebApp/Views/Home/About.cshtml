@@ -1,0 +1,193 @@
+﻿@* ========================================
+   ABOUT PAGE - Complete View
+   Location: Views/Home/About.cshtml
+   ======================================== *@
+
+@{
+    Layout = "~/Views/Shared/_MainThemeLayout.cshtml";
+    ViewData["Title"] = "About Us";
+    ViewBag.CurrentPage = "about";
+}
+
+@* Hero Section with Background Image *@
+@section Breadcrumb {
+    <div class="site-blocks-cover inner-page" style="background-image: url('/images/hero_1.jpg');">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 mx-auto align-self-center">
+                    <div class="text-center">
+                        <h1>About Us</h1>
+                        <p>Your trusted online pharmacy providing quality medications and healthcare products.</p>
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+}
+
+@* How We Started Section *@
+<div class="site-section bg-light custom-border-bottom" data-aos="fade">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-6">
+                <div class="block-16">
+                    <figure>
+                        <img src="~/images/bg_1.jpg" alt="PharmaCom Story" class="img-fluid rounded">
+                        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="play-button popup-vimeo">
+                            <span class="icon-play"></span>
+                        </a>
+                    </figure>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+                <div class="site-section-heading pt-3 mb-4">
+                    <h2 class="text-black">How We Started</h2>
+                </div>
+                <p>PharmaCom was founded with a simple mission: to make quality healthcare accessible to everyone. What started as a small community pharmacy has grown into a trusted online platform serving thousands of customers.</p>
+                <p>We believe that everyone deserves access to affordable, genuine medications and healthcare products. Our team of licensed pharmacists works tirelessly to ensure that every product meets the highest quality standards.</p>
+                <p>Today, we're proud to be one of the leading online pharmacies, offering a wide range of prescription and over-the-counter medications, wellness products, and health supplements.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* We Are Trusted Section *@
+<div class="site-section bg-light custom-border-bottom" data-aos="fade">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-6 order-md-2">
+                <div class="block-16">
+                    <figure>
+                        <img src="~/images/hero_1.jpg" alt="Trust and Quality" class="img-fluid rounded">
+                        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="play-button popup-vimeo">
+                            <span class="icon-play"></span>
+                        </a>
+                    </figure>
+                </div>
+            </div>
+            <div class="col-md-5 mr-auto">
+                <div class="site-section-heading pt-3 mb-4">
+                    <h2 class="text-black">We Are Trusted Company</h2>
+                </div>
+                <p class="text-black">With over 10 years of experience in the pharmaceutical industry, PharmaCom has built a reputation for reliability, quality, and excellent customer service.</p>
+                <p class="text-black">All our products are sourced directly from licensed manufacturers and distributors. We maintain strict quality control measures and work only with FDA-approved suppliers.</p>
+                <p class="text-black">Our licensed pharmacists are available to answer your questions and provide personalized healthcare advice. We're committed to your health and wellbeing.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Why Choose Us Section *@
+<div class="site-section site-section-sm site-blocks-1 border-0" data-aos="fade">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="">
+                <div class="icon mr-4 align-self-start">
+                    <span class="icon-truck text-primary"></span>
+                </div>
+                <div class="text">
+                    <h2>Free Shipping</h2>
+                    <p>Enjoy free shipping on all orders over $50. We deliver nationwide with secure packaging to ensure your products arrive safely.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="icon mr-4 align-self-start">
+                    <span class="icon-refresh2 text-primary"></span>
+                </div>
+                <div class="text">
+                    <h2>Easy Returns</h2>
+                    <p>Not satisfied? We offer hassle-free returns within 30 days. Your satisfaction is our priority, and we stand behind every product we sell.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="icon mr-4 align-self-start">
+                    <span class="icon-help text-primary"></span>
+                </div>
+                <div class="text">
+                    <h2>24/7 Customer Support</h2>
+                    <p>Our licensed pharmacists and customer service team are available around the clock to answer your questions and provide expert advice.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* The Team Section *@
+<div class="site-section bg-light custom-border-bottom" data-aos="fade">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-7 site-section-heading text-center pt-4">
+                <h2>Meet Our Team</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-3 mb-5">
+                <div class="block-38 text-center">
+                    <div class="block-38-img">
+                        <div class="block-38-header">
+                            <img src="~/images/person_1.jpg" alt="Elizabeth Graham" class="mb-4">
+                            <h3 class="block-38-heading h4">Dr. Elizabeth Graham</h3>
+                            <p class="block-38-subheading">CEO / Chief Pharmacist</p>
+                        </div>
+                        <div class="block-38-body">
+                            <p>With over 15 years of pharmaceutical experience, Dr. Graham leads our team with a passion for accessible healthcare.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-5">
+                <div class="block-38 text-center">
+                    <div class="block-38-img">
+                        <div class="block-38-header">
+                            <img src="~/images/person_2.jpg" alt="Jennifer Greive" class="mb-4">
+                            <h3 class="block-38-heading h4">Jennifer Greive</h3>
+                            <p class="block-38-subheading">Co-Founder / Operations</p>
+                        </div>
+                        <div class="block-38-body">
+                            <p>Jennifer ensures smooth operations and maintains our commitment to quality and customer satisfaction.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-5">
+                <div class="block-38 text-center">
+                    <div class="block-38-img">
+                        <div class="block-38-header">
+                            <img src="~/images/person_3.jpg" alt="Patrick Marx" class="mb-4">
+                            <h3 class="block-38-heading h4">Dr. Patrick Marx</h3>
+                            <p class="block-38-subheading">Lead Pharmacist</p>
+                        </div>
+                        <div class="block-38-body">
+                            <p>Dr. Marx leads our pharmaceutical team, ensuring all medications meet the highest safety standards.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-5">
+                <div class="block-38 text-center">
+                    <div class="block-38-img">
+                        <div class="block-38-header">
+                            <img src="~/images/person_4.jpg" alt="Mike Coolbert" class="mb-4">
+                            <h3 class="block-38-heading h4">Mike Coolbert</h3>
+                            <p class="block-38-subheading">Customer Support Manager</p>
+                        </div>
+                        <div class="block-38-body">
+                            <p>Mike and his team provide exceptional 24/7 customer support to assist with all your healthcare needs.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Initialize AOS animations
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+    </script>
+}

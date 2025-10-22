@@ -1,0 +1,250 @@
+﻿@* ========================================
+   CONTACT PAGE - Complete View
+   Location: Views/Home/Contact.cshtml
+   ======================================== *@
+
+@{
+    Layout = "~/Views/Shared/_MainThemeLayout.cshtml";
+    ViewData["Title"] = "Contact Us";
+    ViewBag.CurrentPage = "contact";
+}
+
+@* Breadcrumb *@
+@section Breadcrumb {
+    <div class="bg-light py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mb-0">
+                    <a asp-controller="Home" asp-action="Index">Home</a>
+                    <span class="mx-2 mb-0">/</span>
+                    <strong class="text-black">Contact</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@* Contact Form Section *@
+<div class="site-section">
+    <div class="container">
+
+        @* Success/Error Messages *@
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Success!</strong> @TempData["SuccessMessage"]
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error!</strong> @TempData["ErrorMessage"]
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="h3 mb-5 text-black">Get In Touch</h2>
+            </div>
+            <div class="col-md-12">
+                <form asp-controller="Home" asp-action="Contact" method="post">
+                    <div class="p-3 p-lg-5 border">
+                        <div class="form-group row mb-3">
+                            <div class="col-md-6">
+                                <label for="firstName" class="text-black">
+                                    First Name <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="lastName" class="text-black">
+                                    Last Name <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-3">
+                            <div class="col-md-12">
+                                <label for="email" class="text-black">
+                                    Email <span class="text-danger">*</span>
+                                </label>
+                                <input type="email" class="form-control" id="email" name="email" @* placeholder="your.email@example.com" *@ required>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-3">
+                            <div class="col-md-12">
+                                <label for="phone" class="text-black">Phone Number</label>
+                                <input type="tel" class="form-control" id="phone" name="phone" @* placeholder="+1 (555) 123-4567" *@>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-3">
+                            <div class="col-md-12">
+                                <label for="subject" class="text-black">Subject</label>
+                                <input type="text" class="form-control" id="subject" name="subject" @* placeholder="How can we help you?" *@>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-4">
+                            <div class="col-md-12">
+                                <label for="message" class="text-black">
+                                    Message <span class="text-danger">*</span>
+                                </label>
+                                <textarea name="message" id="message" cols="30" rows="7" class="form-control" @* placeholder="Write your message here..." *@ required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-12 d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary btn-lg btn-block w-100 text-dark">
+                                    @* <span class="icon-envelope mr-2"></span>  *@Send Message
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Contact Information Cards *@
+@* <div class="site-section bg-light">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-12 text-center">
+                <h2 class="text-black mb-4">Our Locations</h2>
+                <p class="text-muted">Visit us at any of our locations or reach out through any of these channels.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="p-4 bg-white rounded shadow-sm h-100">
+                    <div class="mb-3">
+                        <span class="icon-location-pin text-primary" style="font-size: 2rem;"></span>
+                    </div>
+                    <h5 class="text-black mb-3">Main Office</h5>
+                    <p class="mb-2"><strong>Address:</strong></p>
+                    <p class="text-muted">203 Fake St. Mountain View<br>San Francisco, California, USA</p>
+                    <p class="mb-2 mt-3"><strong>Hours:</strong></p>
+                    <p class="text-muted mb-0">Mon-Fri: 9:00 AM - 6:00 PM<br>Sat-Sun: 10:00 AM - 4:00 PM</p>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="p-4 bg-white rounded shadow-sm h-100">
+                    <div class="mb-3">
+                        <span class="icon-phone text-primary" style="font-size: 2rem;"></span>
+                    </div>
+                    <h5 class="text-black mb-3">Phone Support</h5>
+                    <p class="mb-2"><strong>General Inquiries:</strong></p>
+                    <p class="text-muted"><a href="tel:+23923929210">+2 392 3929 210</a></p>
+                    <p class="mb-2 mt-3"><strong>Prescription Orders:</strong></p>
+                    <p class="text-muted"><a href="tel:+23923929211">+2 392 3929 211</a></p>
+                    <p class="mb-2 mt-3"><strong>Emergency Line:</strong></p>
+                    <p class="text-muted mb-0"><a href="tel:+23923929212">+2 392 3929 212</a><br><small>(24/7 Available)</small></p>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="p-4 bg-white rounded shadow-sm h-100">
+                    <div class="mb-3">
+                        <span class="icon-envelope text-primary" style="font-size: 2rem;"></span>
+                    </div>
+                    <h5 class="text-black mb-3">Email Support</h5>
+                    <p class="mb-2"><strong>General:</strong></p>
+                    <p class="text-muted"><a href="mailto:info@pharmacom.com">info@pharmacom.com</a></p>
+                    <p class="mb-2 mt-3"><strong>Orders:</strong></p>
+                    <p class="text-muted"><a href="mailto:orders@pharmacom.com">orders@pharmacom.com</a></p>
+                    <p class="mb-2 mt-3"><strong>Support:</strong></p>
+                    <p class="text-muted mb-0"><a href="mailto:support@pharmacom.com">support@pharmacom.com</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> *@
+
+@* FAQ Section *@
+@* <div class="site-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h2 class="text-black">Frequently Asked Questions</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <div class="border p-4 rounded">
+                    <h5 class="text-black mb-3">
+                        <span class="icon-question-circle text-primary mr-2"></span>
+                        How do I track my order?
+                    </h5>
+                    <p class="text-muted mb-0">After placing your order, you'll receive a tracking number via email. You can also track your order by logging into your account and visiting the "My Orders" section.</p>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="border p-4 rounded">
+                    <h5 class="text-black mb-3">
+                        <span class="icon-question-circle text-primary mr-2"></span>
+                        Do you accept insurance?
+                    </h5>
+                    <p class="text-muted mb-0">Yes, we accept most major insurance plans. Please contact our customer support team with your insurance details for verification.</p>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="border p-4 rounded">
+                    <h5 class="text-black mb-3">
+                        <span class="icon-question-circle text-primary mr-2"></span>
+                        How long does shipping take?
+                    </h5>
+                    <p class="text-muted mb-0">Standard shipping takes 3-5 business days. Express shipping (1-2 days) is available for an additional fee. Free shipping on orders over $50.</p>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="border p-4 rounded">
+                    <h5 class="text-black mb-3">
+                        <span class="icon-question-circle text-primary mr-2"></span>
+                        Can I cancel or modify my order?
+                    </h5>
+                    <p class="text-muted mb-0">Orders can be cancelled or modified within 1 hour of placement. Please contact our support team immediately if you need to make changes.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12 text-center">
+                <p class="text-muted">
+                    Can't find what you're looking for?
+                    <a asp-controller="Home" asp-action="Contact" class="text-primary">Contact us</a>
+                    and we'll be happy to help!
+                </p>
+            </div>
+        </div>
+    </div>
+</div> *@
+
+@section Scripts {
+    <script>
+        // Auto-hide alerts after 5 seconds
+        setTimeout(function() {
+            $('.alert').fadeOut('slow');
+        }, 5000);
+
+        // Form validation
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+}
