@@ -148,12 +148,18 @@
                         </a>
 
                         <!-- Cart Icon with Dynamic Count -->
-                        <a asp-controller="Cart" asp-action="Index" class="icons-btn d-inline-block bag">
+                        @*<a asp-controller="Cart" asp-action="Index" class="icons-btn d-inline-block bag">
                             <span class="icon-shopping-bag"></span>
                             @if (cartItemCount > 0)
                             {
                                 <span class="number">@cartItemCount</span>
                             }
+                        </a>
+                        *@
+
+                        <a asp-controller="Cart" asp-action="Index" class="icons-btn d-inline-block bag">
+                            <span class="icon-shopping-bag"></span>
+                            <span class="number" id="cart-count">0</span>
                         </a>
 
                         <!-- User Account Icon -->
@@ -257,6 +263,20 @@
     <script src="~/js/jquery.magnific-popup.min.js"></script>
     <script src="~/js/aos.js"></script>
     <script src="~/js/main.js"></script>
+    <script>
+        // Update cart count on page load
+        $(document).ready(function() {
+            updateCartCount();
+        });
+
+        function updateCartCount() {
+            $.get('@Url.Action("GetCartCount", "Cart")', function(response) {
+                if (response.success) {
+                    $('#cart-count').text(response.count);
+                }
+            });
+        }
+    </script>
 
     @* Page-specific scripts *@
     @RenderSection("Scripts", required: false)

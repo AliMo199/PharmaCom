@@ -1,210 +1,157 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PharmaCom.Domain.Models;
 using PharmaCom.Service.Interfaces;
-using System.Security.Claims;
 
-namespace PharmaCom.API.Controllers
+namespace PharmaCom.WebApp.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    [Authorize]
-    public class CartController : ControllerBase
+    //[Authorize]
+    public class CartController : Controller
     {
         private readonly ICartService _cartService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public CartController(ICartService cartService)
+        public CartController(ICartService cartService, UserManager<ApplicationUser> userManager)
         {
             _cartService = cartService;
+            _userManager = userManager;
         }
 
-
-
-        [HttpGet]
+        // GET: Cart/Index
         public async Task<IActionResult> Index()
         {
             try
             {
-                var userId = GetCurrentUserId();
-                var cart = await _cartService.GetOrCreateUserCartAsync(userId);
-                return Ok(new { success = true, data = cart });
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(new { success = false, message = ex.Message });
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return RedirectToPage("/Account/Login", new { area = "Identity" });
+                }
+
+                var cart = await _cartService.GetOrCreateUserCartAsync(user.Id);
+                var cartTotal = await _cartService.CalculateCartTotalAsync(user.Id);
+
+                ViewBag.CartTotal = cartTotal;
+                ViewBag.CurrentPage = "cart";
+
+                return View(cart);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { success = false, message = $"Internal server error: {ex.Message}" });
+                TempData["ErrorMessage"] = "Error loading cart: " + ex.Message;
+                return View(new Cart { Items = new List<CartItem>() });
             }
         }
 
-        [HttpPost("add")]
-        public async Task<IActionResult> AddToCart([FromBody] AddToCartRequest request)
+        // POST: Cart/AddItem
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddItem(int productId, int quantity = 1)
         {
             try
             {
-                var userId = GetCurrentUserId();
-                var cartItem = await _cartService.AddToCartAsync(userId, request.ProductId, request.Quantity);
-                return Ok(new { success = true, message = "Product added to cart successfully", data = cartItem });
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(new { success = false, message = ex.Message });
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    TempData["ErrorMessage"] = "Please login to add items to cart.";
+                    return RedirectToPage("/Account/Login", new { area = "Identity" });
+                }
+
+                await _cartService.AddToCartAsync(user.Id, productId, quantity);
+                TempData["SuccessMessage"] = "Product added to cart successfully!";
+
+                // Return to previous page or store
+                var returnUrl = Request.Headers["Referer"].ToString();
+                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
+
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { success = false, message = $"Internal server error: {ex.Message}" });
+                TempData["ErrorMessage"] = "Error adding item to cart: " + ex.Message;
+                return RedirectToAction("Store", "Home");
             }
         }
 
-        [HttpPost("update")]
-        public async Task<IActionResult> UpdateCartItem([FromBody] UpdateCartItemRequest request)
+        // POST: Cart/UpdateQuantity
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateQuantity(int productId, int quantity)
         {
             try
             {
-                var userId = GetCurrentUserId();
-                var cartItem = await _cartService.UpdateCartItemAsync(userId, request.ProductId, request.Quantity);
-                if (cartItem == null)
-                    return Ok(new { success = true, message = "Item removed from cart" });
-                return Ok(new { success = true, message = "Cart item updated successfully", data = cartItem });
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(new { success = false, message = ex.Message });
-            }
-            catch (InvalidOperationException ex)
-            {
-                return NotFound(new { success = false, message = ex.Message });
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return Json(new { success = false, message = "User not authenticated" });
+                }
+
+                await _cartService.UpdateCartItemAsync(user.Id, productId, quantity);
+                var cartTotal = await _cartService.CalculateCartTotalAsync(user.Id);
+
+                return Json(new { success = true, cartTotal = cartTotal.ToString("F2") });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { success = false, message = $"Internal server error: {ex.Message}" });
+                return Json(new { success = false, message = ex.Message });
             }
         }
 
-        [HttpDelete("remove/{productId}")]
-        public async Task<IActionResult> RemoveFromCart(int productId)
+        // POST: Cart/RemoveItem
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemoveItem(int productId)
         {
             try
             {
-                var userId = GetCurrentUserId();
-                await _cartService.RemoveFromCartAsync(userId, productId);
-                return Ok(new { success = true, message = "Product removed from cart successfully" });
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(new { success = false, message = ex.Message });
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return Json(new { success = false, message = "User not authenticated" });
+                }
+
+                await _cartService.RemoveFromCartAsync(user.Id, productId);
+                var cartTotal = await _cartService.CalculateCartTotalAsync(user.Id);
+                var itemCount = await _cartService.GetCartItemsCountAsync(user.Id);
+
+                TempData["SuccessMessage"] = "Item removed from cart.";
+
+                return Json(new { success = true, cartTotal = cartTotal.ToString("F2"), itemCount = itemCount });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { success = false, message = $"Internal server error: {ex.Message}" });
+                return Json(new { success = false, message = ex.Message });
             }
         }
 
-        [HttpDelete("clear")]
-        public async Task<IActionResult> ClearCart()
+        // POST: Cart/Clear
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Clear()
         {
             try
             {
-                var userId = GetCurrentUserId();
-                await _cartService.ClearCartAsync(userId);
-                return Ok(new { success = true, message = "Cart cleared successfully" });
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(new { success = false, message = ex.Message });
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    TempData["ErrorMessage"] = "User not authenticated";
+                    return RedirectToAction("Index");
+                }
+
+                await _cartService.ClearCartAsync(user.Id);
+                TempData["SuccessMessage"] = "Cart cleared successfully.";
+
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { success = false, message = $"Internal server error: {ex.Message}" });
+                TempData["ErrorMessage"] = "Error clearing cart: " + ex.Message;
+                return RedirectToAction("Index");
             }
-        }
-
-        [HttpGet("total")]
-        public async Task<IActionResult> GetCartTotal()
-        {
-            try
-            {
-                var userId = GetCurrentUserId();
-                var total = await _cartService.CalculateCartTotalAsync(userId);
-                return Ok(new { success = true, data = new { total } });
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(new { success = false, message = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { success = false, message = $"Internal server error: {ex.Message}" });
-            }
-        }
-
-        [HttpGet("count")]
-        public async Task<IActionResult> GetCartItemsCount()
-        {
-            try
-            {
-                var userId = GetCurrentUserId();
-                var count = await _cartService.GetCartItemsCountAsync(userId);
-                return Ok(new { success = true, data = new { count } });
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(new { success = false, message = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { success = false, message = $"Internal server error: {ex.Message}" });
-            }
-        }
-
-        [HttpGet("items")]
-        public async Task<IActionResult> GetCartItems()
-        {
-            try
-            {
-                var userId = GetCurrentUserId();
-                var cart = await _cartService.GetOrCreateUserCartAsync(userId);
-
-                if (cart == null || cart.Items == null || !cart.Items.Any())
-                    return Ok(new { success = true, data = new List<CartItem>() });
-
-                return Ok(new { success = true, data = cart.Items });
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(new { success = false, message = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { success = false, message = $"Internal server error: {ex.Message}" });
-            }
-        }
-
-
-        private string GetCurrentUserId()
-        {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (string.IsNullOrEmpty(userId))
-            {
-                throw new UnauthorizedAccessException("User is not authenticated");
-            }
-            return userId;
-        }
-
-
-
-        public class AddToCartRequest
-        {
-            public int ProductId { get; set; }
-            public int Quantity { get; set; }
-        }
-
-        public class UpdateCartItemRequest
-        {
-            public int ProductId { get; set; }
-            public int Quantity { get; set; }
         }
     }
 }

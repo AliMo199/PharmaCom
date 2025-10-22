@@ -682,7 +682,7 @@ a {
     .site-blocks-cover, .site-blocks-cover > .container > .row {
         min-height: 700px;
         height: calc(100vh);
-        z-index: -1; /*ADDED*/
+        /*z-index: -1;*/ /*ADDED*/
     }
 
         .site-blocks-cover.inner-page, .site-blocks-cover.inner-page .row {
@@ -1464,6 +1464,8 @@ a {
 .banner-wrap {
     background: #74d12b;
     border-radius: 4px;
+    position:relative;
+    z-index: 1000;
 }
 
     .banner-wrap a {

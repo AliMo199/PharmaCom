@@ -795,7 +795,6 @@ D:\Depi.Net\GraduationProject\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\Pharma
 D:\Depi.Net\GraduationProject\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\PharmaCom.WebApp.genruntimeconfig.cache
 D:\Depi.Net\GraduationProject\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\ref\PharmaCom.WebApp.dll
 D:\Depi.Net\GraduationProject\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\compressed\pntgaucg0y-w7613i5h5i.gz
-D:\Depi.Net\GraduationProject\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\compressed\c7qv7qa22y-kgirmumiv4.gz
 D:\Depi.Net\GraduationProject\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\compressed\w2yz7kcd5a-3rbzn7h9s9.gz
 D:\Depi.Net\GraduationProject\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\compressed\8ixbz48wp4-dianigzjub.gz
 D:\Depi.Net\GraduationProject\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\compressed\9pwoht44zy-oxt8mejmyv.gz
@@ -803,3 +802,4 @@ D:\Depi.Net\GraduationProject\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\compre
 D:\Depi.Net\GraduationProject\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\compressed\xpp2w5zuij-bddd0fy4zi.gz
 D:\Depi.Net\GraduationProject\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\compressed\z1wq2mez9l-wxttjf59l2.gz
 D:\Depi.Net\GraduationProject\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\compressed\1a6oewwmmm-254jfvr8rh.gz
+D:\Depi.Net\GraduationProject\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\compressed\c7qv7qa22y-52nownqu9b.gz

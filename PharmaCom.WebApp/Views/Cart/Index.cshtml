@@ -1,0 +1,295 @@
+﻿@model PharmaCom.Domain.Models.Cart
+
+@{
+    Layout = "~/Views/Shared/_MainThemeLayout.cshtml";
+    ViewData["Title"] = "Shopping Cart";
+    ViewBag.CurrentPage = "cart";
+    decimal cartTotal = ViewBag.CartTotal ?? 0m;
+}
+
+@section Breadcrumb {
+    <div class="bg-light py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mb-0">
+                    <a asp-controller="Home" asp-action="Index">Home</a>
+                    <span class="mx-2 mb-0">/</span>
+                    <strong class="text-black">Cart</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="site-section">
+    <div class="container">
+        @if (Model?.Items != null && Model.Items.Any())
+        {
+            <div class="row mb-5">
+                <div class="col-md-12">
+                    <div class="site-blocks-table">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="product-thumbnail">Image</th>
+                                    <th class="product-name">Product</th>
+                                    <th class="product-price">Price</th>
+                                    <th class="product-quantity">Quantity</th>
+                                    <th class="product-total">Total</th>
+                                    <th class="product-remove">Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Items)
+                                {
+                                    var itemTotal = item.Product.Price * item.Quantity;
+                                    <tr data-product-id="@item.ProductId">
+                                        <td class="product-thumbnail">
+                                            <img src="@(item.Product.ImageURLString ?? "/images/product_placeholder.png")"
+                                                 alt="@item.Product.Name" class="img-fluid" style="max-width: 100px;">
+                                        </td>
+                                        <td class="product-name">
+                                            <h2 class="h5 text-black">
+                                                <a asp-controller="Home" asp-action="ShowProduct" asp-route-id="@item.ProductId">
+                                                    @item.Product.Name
+                                                </a>
+                                            </h2>
+                                            @if (item.Product.IsRxRequired)
+                                            {
+                                                <span class="badge badge-danger">Rx Required</span>
+                                            }
+                                        </td>
+                                        <td class="item-price">$@item.Product.Price.ToString("F2")</td>
+                                        <td>
+                                            <div class="input-group mb-3" style="max-width: 120px;">
+                                                <div class="input-group-prepend">
+                                                    <button class="btn btn-outline-primary js-btn-minus" type="button"
+                                                            data-product-id="@item.ProductId">
+                                                        &minus;
+                                                    </button>
+                                                </div>
+                                                <input type="text" class="form-control text-center quantity-input"
+                                                       value="@item.Quantity" readonly
+                                                       data-product-id="@item.ProductId">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-outline-primary js-btn-plus" type="button"
+                                                            data-product-id="@item.ProductId">
+                                                        &plus;
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="item-total">$@itemTotal.ToString("F2")</td>
+                                        <td>
+                                            <button class="btn btn-primary height-auto btn-sm btn-remove"
+                                                    data-product-id="@item.ProductId">
+                                                X
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <a asp-controller="Home" asp-action="Store" class="btn btn-outline-primary btn-md btn-block">
+                                Continue Shopping
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <form asp-action="Clear" method="post" onsubmit="return confirm('Are you sure you want to clear your cart?');">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-outline-danger btn-md btn-block">
+                                    Clear Cart
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 pl-5">
+                    <div class="row justify-content-end">
+                        <div class="col-md-7">
+                            <div class="row">
+                                <div class="col-md-12 text-right border-bottom mb-5">
+                                    <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <span class="text-black">Subtotal</span>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <strong class="text-black" id="cart-subtotal">$@cartTotal.ToString("F2")</strong>
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-6">
+                                    <span class="text-black">Total</span>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <strong class="text-black" id="cart-total">$@cartTotal.ToString("F2")</strong>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <a asp-controller="Order" asp-action="Checkout" class="btn btn-primary btn-lg btn-block">
+                                        Proceed To Checkout
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-12 text-center py-5">
+                    <span class="icon-shopping-bag" style="font-size: 80px; color: #ccc;"></span>
+                    <h3 class="text-muted mt-3">Your cart is empty</h3>
+                    <p>Add some products to get started!</p>
+                    <a asp-controller="Home" asp-action="Store" class="btn btn-primary mt-3 px-5">
+                        Start Shopping
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section PromoBanner {
+    <div class="site-section bg-secondary bg-image" style="background-image: url('/images/bg_2.jpg');">
+        <div class="container">
+            <div class="row align-items-stretch">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <a href="#" class="banner-1 h-100 d-flex" style="background-image: url('/images/bg_1.jpg');">
+                        <div class="banner-1-inner align-self-center">
+                            <h2>Pharma Products</h2>
+                            <p>Quality medications you can trust.</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <a href="#" class="banner-1 h-100 d-flex justify-content-end" style="background-image: url('/images/bg_2.jpg');">
+                        <div class="banner-1-inner ml-auto align-self-center">
+                            <h2>Rated by Experts</h2>
+                            <p>Trusted by healthcare professionals.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Plus button
+            $('.js-btn-plus').on('click', function (e) {
+                e.preventDefault();
+                var productId = $(this).data('product-id');
+                var $input = $('.quantity-input[data-product-id="' + productId + '"]');
+                var currentQty = parseInt($input.val()) || 0;
+                updateQuantity(productId, currentQty + 1);
+            });
+
+            // Minus button
+            $('.js-btn-minus').on('click', function (e) {
+                e.preventDefault();
+                var productId = $(this).data('product-id');
+                var $input = $('.quantity-input[data-product-id="' + productId + '"]');
+                var currentQty = parseInt($input.val()) || 0;
+                if (currentQty > 1) {
+                    updateQuantity(productId, currentQty - 1);
+                }
+            });
+
+            // Remove button
+            $('.btn-remove').on('click', function (e) {
+                e.preventDefault();
+                var productId = $(this).data('product-id');
+                if (confirm('Remove this item from cart?')) {
+                    removeItem(productId);
+                }
+            });
+
+            function updateQuantity(productId, quantity) {
+                $.ajax({
+                    url: '@Url.Action("UpdateQuantity", "Cart")',
+                    type: 'POST',
+                    data: {
+                        productId: productId,
+                        quantity: quantity,
+                        __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            // Update input
+                            $('.quantity-input[data-product-id="' + productId + '"]').val(quantity);
+
+                            // Update item total
+                            var $row = $('tr[data-product-id="' + productId + '"]');
+                            var price = parseFloat($row.find('.item-price').text().replace('$', ''));
+                            var itemTotal = price * quantity;
+                            $row.find('.item-total').text('$' + itemTotal.toFixed(2));
+
+                            // Update cart total
+                            $('#cart-subtotal').text('$' + response.cartTotal);
+                            $('#cart-total').text('$' + response.cartTotal);
+                        } else {
+                            alert('Error updating quantity: ' + response.message);
+                        }
+                    },
+                    error: function () {
+                        alert('Error updating cart. Please try again.');
+                    }
+                });
+            }
+
+            function removeItem(productId) {
+                $.ajax({
+                    url: '@Url.Action("RemoveItem", "Cart")',
+                    type: 'POST',
+                    data: {
+                        productId: productId,
+                        __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            // Remove row
+                            $('tr[data-product-id="' + productId + '"]').fadeOut(300, function() {
+                                $(this).remove();
+
+                                // Update cart total
+                                $('#cart-subtotal').text('$' + response.cartTotal);
+                                $('#cart-total').text('$' + response.cartTotal);
+
+                                // Update navbar count
+                                if (response.itemCount === 0) {
+                                    location.reload(); // Reload to show empty cart message
+                                } else {
+                                    $('.bag .number').text(response.itemCount);
+                                }
+                            });
+                        } else {
+                            alert('Error removing item: ' + response.message);
+                        }
+                    },
+                    error: function () {
+                        alert('Error removing item. Please try again.');
+                    }
+                });
+            }
+        });
+    </script>
+}

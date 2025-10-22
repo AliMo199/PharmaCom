@@ -204,6 +204,26 @@
                 $input.val(value + 1);
             });
         });
+
+
+        // for cart testing
+                $('.js-btn-minus').on('click', function(e){
+            e.preventDefault();
+            var $input = $(this).closest('.input-group').find('input.form-control');
+            var value = parseInt($input.val()) || 0;
+            if(value > 1) {
+                $input.val(value - 1);
+                $('.cart-quantity-value').val(value - 1); // Update hidden input
+            }
+        });
+
+        $('.js-btn-plus').on('click', function(e){
+            e.preventDefault();
+            var $input = $(this).closest('.input-group').find('input.form-control');
+            var value = parseInt($input.val()) || 0;
+            $input.val(value + 1);
+            $('.cart-quantity-value').val(value + 1); // Update hidden input
+        });
     </script>
 }
 
