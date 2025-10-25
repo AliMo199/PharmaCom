@@ -1,0 +1,340 @@
+﻿@model DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "_DashboardLayout";
+}
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Dashboard</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Dashboard</li>
+    </ol>
+
+    <!-- Date Range Filter -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <form id="dateRangeForm" class="row g-3 align-items-center">
+                <div class="col-auto">
+                    <label for="startDate" class="col-form-label">From:</label>
+                    <input type="date" id="startDate" class="form-control" />
+                </div>
+                <div class="col-auto">
+                    <label for="endDate" class="col-form-label">To:</label>
+                    <input type="date" id="endDate" class="form-control" />
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mt-4">Apply</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Summary Cards Row -->
+    <div class="row">
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-primary text-white mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h5 class="card-title">Orders</h5>
+                            <h2 class="mb-0">@Model.OrderStatistics.TotalOrders</h2>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-shopping-cart fa-3x"></i>
+                        </div>
+                    </div>
+                    <div class="mt-3 small">
+                        <span class="fw-bold">Today:</span> @Model.OrderStatistics.OrdersToday
+                    </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="/Dashboard/OrderManagement">View Details</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-success text-white mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h5 class="card-title">Revenue</h5>
+                            <h2 class="mb-0">$@Model.SalesStatistics.TotalRevenue.ToString("N2")</h2>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-dollar-sign fa-3x"></i>
+                        </div>
+                    </div>
+                    <div class="mt-3 small">
+                        <span class="fw-bold">Today:</span> $@Model.SalesStatistics.RevenueToday.ToString("N2")
+                    </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="/Dashboard/SalesReport">View Details</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-warning text-white mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h5 class="card-title">Products</h5>
+                            <h2 class="mb-0">@Model.ProductStatistics.TotalProducts</h2>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-pills fa-3x"></i>
+                        </div>
+                    </div>
+                    <div class="mt-3 small">
+                        <span class="fw-bold">Rx Required:</span> @Model.ProductStatistics.RxRequiredProducts
+                    </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="/Dashboard/ProductManagement">View Details</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-danger text-white mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h5 class="card-title">Customers</h5>
+                            <h2 class="mb-0">@Model.CustomerStatistics.TotalCustomers</h2>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-users fa-3x"></i>
+                        </div>
+                    </div>
+                    <div class="mt-3 small">
+                        <span class="fw-bold">This Month:</span> @Model.CustomerStatistics.NewCustomersThisMonth
+                    </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="#">View Details</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="row">
+        <!-- Sales Trend Chart -->
+        <div class="col-xl-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-area me-1"></i>
+                    Revenue Trend
+                </div>
+                <div class="card-body">
+                    <canvas id="revenueTrendChart" width="100%" height="40"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Categories Chart -->
+        <div class="col-xl-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-pie me-1"></i>
+                    Products by Category
+                </div>
+                <div class="card-body">
+                    <canvas id="productsByCategoryChart" width="100%" height="40"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Recent Orders -->
+        <div class="col-xl-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Recent Orders
+                </div>
+                <div class="card-body">
+                    <table id="recentOrdersTable" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var order in Model.RecentOrders)
+                            {
+                                <tr>
+                                    <td>@order.OrderId</td>
+                                    <td>@order.CustomerName</td>
+                                    <td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
+                                    <td>
+                                        <span class="badge @(order.Status == "Completed" ? "bg-success" :
+                                                                                                         order.Status == "Pending" ? "bg-warning" :
+                                                                                                         order.Status == "Rejected" ? "bg-danger" : "bg-info")">
+                                        @order.Status
+                                    </span>
+                                </td>
+                                <td>$@order.TotalAmount.ToString("N2")</td>
+                            </tr>
+                                                        }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <a href="/Dashboard/OrderManagement" class="btn btn-sm btn-primary">View All Orders</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Selling Products -->
+        <div class="col-xl-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-trophy me-1"></i>
+                    Top Selling Products
+                </div>
+                <div class="card-body">
+                    <table id="topProductsTable" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Category</th>
+                                <th>Quantity</th>
+                                <th>Revenue</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var product in Model.TopSellingProducts)
+                            {
+                                <tr>
+                                    <td>@product.Name</td>
+                                    <td>@product.Category</td>
+                                    <td>@product.Quantity</td>
+                                    <td>$@product.Revenue.ToString("N2")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <a href="/Dashboard/ProductManagement" class="btn btn-sm btn-primary">View All Products</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Set default date range
+        $(document).ready(function() {
+            const endDate = new Date();
+            const startDate = new Date();
+            startDate.setDate(endDate.getDate() - 30);
+
+            $('#startDate').val(startDate.toISOString().split('T')[0]);
+            $('#endDate').val(endDate.toISOString().split('T')[0]);
+
+            // Initialize charts
+            initializeCharts();
+        });
+
+        function initializeCharts() {
+            // Revenue Trend Chart
+            const revenueTrendData = @Json.Serialize(Model.SalesStatistics.RevenueTrend);
+            const labels = Object.keys(revenueTrendData);
+            const values = Object.values(revenueTrendData);
+
+            const revenueTrendCtx = document.getElementById('revenueTrendChart');
+            new Chart(revenueTrendCtx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Daily Revenue',
+                        data: values,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 2,
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Products by Category Chart
+            const categoryData = @Json.Serialize(Model.ProductStatistics.ProductsByCategory);
+            const categoryLabels = Object.keys(categoryData);
+            const categoryValues = Object.values(categoryData);
+
+            const categoryCtx = document.getElementById('productsByCategoryChart');
+            new Chart(categoryCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: categoryLabels,
+                    datasets: [{
+                        data: categoryValues,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(153, 102, 255, 0.6)',
+                            'rgba(255, 159, 64, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Date range form submission
+        $('#dateRangeForm').on('submit', function(e) {
+            e.preventDefault();
+            const startDate = $('#startDate').val();
+            const endDate = $('#endDate').val();
+            window.location.href = `/Dashboard/Index?startDate=${startDate}&endDate=${endDate}`;
+        });
+    </script>
+}

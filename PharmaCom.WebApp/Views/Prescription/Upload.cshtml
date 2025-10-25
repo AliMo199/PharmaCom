@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Upload Prescription";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Upload Prescription</h3>
+                </div>
+                <div class="card-body">
+
+                    <form method="post" enctype="multipart/form-data" asp-controller="Prescription" asp-action="Upload">
+                        <input type="hidden" name="orderId" value="@ViewBag.OrderId" />
+
+                        <div class="mb-3">
+                            <label for="file" class="form-label">Select Prescription File</label>
+                            <input type="file" class="form-control" id="file" name="file" accept=".jpg,.jpeg,.png,.pdf" required>
+                            <div class="form-text">
+                                Upload a clear image or PDF of your prescription. Accepted formats: JPG, PNG, PDF.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="alert alert-info">
+                                <strong>Important:</strong>
+                                <ul>
+                                    <li>Your prescription must be clearly visible and legible</li>
+                                    <li>All prescription details must be visible including doctor's name, date, and medication details</li>
+                                    <li>Prescriptions will be reviewed by our pharmacists before order approval</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="@Url.Action("Details", "Order", new { id = ViewBag.OrderId })" class="btn btn-secondary me-md-2">Cancel</a>
+                            <button type="submit" class="btn btn-primary">Upload Prescription</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

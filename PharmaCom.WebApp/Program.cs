@@ -21,27 +21,22 @@ namespace PharmaCom.WebApp
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddDbContext<ApplicationDBContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("cs")));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("ali")));
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDBContext>() // or your DbContext
+            .AddDefaultTokenProviders();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<ICartService, CartService>();
             builder.Services.AddScoped<IOrderService, OrderService>();
-            builder.Services.AddScoped<IProductService, PharmaCom.Service.Implementation.ProductService>();
+            builder.Services.AddScoped<IDashboardService, DashboardService>();
+            builder.Services.AddScoped<IProductService, Service.Implementation.ProductService>();
+            builder.Services.AddScoped<IPrescriptionService, PrescriptionService>();
+            builder.Services.AddScoped<IEmailService, EmailService>();
+            builder.Configuration.GetSection("Email");
             var stripeSettings = builder.Configuration.GetSection("Stripe");
             StripeConfiguration.ApiKey = stripeSettings["SecretKey"];
 
-            // Register Identity services
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDBContext>()
-                .AddDefaultTokenProviders();
-
             var app = builder.Build();
-
-            // Seed data directly on startup (runs every time, but seeder checks for existing data)
-            using (var scope = app.Services.CreateScope())
-            {
-                var context = scope.ServiceProvider.GetRequiredService<ApplicationDBContext>();
-                DataSeeder.Seed(context);
-            }
 
             // Configure the HTTP request pipeline. 
             if (!app.Environment.IsDevelopment())
@@ -49,6 +44,12 @@ namespace PharmaCom.WebApp
                 app.UseExceptionHandler("/Home/Error");
                
                 app.UseHsts();
+            }
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<ApplicationDBContext>();
+                DataSeeder.Seed(context);
             }
 
             app.UseHttpsRedirection();

@@ -89,6 +89,17 @@ namespace PharmaCom.DataInfrastructure.Data
                 entity.Property(e => e.Status).IsRequired().HasMaxLength(50);
                 entity.Property(e => e.TotalAmount).HasColumnType("decimal(18,2)").IsRequired();
 
+                // Explicitly map the ApplicationUserId column
+                entity.Property(e => e.ApplicationUserId).HasColumnName("ApplicationUserId");
+
+                // Configure the relationship with very explicit mapping
+                entity.HasOne(e => e.ApplicationUser)
+                    .WithMany()
+                    .HasForeignKey(e => e.ApplicationUserId)
+                    .HasConstraintName("FK_Orders_AspNetUsers_ApplicationUserId")
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                // Other configurations remain the same
                 entity.HasOne(e => e.Address)
                     .WithMany()
                     .HasForeignKey(e => e.AddressId)
@@ -122,18 +133,6 @@ namespace PharmaCom.DataInfrastructure.Data
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
-            builder.Entity<Prescription>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.Id).ValueGeneratedOnAdd().UseIdentityColumn(1, 1);
-                entity.Property(e => e.FileUrl).IsRequired().HasMaxLength(500);
-
-                entity.HasOne(e => e.Order)
-                    .WithMany(o => o.Prescription)
-                    .HasForeignKey(e => e.OrderId)
-                    .OnDelete(DeleteBehavior.Cascade);
-            });
-
             builder.Entity<Address>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -141,6 +140,20 @@ namespace PharmaCom.DataInfrastructure.Data
                 entity.Property(e => e.Line1).IsRequired().HasMaxLength(500);
                 entity.Property(e => e.City).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.Governorate).IsRequired().HasMaxLength(100);
+            });
+            builder.Entity<Prescription>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).ValueGeneratedOnAdd().UseIdentityColumn(1, 1);
+                entity.Property(e => e.FileUrl).IsRequired().HasMaxLength(500);
+                entity.Property(e => e.Status).IsRequired().HasMaxLength(50);
+                entity.Property(e => e.UploadDate).IsRequired();
+                entity.Property(e => e.Comments).HasMaxLength(2000);
+
+                entity.HasOne(e => e.Order)
+                    .WithMany(o => o.Prescription)
+                    .HasForeignKey(e => e.OrderId)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
         }
     }

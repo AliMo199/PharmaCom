@@ -13,11 +13,13 @@ namespace PharmaCom.WebApp.Controllers
     {
         private readonly IOrderService _orderService;
         private readonly ICartService _cartService;
+        private readonly IPrescriptionService _prescriptionService;
 
-        public OrderController(IOrderService orderService, ICartService cartService)
+        public OrderController(IOrderService orderService, ICartService cartService, IPrescriptionService prescriptionService)
         {
             _orderService = orderService;
             _cartService = cartService;
+            _prescriptionService = prescriptionService;
         }
 
         // GET: /Order
@@ -46,6 +48,13 @@ namespace PharmaCom.WebApp.Controllers
                 return NotFound();
             }
 
+            // Get prescription if exists
+            if (orderFromDb.PrescriptionId.HasValue)
+            {
+                var prescription = await _prescriptionService.GetPrescriptionByIdAsync(orderFromDb.PrescriptionId.Value);
+                ViewBag.Prescription = prescription;
+            }
+
             var orderDetailViewModel = new OrderDetailViewModel
             {
                 Id = orderFromDb.Id,
@@ -64,7 +73,8 @@ namespace PharmaCom.WebApp.Controllers
                 {
                     ProductName = oi.Product.Name,
                     Quantity = oi.Quantity,
-                    Price = oi.Product.Price
+                    Price = oi.Product.Price,
+                    IsRxRequired = oi.Product.IsRxRequired
                 }).ToList()
             };
 

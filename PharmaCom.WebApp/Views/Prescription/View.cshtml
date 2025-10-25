@@ -1,0 +1,87 @@
+﻿@model PharmaCom.Domain.Models.Prescription
+@using System.IO
+@{
+    ViewData["Title"] = "View Prescription";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3>Prescription Details</h3>
+                    <a href="@Url.Action("Download", "Prescription", new { id = Model.Id })" class="btn btn-sm btn-primary">
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h5>Prescription Information</h5>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th>ID:</th>
+                                        <td>@Model.Id</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Order ID:</th>
+                                        <td>
+                                            <a href="@Url.Action("Details", "Order", new { id = Model.OrderId })">
+                                                @Model.OrderId
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Uploaded:</th>
+                                        <td>@Model.UploadDate.ToString("yyyy-MM-dd HH:mm")</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Status:</th>
+                                        <td>
+                                            <span class="badge @(Model.Status == "Approved" ? "bg-success" :
+                                                                                                                  Model.Status == "Rejected" ? "bg-danger" :
+                                                                                                                  Model.Status == "MoreInfoRequired" ? "bg-warning" : "bg-info")">
+                                                @Model.Status
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    @if (!string.IsNullOrEmpty(Model.Comments))
+                                    {
+                                        <tr>
+                                            <th>Comments:</th>
+                                            <td>@Model.Comments</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-7">
+                            <h5>Prescription Image</h5>
+                            <div class="prescription-image-container border p-2 text-center">
+                                @{
+                                    string extension = System.IO.Path.GetExtension(Model.FileUrl).ToLowerInvariant();
+                                    if (extension.Equals(".pdf"))
+                                    {
+                                        <div class="pdf-container">
+                                            <embed src="@Model.FileUrl" type="application/pdf" style="width:100%; height:500px;" />
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <img src="@Model.FileUrl" alt="Prescription" class="img-fluid" />
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="@Url.Action("Details", "Order", new { id = Model.OrderId })" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to Order
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -6,6 +6,11 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+
+	</ItemGroup>
+	
   <ItemGroup>
     <PackageReference Include="Stripe.net" Version="49.0.0" />
   </ItemGroup>

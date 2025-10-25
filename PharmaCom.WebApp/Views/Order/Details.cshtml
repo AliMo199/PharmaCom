@@ -48,6 +48,57 @@
             }
         </tbody>
     </table>
+    <!-- Add a section for prescription information -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5>Prescription</h5>
+        </div>
+        <div class="card-body">
+            @if (ViewBag.Prescription.HasValue)
+            {
+                var prescription = ViewBag.Prescription;
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>
+                            <strong>Status:</strong>
+                            <span class="badge @(prescription.Status == "Approved" ? "bg-success" :
+                                                                           prescription.Status == "Rejected" ? "bg-danger" :
+                                                                           prescription.Status == "MoreInfoRequired" ? "bg-warning" : "bg-info")">
+                            @prescription.Status
+                        </span>
+                    </p>
+                    @if (!string.IsNullOrEmpty(prescription.Comments))
+                        {
+                            <p><strong>Comments:</strong> @prescription.Comments</p>
+                        }
+                        <p><strong>Uploaded:</strong> @prescription.UploadDate.ToString("yyyy-MM-dd HH:mm")</p>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <a href="@Url.Action("View", "Prescription", new { id = prescription.Id })" class="btn btn-info">
+                            <i class="fas fa-eye"></i> View Prescription
+                        </a>
+                        <a href="@Url.Action("Download", "Prescription", new { id = prescription.Id })" class="btn btn-primary">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                </div>
+            }
+            else if (Model.OrderItems.Any(oi => oi.IsRxRequired))
+            {
+                <div class="alert alert-warning">
+                    <h5><i class="fas fa-exclamation-triangle"></i> Prescription Required</h5>
+                    <p>This order contains products that require a valid prescription. Please upload your prescription to proceed.</p>
+                    <a href="@Url.Action("Upload", "Prescription", new { orderId = Model.Id })" class="btn btn-primary">
+                        <i class="fas fa-upload"></i> Upload Prescription
+                    </a>
+                </div>
+            }
+            else
+            {
+                <p class="text-muted mb-0">No prescription required for this order.</p>
+            }
+        </div>
+    </div>
     
     <a asp-action="Index" class="btn btn-secondary mt-3">Back to Orders</a>
 </div>

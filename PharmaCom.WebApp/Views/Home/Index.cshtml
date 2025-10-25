@@ -76,7 +76,7 @@
                         <img src="@(product.ImageURLString ?? "/images/product_placeholder.png")" alt="@product.Name">
                     </a>
                     <h3 class="text-dark">
-                        <a asp-controller="Product" asp-action="Details" asp-route-id="@product.Id">@product.Name</a>
+                        <a asp-controller="Home" asp-action="ShowProduct" asp-route-id="@product.Id">@product.Name</a>
                     </h3>
                     <p class="price">$@product.Price.ToString("F2")</p>
                 </div>
@@ -84,7 +84,7 @@
         </div>
         <div class="row mt-5">
             <div class="col-12 text-center">
-                <a asp-controller="Product" asp-action="Index" class="btn btn-primary px-4 py-3">View All Products</a>
+                <a asp-controller="Home" asp-action="Store" class="btn btn-primary px-4 py-3">View All Products</a>
             </div>
         </div>
     </div>

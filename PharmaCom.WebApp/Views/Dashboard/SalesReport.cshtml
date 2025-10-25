@@ -1,0 +1,81 @@
+﻿@model SalesStatisticsViewModel
+@{
+    ViewData["Title"] = "Sales Report";
+    Layout = "_DashboardLayout";
+    var startDate = ViewBag.StartDate;
+    var endDate = ViewBag.EndDate;
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Sales Report</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/Dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item active">Sales Report</li>
+    </ol>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-calendar me-1"></i>
+            Date Range Selection
+        </div>
+        <div class="card-body">
+            <form id="dateRangeForm" method="get" action="/Dashboard/SalesReport" class="row g-3">
+                <div class="col-md-4">
+                    <label for="startDate" class="form-label">Start Date</label>
+                    <input type="date" class="form-control" id="startDate" name="startDate" value="@startDate" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="endDate" class="form-label">End Date</label>
+                    <input type="date" class="form-control" id="endDate" name="endDate" value="@endDate" required>
+                </div>
+                <div class="col-md-4 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary">Apply Date Range</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Revenue Summary -->
+        <div class="col-xl-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-dollar-sign me-1"></i>
+                    Revenue Summary
+                </div>
+                <div class="card-body">
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <td>Total Revenue:</td>
+                                <td class="text-end"><strong>$@Model.TotalRevenue.ToString("N2")</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Average Order Value:</td>
+                                <td class="text-end">$@Model.AverageOrderValue.ToString("N2")</td>
+                            </tr>
+                            <tr>
+                                <td>Revenue Today:</td>
+                                <td class="text-end">$@Model.RevenueToday.ToString("N2")</td>
+                            </tr>
+                            <tr>
+                                <td>Revenue This Week:</td>
+                                <td class="text-end">$@Model.RevenueThisWeek.ToString("N2")</td>
+                            </tr>
+                            <tr>
+                                <td>Revenue This Month:</td>
+                                <td class="text-end">$@Model.RevenueThisMonth.ToString("N2")</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-download me-1"></i>
+                    Export Options
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <button id=" exportPdfBtn

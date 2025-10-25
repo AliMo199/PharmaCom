@@ -11,6 +11,7 @@
     <link rel="canonical"
           href="https://getbootstrap.com/docs/5.3/examples/dashboard/" />
     <script src="~/js/color-modes.js"></script>
+    @RenderSection("Scripts", required: false)
     <link href="~/css/bootstrap.min.css" rel="stylesheet" />
     <meta name="theme-color" content="#712cf9" />
     <link href="/css/dashboard.css" rel="stylesheet" />
@@ -290,6 +291,16 @@
                                    Orders
                                </a>
                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Verify", "Prescription")">
+                                <svg class="bi" aria-hidden="true">
+                                    <use xlink:href="#file-earmark"></use>
+                                </svg>
+                                    Prescriptions
+                                    @await Component.InvokeAsync("PrescriptionNotificationBadge")
+                                </a>
+                            </li>
 
                             <li class="nav-item">
                                 <a asp-controller="Product" asp-action="Index" class="nav-link d-flex align-items-center gap-2">
