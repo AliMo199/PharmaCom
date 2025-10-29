@@ -21,7 +21,7 @@ namespace PharmaCom.WebApp
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddDbContext<ApplicationDBContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("cs")));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("ali")));
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDBContext>() // or your DbContext
             .AddDefaultTokenProviders();

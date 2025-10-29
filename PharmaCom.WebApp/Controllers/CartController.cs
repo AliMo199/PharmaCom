@@ -153,5 +153,25 @@ namespace PharmaCom.WebApp.Controllers
                 return RedirectToAction("Index");
             }
         }
+        // GET: Cart/GetCartCount
+        [HttpGet]
+        public async Task<IActionResult> GetCartCount()
+        {
+            try
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return Json(new { success = true, count = 0 });
+                }
+
+                var count = await _cartService.GetCartItemsCountAsync(user.Id);
+                return Json(new { success = true, count = count });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, count = 0, message = ex.Message });
+            }
+        }
     }
 }

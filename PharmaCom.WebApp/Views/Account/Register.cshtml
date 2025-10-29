@@ -1,7 +1,8 @@
-﻿@model PharmaCom.Domain.ViewModels.RegisterViewModel
+﻿@model RegisterViewModel
 
 @{
     ViewData["Title"] = "Register";
+    Layout = "_MainThemeLayout";
 }
 
 <div class="container mt-5">
@@ -12,11 +13,32 @@
             <form asp-action="Register" method="post">
                 <div asp-validation-summary="All" class="text-danger"></div>
 
+                <!-- First Name -->
+                <div class="form-group mb-3">
+                    <label asp-for="FirstName" class="form-label"></label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+
+                <!-- Last Name -->
+                <div class="form-group mb-3">
+                    <label asp-for="LastName" class="form-label"></label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+
                 <!-- UserName -->
                 <div class="form-group mb-3">
                     <label asp-for="UserName" class="form-label"></label>
                     <input asp-for="UserName" class="form-control" />
                     <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+
+				<!-- Email -->
+                <div class="form-group mb-3">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" />
+					<span asp-validation-for="Email" class="text-danger"></span>
                 </div>
 
                 <!-- Password -->
@@ -31,20 +53,6 @@
                     <label asp-for="ConfirmPassword" class="form-label"></label>
                     <input asp-for="ConfirmPassword" class="form-control" />
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                </div>
-
-                <!-- First Name -->
-                <div class="form-group mb-3">
-                    <label asp-for="FirstName" class="form-label"></label>
-                    <input asp-for="FirstName" class="form-control" />
-                    <span asp-validation-for="FirstName" class="text-danger"></span>
-                </div>
-
-                <!-- Last Name -->
-                <div class="form-group mb-3">
-                    <label asp-for="LastName" class="form-label"></label>
-                    <input asp-for="LastName" class="form-control" />
-                    <span asp-validation-for="LastName" class="text-danger"></span>
                 </div>
 
                 <hr />
@@ -69,6 +77,10 @@
                     <label asp-for="Governorate" class="form-label"></label>
                     <input asp-for="Governorate" class="form-control" />
                     <span asp-validation-for="Governorate" class="text-danger"></span>
+                </div>
+
+                <div>
+					<a asp-controller="Account" asp-action="Login">Already have an account? Login here.</a>
                 </div>
 
                 <button type="submit" class="btn btn-primary w-100 mt-3">Register</button>

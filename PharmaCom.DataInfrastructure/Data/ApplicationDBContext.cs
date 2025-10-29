@@ -140,6 +140,10 @@ namespace PharmaCom.DataInfrastructure.Data
                 entity.Property(e => e.Line1).IsRequired().HasMaxLength(500);
                 entity.Property(e => e.City).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.Governorate).IsRequired().HasMaxLength(100);
+                entity.HasOne(a => a.ApplicationUser)
+                      .WithMany(u => u.Addresses)
+                      .HasForeignKey(a => a.ApplicationUserId)
+                      .OnDelete(DeleteBehavior.Cascade);
             });
             builder.Entity<Prescription>(entity =>
             {

@@ -8,6 +8,9 @@ namespace PharmaCom.Domain.ViewModels
         [Display(Name = "User Name")]
         public string UserName { get; set; }
 
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        public string Email { get; set; }
+
         [Required(ErrorMessage = "*")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
@@ -26,7 +29,7 @@ namespace PharmaCom.Domain.ViewModels
         public string LastName { get; set; }
 
 
-        [Display(Name = "Address Line 1")]
+        [Display(Name = "Address Line")]
         public string Line1 { get; set; }
 
         public string City { get; set; }

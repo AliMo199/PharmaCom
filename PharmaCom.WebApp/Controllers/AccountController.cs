@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PharmaCom.Domain.Models;
+using PharmaCom.Domain.Repositories;
 using PharmaCom.Domain.ViewModels;
 using System.Security.Claims;
 
@@ -17,7 +18,6 @@ namespace PharmaCom.WebApp.Controllers
             _signInManager = signInManager;
         }
 
-        #region Register
         [HttpGet]
         public IActionResult Register()
         {
@@ -34,25 +34,26 @@ namespace PharmaCom.WebApp.Controllers
                 UserName = registerViewModel.UserName,
                 FirstName = registerViewModel.FirstName,
                 LastName = registerViewModel.LastName,
-                Email = $"{registerViewModel.UserName}@pharma.com"
+                Email = registerViewModel.Email,
             };
 
           
             if (!string.IsNullOrEmpty(registerViewModel.Line1))
             {
-                user.Addresses.Add(new Address
+                var Address = new Address
                 {
                     Line1 = registerViewModel.Line1,
                     City = registerViewModel.City,
                     Governorate = registerViewModel.Governorate
-                });
+                };
+                user.Addresses.Add(Address);
             }
 
             var res = await _userManager.CreateAsync(user, registerViewModel.Password);
             if (res.Succeeded)
             {
                 await _signInManager.SignInAsync(user, false);
-                return RedirectToAction("Index", "Employee");
+                return RedirectToAction("Index","Home");
             }
 
             foreach (var item in res.Errors)
@@ -60,17 +61,7 @@ namespace PharmaCom.WebApp.Controllers
 
             return View(registerViewModel);
         }
-        #endregion
 
-        #region SignOut
-        public async Task<IActionResult> SignOut()
-        {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction("Login");
-        }
-        #endregion
-
-        #region Login
         [HttpGet]
         public IActionResult Login() => View();
 
@@ -95,10 +86,15 @@ namespace PharmaCom.WebApp.Controllers
                 }
             }
 
-            ModelState.AddModelError("", "Name or pass is not right!");
+            ModelState.AddModelError("", "UserName or Password is not right!");
             return View(logInViewModel);
         }
-        #endregion
+
+        public async Task<IActionResult> SignOut()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login");
+        }
     }
 }
 

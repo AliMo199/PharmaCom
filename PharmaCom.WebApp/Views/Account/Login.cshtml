@@ -1,4 +1,8 @@
-﻿@model PharmaCom.Domain.ViewModels.LogInViewModel
+﻿@model LogInViewModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = "_MainThemeLayout";
+}
 
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -26,6 +30,10 @@
                 <div class="form-check mb-3">
                     <input asp-for="RememberMe" class="form-check-input" />
                     <label asp-for="RememberMe" class="form-check-label"></label>
+                </div>
+
+                <div>
+                    <a asp-controller="Account" asp-action="Register">Don't have an account? Register here</a>
                 </div>
 
                 <button type="submit" class="btn btn-primary w-100 mt-3">Login</button>

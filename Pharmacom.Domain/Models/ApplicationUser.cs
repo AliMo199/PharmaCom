@@ -13,6 +13,6 @@ namespace PharmaCom.Domain.Models
         public string LastName { get; set; }
         public string FullName => $"{FirstName} {LastName}";
 
-        public List<Address> Addresses = new List<Address>();
+        public virtual ICollection<Address> Addresses { get; set; } = new List<Address>();
     }
 }

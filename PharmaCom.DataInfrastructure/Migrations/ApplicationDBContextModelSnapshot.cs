@@ -163,6 +163,10 @@ namespace PharmaCom.DataInfrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("City")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -179,6 +183,8 @@ namespace PharmaCom.DataInfrastructure.Migrations
                         .HasColumnType("nvarchar(500)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Addresses");
                 });
@@ -538,6 +544,17 @@ namespace PharmaCom.DataInfrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("PharmaCom.Domain.Models.Address", b =>
+                {
+                    b.HasOne("PharmaCom.Domain.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("Addresses")
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+                });
+
             modelBuilder.Entity("PharmaCom.Domain.Models.Cart", b =>
                 {
                     b.HasOne("PharmaCom.Domain.Models.ApplicationUser", "ApplicationUser")
@@ -627,6 +644,11 @@ namespace PharmaCom.DataInfrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("PharmaCom.Domain.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("Addresses");
                 });
 
             modelBuilder.Entity("PharmaCom.Domain.Models.Cart", b =>

@@ -12,8 +12,7 @@
         var user = await UserManager.GetUserAsync(User);
         if (user != null)
         {
-            var userId = int.Parse(user.Id);
-            var cart = await CartService.GetOrCreateUserCartAsync(userId.ToString());
+            var cart = await CartService.GetOrCreateUserCartAsync(user.Id);
             if (cart != null)
             {
                 cartItemCount = await CartService.GetCartItemsCountAsync(cart.Id.ToString());
@@ -171,7 +170,7 @@
                         }
                         else
                         {
-                            <a asp-area="Identity" asp-page="/Account/Login" class="icons-btn d-inline-block" title="Login">
+                            <a asp-controller="Account" asp-action="Login" class="icons-btn d-inline-block" title="Login">
                                 <span class="icon-person"></span>
                             </a>
                         }

@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using PharmaCom.Service.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using PharmaCom.Domain.Models;
 using PharmaCom.Domain.ViewModels;
+using PharmaCom.Service.Interfaces;
 using Stripe.Checkout;
 using System.Linq;
 using System.Security.Claims;
@@ -14,12 +17,14 @@ namespace PharmaCom.WebApp.Controllers
         private readonly IOrderService _orderService;
         private readonly ICartService _cartService;
         private readonly IPrescriptionService _prescriptionService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public OrderController(IOrderService orderService, ICartService cartService, IPrescriptionService prescriptionService)
+        public OrderController(IOrderService orderService, ICartService cartService, IPrescriptionService prescriptionService,UserManager<ApplicationUser> userManager)
         {
             _orderService = orderService;
             _cartService = cartService;
             _prescriptionService = prescriptionService;
+            _userManager = userManager;
         }
 
         // GET: /Order
@@ -84,26 +89,50 @@ namespace PharmaCom.WebApp.Controllers
         // POST: /Order/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Checkout(int addressId)
+        public async Task<IActionResult> Checkout()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var cartTotal = await _cartService.CalculateCartTotalAsync(userId);
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var cartTotal = await _cartService.CalculateCartTotalAsync(user.Id);
             if (cartTotal == 0)
             {
-                TempData["Error"] = "Your cart is empty";
+                TempData["ErrorMessage"] = "Your cart is empty";
                 return RedirectToAction("Index", "Cart");
             }
+
             try
             {
-                var order = await _orderService.CreateOrderFromCartAsync(userId, addressId);
+                // ✅ Load user with addresses
+                var userWithAddresses = await _userManager.Users
+                    .Include(u => u.Addresses)
+                    .FirstOrDefaultAsync(u => u.Id == user.Id);
+
+                if (userWithAddresses?.Addresses == null || !userWithAddresses.Addresses.Any())
+                {
+                    TempData["ErrorMessage"] = "Please add a delivery address first.";
+                    // TODO: Redirect to address management page
+                    return RedirectToAction("Index", "Cart");
+                }
+
+                // ✅ Use first address (or let user select)
+                var address = userWithAddresses.Addresses.First();
+
+                var order = await _orderService.CreateOrderFromCartAsync(user.Id, address.Id);
+
                 var domain = $"{Request.Scheme}://{Request.Host}";
                 var successUrl = $"{domain}/Order/PaymentConfirmation?session_id={{CHECKOUT_SESSION_ID}}";
                 var cancelUrl = $"{domain}/Cart/Index";
+
                 var session = await _orderService.CreateStripeCheckoutSessionAsync(order.Id, successUrl, cancelUrl);
+
                 Response.Headers.Add("Location", session.Url);
                 return new StatusCodeResult(303);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 TempData["ErrorMessage"] = ex.Message;
                 return RedirectToAction("Index", "Cart");
