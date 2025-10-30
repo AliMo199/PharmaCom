@@ -87,8 +87,7 @@ namespace PharmaCom.WebApp.Controllers
         }
 
         // POST: /Order/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpGet]
         public async Task<IActionResult> Checkout()
         {
             var user = await _userManager.GetUserAsync(User);

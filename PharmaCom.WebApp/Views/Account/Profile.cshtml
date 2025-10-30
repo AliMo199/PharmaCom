@@ -1,0 +1,449 @@
+﻿@model ApplicationUser
+
+@{
+    ViewData["Title"] = "My Profile";
+    Layout = "~/Views/Shared/_MainThemeLayout.cshtml";
+    ViewBag.CurrentPage = "profile";
+}
+
+@section Breadcrumb {
+    <div class="bg-light py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mb-0">
+                    <a asp-controller="Home" asp-action="Index">Home</a>
+                    <span class="mx-2 mb-0">/</span>
+                    <strong class="text-black">My Profile</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="site-section">
+    <div class="container">
+        <!-- Page Header -->
+        <div class="row mb-5">
+            <div class="col-md-12">
+                <h2 class="text-black h3 mb-3 text-uppercase">My Profile</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Navigation - Desktop -->
+            <div class="col-lg-3 mb-4 d-none d-lg-block">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-0">
+                        <div class="profile-sidebar">
+                            <div class="text-center p-4 border-bottom bg-light">
+                                <div class="profile-avatar mb-3">
+                                    <span class="icon-user" style="font-size: 60px; color: #007bff;"></span>
+                                </div>
+                                <h5 class="text-black mb-1">@Model.FullName</h5>
+                                <small class="text-muted">@Model.Email</small>
+                            </div>
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    <a href="#personal-info" class="d-block p-3 border-bottom profile-nav-link active">
+                                        <span class="icon-user mr-2"></span> Personal Information
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#addresses" class="d-block p-3 border-bottom profile-nav-link">
+                                        <span class="icon-location-arrow mr-2"></span> My Addresses
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#security" class="d-block p-3 profile-nav-link">
+                                        <span class="icon-lock mr-2"></span> Security Settings
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-lg-9">
+                <!-- Mobile Profile Header -->
+                <div class="card border-0 shadow-sm mb-4 d-lg-none">
+                    <div class="card-body text-center p-4">
+                        <div class="profile-avatar mb-3">
+                            <span class="icon-user" style="font-size: 60px; color: #007bff;"></span>
+                        </div>
+                        <h5 class="text-black mb-1">@Model.FullName</h5>
+                        <small class="text-muted">@Model.Email</small>
+                    </div>
+                </div>
+
+                <!-- Personal Information Section -->
+                <div class="card border-0 shadow-sm mb-4" id="personal-info">
+                    <div class="card-header bg-white border-bottom p-4">
+                        <h5 class="text-black mb-0 text-uppercase h6">
+                            <span class="icon-user mr-2"></span>
+                            Personal Information
+                        </h5>
+                    </div>
+                    <div class="card-body p-4">
+                        <form asp-action="UpdateProfile" method="post">
+                            @Html.AntiForgeryToken()
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label class="text-black font-weight-bold">First Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="FirstName" value="@Model.FirstName" required>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label class="text-black font-weight-bold">Last Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="LastName" value="@Model.LastName" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label class="text-black font-weight-bold">Email Address</label>
+                                    <input type="email" class="form-control" value="@Model.Email" disabled>
+                                    <small class="text-muted">Contact support to change your email</small>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label class="text-black font-weight-bold">Phone Number</label>
+                                    <input type="tel" class="form-control" name="PhoneNumber" value="@Model.PhoneNumber">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary px-5">
+                                        <span class="icon-save mr-2"></span> Save Changes
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Addresses Section -->
+                <div class="card border-0 shadow-sm mb-4" id="addresses">
+                    <div class="card-header bg-white border-bottom p-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="text-black mb-0 text-uppercase h6">
+                                <span class="icon-location-arrow mr-2"></span>
+                                My Addresses
+                            </h5>
+                            <a asp-action="AddAddress" class="btn btn-sm btn-primary">
+                                <span class="icon-plus mr-1"></span> Add New
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        @if (Model.Addresses != null && Model.Addresses.Any())
+                        {
+                            <div class="row">
+                                @foreach (var address in Model.Addresses)
+                                {
+                                    <div class="col-md-6 mb-3">
+                                        <div class="address-card border rounded p-3 h-100">
+                                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                                <h6 class="text-black mb-0">
+                                                    @if (address.IsDefault)
+                                                    {
+                                                        <span class="badge badge-success mr-2">Default</span>
+                                                    }
+                                                    Address
+                                                </h6>
+                                                <div class="btn-group btn-group-sm">
+                                                    <a asp-action="EditAddress" asp-route-id="@address.Id"
+                                                       class="btn btn-outline-primary btn-sm">
+                                                        <span class="icon-edit"></span>
+                                                    </a>
+                                                    <button type="button" class="btn btn-outline-danger btn-sm"
+                                                            onclick="deleteAddress(@address.Id)">
+                                                        <span class="icon-trash"></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <p class="mb-1"><strong>@address.Line1</strong></p>
+                                            <p class="mb-0 text-muted">@address.City, @address.Governorate</p>
+                                            @if (!address.IsDefault)
+                                            {
+                                                <button type="button" class="btn btn-link btn-sm p-0 mt-2"
+                                                        onclick="setDefaultAddress(@address.Id)">
+                                                    Set as Default
+                                                </button>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="text-center py-4">
+                                <span class="icon-location-arrow" style="font-size: 48px; color: #ccc;"></span>
+                                <p class="text-muted mt-3 mb-3">No addresses saved yet</p>
+                                <a asp-action="AddAddress" class="btn btn-primary btn-sm">
+                                    <span class="icon-plus mr-2"></span> Add Your First Address
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <!-- Security Settings Section -->
+                <div class="card border-0 shadow-sm mb-4" id="security">
+                    <div class="card-header bg-white border-bottom p-4">
+                        <h5 class="text-black mb-0 text-uppercase h6">
+                            <span class="icon-lock mr-2"></span>
+                            Security Settings
+                        </h5>
+                    </div>
+                    <div class="card-body p-4">
+                        <form asp-action="ChangePassword" method="post">
+                            @Html.AntiForgeryToken()
+                            <div class="row">
+                                <div class="col-md-12 mb-4">
+                                    <label class="text-black font-weight-bold">Current Password <span class="text-danger">*</span></label>
+                                    <input type="password" class="form-control" name="CurrentPassword" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label class="text-black font-weight-bold">New Password <span class="text-danger">*</span></label>
+                                    <input type="password" class="form-control" name="NewPassword" required>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label class="text-black font-weight-bold">Confirm New Password <span class="text-danger">*</span></label>
+                                    <input type="password" class="form-control" name="ConfirmPassword" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary px-5">
+                                        <span class="icon-lock mr-2"></span> Change Password
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="row">
+                    <div class="col-12">
+                        <a asp-controller="Order" asp-action="Index" class="btn btn-outline-primary btn-md mr-2 mb-2">
+                            <span class="icon-receipt mr-2"></span> My Orders
+                        </a>
+                        <a asp-controller="Home" asp-action="Store" class="btn btn-outline-primary btn-md mb-2">
+                            <span class="icon-shopping-bag mr-2"></span> Continue Shopping
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Smooth scroll for sidebar navigation
+            $('.profile-nav-link').on('click', function (e) {
+                e.preventDefault();
+                var target = $(this).attr('href');
+
+                // Update active state
+                $('.profile-nav-link').removeClass('active');
+                $(this).addClass('active');
+
+                // Smooth scroll
+                $('html, body').animate({
+                    scrollTop: $(target).offset().top - 100
+                }, 500);
+            });
+        });
+
+        function setDefaultAddress(addressId) {
+            if (confirm('Set this as your default address?')) {
+                $.ajax({
+                    url: '@Url.Action("SetDefaultAddress", "Account")',
+                    type: 'POST',
+                    data: {
+                        addressId: addressId,
+                        __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            location.reload();
+                        } else {
+                            alert('Error setting default address: ' + response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error:', error);
+                        alert('Error setting default address. Please try again.');
+                    }
+                });
+            }
+        }
+
+        function deleteAddress(addressId) {
+            if (confirm('Are you sure you want to delete this address?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteAddress", "Account")',
+                    type: 'POST',
+                    data: {
+                        addressId: addressId,
+                        __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            location.reload();
+                        } else {
+                            alert('Error deleting address: ' + response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error:', error);
+                        alert('Error deleting address. Please try again.');
+                    }
+                });
+            }
+        }
+    </script>
+}
+
+@section Styles {
+    <style>
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .profile-nav-link {
+            color: #495057;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+            .profile-nav-link:hover {
+                background-color: #f8f9fa;
+                color: #007bff;
+                padding-left: 1.5rem !important;
+            }
+
+            .profile-nav-link.active {
+                background-color: #007bff;
+                color: #fff;
+                border-left: 4px solid #0056b3;
+            }
+
+                .profile-nav-link.active:hover {
+                    background-color: #0056b3;
+                }
+
+        .card {
+            transition: all 0.3s ease;
+        }
+
+            .card:hover {
+                transform: translateY(-2px);
+            }
+
+        .address-card {
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
+        }
+
+            .address-card:hover {
+                background-color: #fff;
+                box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            }
+
+        .badge-success {
+            background-color: #28a745;
+            color: #fff;
+            font-size: 0.7rem;
+            padding: 0.25rem 0.5rem;
+        }
+
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        label {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive adjustments */
+        @@media (max-width: 991px) {
+            .card-body
+
+        {
+            padding: 1.5rem !important;
+        }
+
+        .card-header {
+            padding: 1rem !important;
+        }
+
+        }
+
+        @@media (max-width: 767px) {
+            .h3, h3
+
+        {
+            font-size: 1.5rem;
+        }
+
+        .h6, h6 {
+            font-size: 1rem;
+        }
+
+        .btn-group-sm > .btn {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .address-card {
+            margin-bottom: 1rem;
+        }
+
+        .form-control {
+            font-size: 0.9rem;
+        }
+
+        }
+
+        @@media (max-width: 576px) {
+            .site-section
+
+        {
+            padding: 2rem 0;
+        }
+
+        .card-body {
+            padding: 1rem !important;
+        }
+
+        .btn {
+            font-size: 0.9rem;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+        }
+
+            .profile-avatar .icon-user {
+                font-size: 48px !important;
+            }
+
+        }
+    </style>
+}

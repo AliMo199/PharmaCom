@@ -54,7 +54,9 @@ namespace PharmaCom.Service.Implementation
                 OrderDate = DateTime.UtcNow,
                 Status = ST.Pending,
                 TotalAmount = await _cartService.CalculateCartTotalAsync(userId),
-                OrderItems = new List<OrderItem>()
+                OrderItems = new List<OrderItem>(),
+                PaymentIntentId = "",
+                SessionId = ""
             };
 
             foreach (var cartItem in cartItems)

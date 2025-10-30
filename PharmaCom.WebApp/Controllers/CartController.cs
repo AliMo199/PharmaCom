@@ -51,21 +51,36 @@ namespace PharmaCom.WebApp.Controllers
         {
             try
             {
+                // Check if user is authenticated
+                if (!User.Identity.IsAuthenticated)
+                {
+                    TempData["ErrorMessage"] = "Please login to add items to cart.";
+
+                    // Get the referring page to return after login
+                    var returnUrl = Request.Headers["Referer"].ToString();
+                    if (string.IsNullOrEmpty(returnUrl))
+                    {
+                        returnUrl = Url.Action("Store", "Home");
+                    }
+
+                    return RedirectToAction("Login", "Account", new { returnUrl = returnUrl });
+                }
+
                 var user = await _userManager.GetUserAsync(User);
                 if (user == null)
                 {
-                    TempData["ErrorMessage"] = "Please login to add items to cart.";
-                    return RedirectToPage("/Account/Login", new { area = "Identity" });
+                    TempData["ErrorMessage"] = "User not found. Please login again.";
+                    return RedirectToAction("Login", "Account");
                 }
 
                 await _cartService.AddToCartAsync(user.Id, productId, quantity);
                 TempData["SuccessMessage"] = "Product added to cart successfully!";
 
                 // Return to previous page or store
-                var returnUrl = Request.Headers["Referer"].ToString();
-                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                var refererUrl = Request.Headers["Referer"].ToString();
+                if (!string.IsNullOrEmpty(refererUrl) && Url.IsLocalUrl(refererUrl))
                 {
-                    return Redirect(returnUrl);
+                    return Redirect(refererUrl);
                 }
 
                 return RedirectToAction("Index");

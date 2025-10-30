@@ -177,6 +177,9 @@ namespace PharmaCom.DataInfrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Line1")
                         .IsRequired()
                         .HasMaxLength(500)

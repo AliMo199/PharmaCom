@@ -4,26 +4,10 @@
     ViewData["Title"] = Model?.Name ?? "Product Details";
 }
 
-@* @section Breadcrumb {
-    <div class="bg-light py-3">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 mb-0">
-                    <a asp-controller="Home" asp-action="Index">Home</a>
-                    <span class="mx-2 mb-0">/</span>
-                    <a asp-controller="Home" asp-action="Store">Store</a>
-                    <span class="mx-2 mb-0">/</span>
-                    <strong class="text-black">@Model.Name</strong>
-                </div>
-            </div>
-        </div>
-    </div>
-} *@
-
 <main class="site-section">
     <div class="container">
         <div class="row">
-            <!-- Left product image (or gallery) -->
+            <!-- Left product image -->
             <div class="col-md-5 mr-auto">
                 <div class="border text-center product-card">
                     @if (Model.IsRxRequired)
@@ -33,7 +17,6 @@
                     <img src="@(Model.ImageURLString ?? "/images/product_placeholder.png")"
                          alt="@Model.Name" class="img-fluid p-5" />
                 </div>
-
             </div>
 
             <!-- Right product details -->
@@ -41,10 +24,7 @@
                 <h2 class="text-black">@Model.Name</h2>
                 <p>@Model.Description</p>
 
-                <!-- Example discounted price display -->
-                <!-- Adjust or remove if no discount logic is used -->
                 @{
-                    // If you have product.OriginalPrice or similar, you can show discount
                     var hasDiscount = false;
                     var originalPrice = (decimal)0.0;
                     if (originalPrice > Model.Price)
@@ -56,19 +36,23 @@
                 <p>
                     @if (hasDiscount)
                     {
-                        <del>\@originalPrice.ToString("C")</del>
+                        <del>@originalPrice.ToString("C")</del>
                     }
-                    <strong class="text-primary h4">\@(Model.Price.ToString("C"))</strong>
+                    <strong class="text-primary h4">@(Model.Price.ToString("C"))</strong>
                 </p>
 
-                <!-- Quantity form -->
+                <!-- Quantity selector -->
                 <div class="mb-5" style="max-width: 220px;">
-                    <div class="input-group mb-3">
+                    <div class="input-group align-items-center mb-3">
                         <div class="input-group-prepend">
                             <button class="btn btn-outline-primary js-btn-minus" type="button">&#8722;</button>
                         </div>
-                        <input type="text" class="form-control text-center" value="1" placeholder=""
-                               aria-label="Quantity" aria-describedby="button-addon1" />
+                        <input type="text"
+                               class="form-control text-center quantity-display"
+                               value="1"
+                               readonly
+                               aria-label="Quantity" 
+                               style="border-radius:3px; height: 98%;"/>
                         <div class="input-group-append">
                             <button class="btn btn-outline-primary js-btn-plus" type="button">&#43;</button>
                         </div>
@@ -79,16 +63,14 @@
                 <form asp-controller="Cart" asp-action="AddItem" method="post">
                     @Html.AntiForgeryToken()
                     <input type="hidden" name="productId" value="@Model.Id" />
-                    <!-- Or you can dynamically fetch quantity from the above input if you wire it properly -->
-                    <input type="hidden" name="quantity" value="1" />
+                    <input type="hidden" name="quantity" value="1" class="quantity-value" />
                     <button type="submit"
                             class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">
                         Add To Cart
                     </button>
                 </form>
 
-                <!-- Example Tabs (Ordering Info / Specifications) -->
-                <!-- If you have dynamic tab content for your product, insert it below -->
+                <!-- Tabs -->
                 <div class="mt-5">
                     <ul class="nav nav-pills mb-3 custom-pill" id="pills-tab" role="tablist">
                         <li class="nav-item">
@@ -116,12 +98,10 @@
                     </ul>
 
                     <div class="tab-content" id="pills-tabContent">
-                        <!-- Ordering Information Tab -->
                         <div class="tab-pane fade show active"
                              id="pills-home"
                              role="tabpanel"
                              aria-labelledby="pills-home-tab">
-                            <!-- Example table. If you have dynamic content, replace accordingly -->
                             <table class="table custom-table">
                                 <thead>
                                     <tr>
@@ -150,12 +130,10 @@
                             </table>
                         </div>
 
-                        <!-- Specifications Tab -->
                         <div class="tab-pane fade"
                              id="pills-profile"
                              role="tabpanel"
                              aria-labelledby="pills-profile-tab">
-                            <!-- Example table. If you have dynamic content, replace accordingly -->
                             <table class="table custom-table">
                                 <tbody>
                                     <tr>
@@ -180,49 +158,42 @@
                     </div>
                 </div>
             </div>
-        </div> <!-- .row -->
-    </div> <!-- .container -->
+        </div>
+    </div>
 </main>
 
 @section Scripts {
     <script>
-        // Example +/- button for quantity
         $(function() {
-            $('.js-btn-minus').on('click', function(e){
+            // Remove any existing handlers first to prevent duplicates
+            $('.js-btn-minus').off('click').on('click', function(e){
                 e.preventDefault();
-                var $input = $(this).closest('.input-group').find('input.form-control');
-                var value = parseInt($input.val()) || 0;
+                e.stopPropagation(); // Stop event bubbling
+
+                var $displayInput = $('.quantity-display');
+                var $hiddenInput = $('.quantity-value');
+                var value = parseInt($displayInput.val()) || 1;
+
                 if(value > 1) {
-                    $input.val(value - 1);
+                    value = value - 1;
+                    $displayInput.val(value);
+                    $hiddenInput.val(value);
                 }
             });
 
-            $('.js-btn-plus').on('click', function(e){
+            // Remove any existing handlers first to prevent duplicates
+            $('.js-btn-plus').off('click').on('click', function(e){
                 e.preventDefault();
-                var $input = $(this).closest('.input-group').find('input.form-control');
-                var value = parseInt($input.val()) || 0;
-                $input.val(value + 1);
+                e.stopPropagation(); // Stop event bubbling
+
+                var $displayInput = $('.quantity-display');
+                var $hiddenInput = $('.quantity-value');
+                var value = parseInt($displayInput.val()) || 1;
+
+                value = value + 1;
+                $displayInput.val(value);
+                $hiddenInput.val(value);
             });
-        });
-
-
-        // for cart testing
-                $('.js-btn-minus').on('click', function(e){
-            e.preventDefault();
-            var $input = $(this).closest('.input-group').find('input.form-control');
-            var value = parseInt($input.val()) || 0;
-            if(value > 1) {
-                $input.val(value - 1);
-                $('.cart-quantity-value').val(value - 1); // Update hidden input
-            }
-        });
-
-        $('.js-btn-plus').on('click', function(e){
-            e.preventDefault();
-            var $input = $(this).closest('.input-group').find('input.form-control');
-            var value = parseInt($input.val()) || 0;
-            $input.val(value + 1);
-            $('.cart-quantity-value').val(value + 1); // Update hidden input
         });
     </script>
 }
@@ -230,7 +201,7 @@
 @section Styles {
     <style>
         .product-card {
-            position: relative; /* Ensures absolutely-positioned child is placed correctly */
+            position: relative;
         }
 
         .rx-badge {
@@ -245,6 +216,11 @@
             border-radius: 3px;
             z-index: 10;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+            color: var(--bs-nav-pills-link-active-color);
+            background-color: #51eaea !important;
         }
     </style>
 }

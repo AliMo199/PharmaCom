@@ -50,7 +50,7 @@
 <body>
     <div class="site-wrap">
 
-        <!-- ========== NAVBAR (STAYS THE SAME) ========== -->
+        <!-- ========== NAVBAR ========== -->
         <div class="site-navbar py-2">
 
             <!-- Search Overlay -->
@@ -164,7 +164,7 @@
                         <!-- User Account Icon -->
                         @if (User.Identity?.IsAuthenticated == true)
                         {
-                            <a asp-area="Identity" asp-page="/Account/Manage/Index" class="icons-btn d-inline-block" title="Account">
+                            <a asp-controller="Account" asp-action="Profile" class="icons-btn d-inline-block" title="Account">
                                 <span class="icon-person"></span>
                             </a>
                         }
@@ -220,7 +220,7 @@
                             }
                             else
                             {
-                                <li><a asp-area="Identity" asp-page="/Account/Register">Register</a></li>
+                                <li><a asp-page="/Account/Register">Register</a></li>
                             }
                         </ul>
                     </div>

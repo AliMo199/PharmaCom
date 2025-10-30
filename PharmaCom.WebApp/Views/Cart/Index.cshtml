@@ -60,9 +60,9 @@
                                             }
                                         </td>
                                         <td class="item-price">$@item.Product.Price.ToString("F2")</td>
-                                        <td>
-                                            <div class="input-group mb-3" style="max-width: 120px;">
-                                                <div class="input-group-prepend">
+                                        <td class="text-center align-middle justify-content-center">
+                                            <div class="input-group mb-3" style="max-width: 120px; align-items:center; justify-content:center;">
+                                                <div class="input-group-prepend mw-md-80">
                                                     <button class="btn btn-outline-primary js-btn-minus" type="button"
                                                             data-product-id="@item.ProductId">
                                                         &minus;
@@ -70,7 +70,8 @@
                                                 </div>
                                                 <input type="text" class="form-control text-center quantity-input"
                                                        value="@item.Quantity" readonly
-                                                       data-product-id="@item.ProductId">
+                                                       data-product-id="@item.ProductId"
+                                                       style="border-radius:3px; height: 100%">
                                                 <div class="input-group-append">
                                                     <button class="btn btn-outline-primary js-btn-plus" type="button"
                                                             data-product-id="@item.ProductId">
@@ -194,36 +195,58 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
-            // Plus button
-            $('.js-btn-plus').on('click', function (e) {
+            // Clear ALL handlers first
+            $('.js-btn-plus, .js-btn-minus, .btn-remove').off();
+
+            // Attach handlers using event delegation
+            $(document).on('click', '.js-btn-plus', function (e) {
                 e.preventDefault();
+                e.stopImmediatePropagation();
+
                 var productId = $(this).data('product-id');
                 var $input = $('.quantity-input[data-product-id="' + productId + '"]');
                 var currentQty = parseInt($input.val()) || 0;
-                updateQuantity(productId, currentQty + 1);
+                var newQty = currentQty + 1;
+
+                // Update UI immediately (optimistic update)
+                $input.val(newQty);
+
+                // Then update server
+                updateQuantity(productId, newQty, $input);
             });
 
-            // Minus button
-            $('.js-btn-minus').on('click', function (e) {
+            $(document).on('click', '.js-btn-minus', function (e) {
                 e.preventDefault();
+                e.stopImmediatePropagation();
+
                 var productId = $(this).data('product-id');
                 var $input = $('.quantity-input[data-product-id="' + productId + '"]');
                 var currentQty = parseInt($input.val()) || 0;
+
                 if (currentQty > 1) {
-                    updateQuantity(productId, currentQty - 1);
+                    var newQty = currentQty - 1;
+
+                    // Update UI immediately (optimistic update)
+                    $input.val(newQty);
+
+                    // Then update server
+                    updateQuantity(productId, newQty, $input);
                 }
             });
 
-            // Remove button
-            $('.btn-remove').on('click', function (e) {
+            $(document).on('click', '.btn-remove', function (e) {
                 e.preventDefault();
+                e.stopImmediatePropagation();
+
                 var productId = $(this).data('product-id');
                 if (confirm('Remove this item from cart?')) {
                     removeItem(productId);
                 }
             });
 
-            function updateQuantity(productId, quantity) {
+            function updateQuantity(productId, quantity, $input) {
+                var originalQty = quantity; // Store in case we need to rollback
+
                 $.ajax({
                     url: '@Url.Action("UpdateQuantity", "Cart")',
                     type: 'POST',
@@ -234,24 +257,29 @@
                     },
                     success: function (response) {
                         if (response.success) {
-                            // Update input
-                            $('.quantity-input[data-product-id="' + productId + '"]').val(quantity);
+                            // Don't update the input again - we already did it optimistically
+                            // Just update the totals
 
-                            // Update item total
                             var $row = $('tr[data-product-id="' + productId + '"]');
                             var price = parseFloat($row.find('.item-price').text().replace('$', ''));
                             var itemTotal = price * quantity;
                             $row.find('.item-total').text('$' + itemTotal.toFixed(2));
 
-                            // Update cart total
                             $('#cart-subtotal').text('$' + response.cartTotal);
                             $('#cart-total').text('$' + response.cartTotal);
+
+                            if (typeof updateCartCount === 'function') {
+                                updateCartCount();
+                            }
                         } else {
+                            // Rollback on error
                             alert('Error updating quantity: ' + response.message);
+                            location.reload(); // Reload to get correct state
                         }
                     },
                     error: function () {
                         alert('Error updating cart. Please try again.');
+                        location.reload(); // Reload to get correct state
                     }
                 });
             }
@@ -266,19 +294,19 @@
                     },
                     success: function (response) {
                         if (response.success) {
-                            // Remove row
                             $('tr[data-product-id="' + productId + '"]').fadeOut(300, function() {
                                 $(this).remove();
 
-                                // Update cart total
                                 $('#cart-subtotal').text('$' + response.cartTotal);
                                 $('#cart-total').text('$' + response.cartTotal);
 
-                                // Update navbar count
                                 if (response.itemCount === 0) {
-                                    location.reload(); // Reload to show empty cart message
+                                    location.reload();
                                 } else {
-                                    $('.bag .number').text(response.itemCount);
+                                    $('#cart-count').text(response.itemCount);
+                                    if (typeof updateCartCount === 'function') {
+                                        updateCartCount();
+                                    }
                                 }
                             });
                         } else {

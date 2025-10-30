@@ -2,103 +2,365 @@
 
 @{
     ViewData["Title"] = "Order Details";
+    Layout = "~/Views/Shared/_MainThemeLayout.cshtml";
+    ViewBag.CurrentPage = "orders";
 }
 
-<div class="container mt-5">
-    <h1>Order #@Model.Id</h1>
-    <hr />
-
-    <div class="row">
-        <div class="col-md-6">
-            <h4>Order Information</h4>
-            <ul class="list-group">
-                <li class="list-group-item"><strong>Order Date:</strong> @Model.OrderDate.ToLongDateString()</li>
-                <li class="list-group-item"><strong>Status:</strong> <span class="badge bg-success">@Model.Status</span></li>
-                <li class="list-group-item"><strong>Total:</strong> @Model.TotalAmount.ToString("C", new System.Globalization.CultureInfo("ar-EG"))</li>
-            </ul>
-        </div>
-        <div class="col-md-6">
-            <h4>Shipping Address</h4>
-            <ul class="list-group">
-                <li class="list-group-item">@Model.ShippingAddress.Line1</li>
-                <li class="list-group-item">@Model.ShippingAddress.City, @Model.ShippingAddress.Governorate</li>
-            </ul>
+@section Breadcrumb {
+    <div class="bg-light py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mb-0">
+                    <a asp-controller="Home" asp-action="Index">Home</a>
+                    <span class="mx-2 mb-0">/</span>
+                    <a asp-action="Index">My Orders</a>
+                    <span class="mx-2 mb-0">/</span>
+                    <strong class="text-black">Order #@Model.Id</strong>
+                </div>
+            </div>
         </div>
     </div>
+}
 
-    <h4 class="mt-5">Order Items</h4>
-    <table class="table table-bordered">
-        <thead class="thead-light">
-            <tr>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Subtotal</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.OrderItems)
-            {
-                <tr>
-                    <td>@item.ProductName</td>
-                    <td>@item.Quantity</td>
-                    <td>@item.Price.ToString("C", new System.Globalization.CultureInfo("ar-EG"))</td>
-                    <td>@item.Subtotal.ToString("C", new System.Globalization.CultureInfo("ar-EG"))</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    <!-- Add a section for prescription information -->
-    <div class="card mb-4">
-        <div class="card-header">
-            <h5>Prescription</h5>
+<div class="site-section">
+    <div class="container">
+        <!-- Order Header -->
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <h2 class="text-black h3 text-uppercase">Order #@Model.Id</h2>
+                <p class="text-muted mb-0">
+                    Placed on @Model.OrderDate.ToString("MMMM dd, yyyy") at @Model.OrderDate.ToString("hh:mm tt")
+                </p>
+            </div>
         </div>
-        <div class="card-body">
-            @if (ViewBag.Prescription.HasValue)
-            {
-                var prescription = ViewBag.Prescription;
-                <div class="row">
-                    <div class="col-md-6">
-                        <p>
-                            <strong>Status:</strong>
-                            <span class="badge @(prescription.Status == "Approved" ? "bg-success" :
-                                                                           prescription.Status == "Rejected" ? "bg-danger" :
-                                                                           prescription.Status == "MoreInfoRequired" ? "bg-warning" : "bg-info")">
-                            @prescription.Status
-                        </span>
-                    </p>
-                    @if (!string.IsNullOrEmpty(prescription.Comments))
-                        {
-                            <p><strong>Comments:</strong> @prescription.Comments</p>
-                        }
-                        <p><strong>Uploaded:</strong> @prescription.UploadDate.ToString("yyyy-MM-dd HH:mm")</p>
-                    </div>
-                    <div class="col-md-6 text-end">
-                        <a href="@Url.Action("View", "Prescription", new { id = prescription.Id })" class="btn btn-info">
-                            <i class="fas fa-eye"></i> View Prescription
-                        </a>
-                        <a href="@Url.Action("Download", "Prescription", new { id = prescription.Id })" class="btn btn-primary">
-                            <i class="fas fa-download"></i> Download
-                        </a>
+
+        <!-- Order Status & Summary Cards -->
+        <div class="row mb-5">
+            <!-- Order Information -->
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <h5 class="text-black mb-4 text-uppercase h6">Order Information</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-3 pb-3 border-bottom">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="text-muted">Order Date:</span>
+                                    <strong class="text-black">@Model.OrderDate.ToString("MMM dd, yyyy")</strong>
+                                </div>
+                            </li>
+                            <li class="mb-3 pb-3 border-bottom">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="text-muted">Status:</span>
+                                    @{
+                                        var badgeClass = "badge-secondary";
+                                        switch (Model.Status?.ToLower())
+                                        {
+                                            case "pending":
+                                                badgeClass = "badge-warning";
+                                                break;
+                                            case "paymentreceived":
+                                            case "payment received":
+                                                badgeClass = "badge-success";
+                                                break;
+                                            case "processing":
+                                                badgeClass = "badge-info";
+                                                break;
+                                            case "shipped":
+                                                badgeClass = "badge-primary";
+                                                break;
+                                            case "delivered":
+                                                badgeClass = "badge-success";
+                                                break;
+                                            case "cancelled":
+                                                badgeClass = "badge-danger";
+                                                break;
+                                        }
+                                    }
+                                    <span class="badge @badgeClass px-3 py-2">@Model.Status</span>
+                                </div>
+                            </li>
+                            <li class="mb-0">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="text-muted">Total Amount:</span>
+                                    <strong class="text-primary h5 mb-0">@Model.TotalAmount.ToString("C", new System.Globalization.CultureInfo("ar-EG"))</strong>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-            }
-            else if (Model.OrderItems.Any(oi => oi.IsRxRequired))
-            {
-                <div class="alert alert-warning">
-                    <h5><i class="fas fa-exclamation-triangle"></i> Prescription Required</h5>
-                    <p>This order contains products that require a valid prescription. Please upload your prescription to proceed.</p>
-                    <a href="@Url.Action("Upload", "Prescription", new { orderId = Model.Id })" class="btn btn-primary">
-                        <i class="fas fa-upload"></i> Upload Prescription
-                    </a>
+            </div>
+
+            <!-- Shipping Address -->
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <h5 class="text-black mb-4 text-uppercase h6">Shipping Address</h5>
+                        <div class="shipping-address">
+                            <p class="mb-2">
+                                <span class="icon-location-arrow mr-2 text-primary"></span>
+                                <strong>@Model.ShippingAddress.Line1</strong>
+                            </p>
+                            <p class="mb-0 pl-4">
+                                @Model.ShippingAddress.City, @Model.ShippingAddress.Governorate
+                            </p>
+                        </div>
+                    </div>
                 </div>
-            }
-            else
-            {
-                <p class="text-muted mb-0">No prescription required for this order.</p>
-            }
+            </div>
+        </div>
+
+        <!-- Prescription Section -->
+        @if (Model.OrderItems.Any(oi => oi.IsRxRequired))
+        {
+            <div class="row mb-5">
+                <div class="col-md-12">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-white border-bottom p-4">
+                            <h5 class="text-black mb-0 text-uppercase h6">
+                                <span class="icon-prescription mr-2"></span>
+                                Prescription Information
+                            </h5>
+                        </div>
+                        <div class="card-body p-4">
+                            @if (ViewBag.Prescription != null)
+                            {
+                                var prescription = ViewBag.Prescription;
+                                <div class="row align-items-center">
+                                    <div class="col-md-8 mb-3 mb-md-0">
+                                        <div class="mb-3">
+                                            <strong class="d-block mb-2">Status:</strong>
+                                            <span class="badge @(prescription.Status == "Approved" ? "badge-success" :
+                                                                                                                   prescription.Status == "Rejected" ? "badge-danger" :
+                                                                                                                   prescription.Status == "MoreInfoRequired" ? "badge-warning" : "badge-info") px-3 py-2">
+                                        @prescription.Status
+                                    </span>
+                                </div>
+                                @if (!string.IsNullOrEmpty(prescription.Comments))
+                                        {
+                                            <div class="mb-3">
+                                                <strong class="d-block mb-2">Comments:</strong>
+                                                <p class="text-muted mb-0">@prescription.Comments</p>
+                                            </div>
+                                        }
+                                        <div>
+                                            <strong class="d-block mb-2">Uploaded:</strong>
+                                            <p class="text-muted mb-0">@prescription.UploadDate.ToString("MMMM dd, yyyy 'at' hh:mm tt")</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 text-md-right">
+                                        <a href="@Url.Action("View", "Prescription", new { id = prescription.Id })"
+                                           class="btn btn-outline-primary btn-sm btn-block mb-2">
+                                            <span class="icon-eye mr-2"></span> View Prescription
+                                        </a>
+                                        <a href="@Url.Action("Download", "Prescription", new { id = prescription.Id })"
+                                           class="btn btn-primary btn-sm btn-block">
+                                            <span class="icon-download mr-2"></span> Download
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="alert alert-warning mb-0" role="alert">
+                                    <div class="d-flex align-items-start">
+                                        <span class="icon-warning mr-3" style="font-size: 24px;"></span>
+                                        <div class="flex-grow-1">
+                                            <h5 class="alert-heading h6">Prescription Required</h5>
+                                            <p class="mb-3">This order contains products that require a valid prescription. Please upload your prescription to proceed with order processing.</p>
+                                            <a href="@Url.Action("Upload", "Prescription", new { orderId = Model.Id })"
+                                               class="btn btn-primary btn-sm">
+                                                <span class="icon-cloud-upload mr-2"></span> Upload Prescription
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <!-- Order Items -->
+        <div class="row mb-5">
+            <div class="col-md-12">
+                <h4 class="text-black mb-4 text-uppercase h5">Order Items</h4>
+                <div class="site-blocks-table">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="product-name">Product</th>
+                                <th class="product-quantity text-center">Quantity</th>
+                                <th class="product-price text-center">Price</th>
+                                <th class="product-total text-center">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.OrderItems)
+                            {
+                                <tr>
+                                    <td class="product-name">
+                                        <h2 class="h6 text-black mb-1">@item.ProductName</h2>
+                                        @if (item.IsRxRequired)
+                                        {
+                                            <span class="badge badge-danger">Rx Required</span>
+                                        }
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="badge badge-light px-3 py-2">@item.Quantity</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <strong class="text-black">@item.Price.ToString("C", new System.Globalization.CultureInfo("ar-EG"))</strong>
+                                    </td>
+                                    <td class="text-center">
+                                        <strong class="text-primary">@item.Subtotal.ToString("C", new System.Globalization.CultureInfo("ar-EG"))</strong>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" class="text-right"><strong class="text-black h5">Total:</strong></td>
+                                <td class="text-center">
+                                    <strong class="text-primary h4 mb-0">@Model.TotalAmount.ToString("C", new System.Globalization.CultureInfo("ar-EG"))</strong>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="row">
+            <div class="col-md-12">
+                <a asp-action="Index" class="btn btn-outline-primary btn-md">
+                    <span class="icon-arrow-left mr-2"></span> Back to Orders
+                </a>
+            </div>
         </div>
     </div>
-    
-    <a asp-action="Index" class="btn btn-secondary mt-3">Back to Orders</a>
 </div>
+
+@section Styles {
+    <style>
+        .card {
+            transition: all 0.3s ease;
+        }
+
+            .card:hover {
+                transform: translateY(-2px);
+            }
+
+        .badge {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-warning {
+            background-color: #ffc107;
+            color: #000;
+        }
+
+        .badge-success {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .badge-info {
+            background-color: #17a2b8;
+            color: #fff;
+        }
+
+        .badge-primary {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .badge-danger {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .badge-secondary {
+            background-color: #6c757d;
+            color: #fff;
+        }
+
+        .badge-light {
+            background-color: #f8f9fa;
+            color: #495057;
+            border: 1px solid #dee2e6;
+        }
+
+        .site-blocks-table table {
+            background: #fff;
+        }
+
+            .site-blocks-table table td,
+            .site-blocks-table table th {
+                vertical-align: middle;
+                padding: 1rem;
+            }
+
+            .site-blocks-table table thead tr {
+                background-color: #f8f9fa;
+            }
+
+            .site-blocks-table table thead th {
+                font-weight: 600;
+                text-transform: uppercase;
+                font-size: 0.9rem;
+                color: #495057;
+            }
+
+        .site-blocks-table tfoot tr {
+            background-color: #f8f9fa;
+        }
+
+        .shipping-address {
+            line-height: 1.8;
+        }
+
+        .alert-warning {
+            border-left: 4px solid #ffc107;
+        }
+
+        @@media (max-width: 768px) {
+            .card-body
+
+        {
+            padding: 1.5rem !important;
+        }
+
+        .site-blocks-table table td,
+        .site-blocks-table table th {
+            padding: 0.75rem 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .product-name h2 {
+            font-size: 0.95rem;
+        }
+
+        .btn-block {
+            margin-bottom: 0.5rem;
+        }
+
+        }
+
+        @@media (max-width: 576px) {
+            .h3, h3
+
+        {
+            font-size: 1.5rem;
+        }
+
+        .h5, h5 {
+            font-size: 1.1rem;
+        }
+
+        }</style>
+}
