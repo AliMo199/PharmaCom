@@ -22,6 +22,7 @@ namespace PharmaCom.DataInfrastructure.Implementation
         public async Task<Order?> GetOrderWithDetailsAsync(int orderId)
         {
             return await _context.Orders
+                .AsSplitQuery()
                 .Include(o => o.OrderItems)
                     .ThenInclude(oi => oi.Product)
                 .Include(o => o.Address)
@@ -74,6 +75,8 @@ namespace PharmaCom.DataInfrastructure.Implementation
             // Start with base query including essential navigations
             var query = _context.Orders
                 .Include(o => o.ApplicationUser)
+                .Include (o => o.OrderItems)
+                .ThenInclude(oi => oi.Product)
                 .Include(o => o.Address)
                 .AsQueryable();
 

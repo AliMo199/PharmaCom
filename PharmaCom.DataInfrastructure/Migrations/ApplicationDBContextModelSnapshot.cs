@@ -418,7 +418,7 @@ namespace PharmaCom.DataInfrastructure.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<int>("OrderId")
+                    b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
@@ -632,8 +632,7 @@ namespace PharmaCom.DataInfrastructure.Migrations
                     b.HasOne("PharmaCom.Domain.Models.Order", "Order")
                         .WithMany("Prescription")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Order");
                 });

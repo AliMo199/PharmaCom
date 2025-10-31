@@ -67,11 +67,11 @@
                                                     case "pending":
                                                         badgeClass = "badge-warning";
                                                         break;
-                                                    case "paymentreceived":
-                                                    case "payment received":
+                                                    case "approved":
                                                         badgeClass = "badge-success";
                                                         break;
                                                     case "processing":
+                                                    case "payment received":
                                                         badgeClass = "badge-info";
                                                         break;
                                                     case "shipped":
@@ -80,7 +80,7 @@
                                                     case "delivered":
                                                         badgeClass = "badge-success";
                                                         break;
-                                                    case "cancelled":
+                                                    case "rejected":
                                                         badgeClass = "badge-danger";
                                                         break;
                                                 }
@@ -147,7 +147,7 @@
                                         <small class="text-muted d-block mb-1">Total Amount</small>
                                         <strong class="text-black h6 mb-0">@order.TotalAmount.ToString("C", new System.Globalization.CultureInfo("ar-EG"))</strong>
                                     </div>
-                                    <a asp-action="OrderDetails" asp-route-id="@order.Id"
+                                    <a asp-action="Details" asp-route-id="@order.Id"
                                        class="btn btn-primary btn-sm">
                                         View Details
                                     </a>

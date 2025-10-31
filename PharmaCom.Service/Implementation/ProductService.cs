@@ -105,7 +105,7 @@ namespace PharmaCom.Service.Implementation
             return product;
         }
 
-        public async Task UpdateProductAsync(Product product)
+        public void UpdateProductAsync(Product product)
         {
             _unitOfWork.Product.Update(product);
             _unitOfWork.Save();

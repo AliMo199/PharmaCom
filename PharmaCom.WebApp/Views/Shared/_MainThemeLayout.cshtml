@@ -96,7 +96,7 @@
                                             @foreach (var category in categories.Take(10))
                                             {
                                                 <li>
-                                                    <a asp-controller="Product" asp-action="Index" asp-route-categoryId="@category.Id">
+                                                    <a asp-controller="Home" asp-action="Store" asp-route-categoryId="@category.Id">
                                                         @category.Name
                                                     </a>
                                                 </li>

@@ -120,10 +120,9 @@
                                     <a href="/Product/Edit/@product.Id" class="btn btn-sm btn-primary">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <button type="button" class="btn btn-sm btn-danger delete-product" 
-                                            data-id="@product.Id" data-name="@product.Name">
+                                    <a asp-controller="Product" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-sm btn-danger delete-product">
                                         <i class="fas fa-trash"></i>
-                                    </button>
+                                    </a>
                                 </div>
                             </td>
                         </tr>

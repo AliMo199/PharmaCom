@@ -1,258 +1,250 @@
 ﻿@model IEnumerable<PrescriptionViewModel>
+
 @{
     ViewData["Title"] = "Verify Prescriptions";
     Layout = "_DashboardLayout";
 }
 
-<div class="container-fluid px-4">
-    <h1 class="mt-4">Prescription Verification</h1>
-    <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item"><a href="/Dashboard">Dashboard</a></li>
-        <li class="breadcrumb-item active">Prescription Verification</li>
-    </ol>
-
-    @if (TempData["Success"] != null)
-    {
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            @TempData["Success"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Prescription Verification</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <span class="badge bg-warning text-dark p-2">
+                @Model.Count() Pending Review
+            </span>
         </div>
-    }
+    </div>
+</div>
 
-    @if (TempData["Error"] != null)
-    {
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            @TempData["Error"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    }
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 
-    <div class="card mb-4">
-        <div class="card-header">
-            <i class="fas fa-prescription me-1"></i>
-            Pending Prescriptions
-        </div>
-        <div class="card-body">
-            @if (!Model.Any())
-            {
-                <div class="alert alert-info mb-0">
-                    No pending prescriptions to verify at this time.
-                </div>
-            }
-            else
-            {
-                <div class="table-responsive">
-                    <table class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Order #</th>
-                                <th>Customer</th>
-                                <th>Upload Date</th>
-                                <th>Products Requiring Rx</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var prescription in Model)
-                            {
-                                <tr>
-                                    <td>@prescription.PrescriptionId</td>
-                                    <td>
-                                        <a href="@Url.Action("Details", "Order", new { id = prescription.OrderId })">
-                                            @prescription.OrderId
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (Model != null && Model.Any())
+{
+    <div class="row">
+        @foreach (var prescription in Model)
+        {
+            <div class="col-md-12 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="mb-0">
+                                <i class="bi bi-file-medical"></i> Prescription #@prescription.PrescriptionId
+                            </h5>
+                            <small class="text-muted">
+                                Customer: <strong>@prescription.CustomerName</strong>
+                            </small>
+                        </div>
+                        <span class="badge bg-warning text-dark">@prescription.Status</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- Prescription Image/PDF Viewer -->
+                            <div class="col-md-6">
+                                <div class="prescription-viewer bg-light p-3 rounded">
+                                    @if (prescription.FileUrl.EndsWith(".pdf"))
+                                    {
+                                        <iframe src="@prescription.FileUrl"
+                                                style="width: 100%; height: 400px; border: none;"
+                                                title="Prescription Document"></iframe>
+                                    }
+                                    else
+                                    {
+                                        <img src="@prescription.FileUrl"
+                                             alt="Prescription"
+                                             class="img-fluid rounded"
+                                             style="max-height: 400px; width: 100%; object-fit: contain;" />
+                                    }
+                                    <div class="mt-2">
+                                        <a href="@prescription.FileUrl"
+                                           target="_blank"
+                                           class="btn btn-sm btn-outline-primary w-100">
+                                            <i class="bi bi-download"></i> Download Full Resolution
                                         </a>
-                                    </td>
-                                    <td>@prescription.CustomerName</td>
-                                    <td>@prescription.UploadDate.ToString("yyyy-MM-dd HH:mm")</td>
-                                    <td>
-                                        @if (prescription.PrescriptionProducts.Any())
-                                        {
-                                            <ul class="mb-0 ps-3">
-                                                @foreach (var product in prescription.PrescriptionProducts)
-                                                {
-                                                    <li>@product.Name (x@product.Quantity)</li>
-                                                }
-                                            </ul>
-                                        }
-                                        else
-                                        {
-                                            <span class="text-muted">No Rx-required products</span>
-                                        }
-                                    </td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-sm btn-info view-prescription"
-                                                    data-prescription-id="@prescription.PrescriptionId"
-                                                    data-prescription-url="@prescription.FileUrl">
-                                                <i class="fas fa-eye"></i> View
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Prescription Details -->
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <h6 class="text-muted mb-2">Upload Information</h6>
+                                    <p class="mb-1">
+                                        <strong>Uploaded:</strong> @prescription.UploadDate.ToString("MMM dd, yyyy hh:mm tt")
+                                    </p>
+
+                                    <!-- ✅ Show order info only if order exists -->
+                                    @if (prescription.HasOrder)
+                                    {
+                                        <p class="mb-1">
+                                            <strong>Order #:</strong>
+                                            <a asp-controller="Order" asp-action="Details" asp-route-id="@prescription.OrderId">
+                                                @prescription.OrderId
+                                            </a>
+                                        </p>
+                                        <p class="mb-1">
+                                            <strong>Order Date:</strong> @prescription.OrderDate.ToString("MMM dd, yyyy")
+                                        </p>
+                                        <p class="mb-1">
+                                            <strong>Order Total:</strong> $@prescription.OrderTotal.ToString("F2")
+                                        </p>
+                                    }
+                                    else
+                                    {
+                                        <div class="alert alert-info mt-2" role="alert">
+                                            <i class="bi bi-info-circle"></i>
+                                            <strong>Pre-uploaded Prescription</strong>
+                                            <p class="mb-0 small">
+                                                This prescription was uploaded by the customer but not yet associated with an order.
+                                            </p>
+                                        </div>
+                                    }
+                                </div>
+
+                                <!-- ✅ Show products only if order exists -->
+                                @if (prescription.HasOrder && prescription.PrescriptionProducts.Any())
+                                {
+                                    <div class="mb-3">
+                                        <h6 class="text-muted mb-2">Prescription Required Products</h6>
+                                        <ul class="list-group list-group-flush">
+                                            @foreach (var product in prescription.PrescriptionProducts)
+                                            {
+                                                <li class="list-group-item px-0">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <span>@product.Name</span>
+                                                        <span class="badge bg-secondary">Qty: @product.Quantity</span>
+                                                    </div>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                }
+
+                                <!-- Verification Form -->
+                                <div class="mt-4">
+                                    <h6 class="text-muted mb-3">Verification Decision</h6>
+                                    <form asp-action="ProcessVerification" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="PrescriptionId" value="@prescription.PrescriptionId" />
+
+                                        <div class="mb-3">
+                                            <label for="comments_@prescription.PrescriptionId" class="form-label">
+                                                Comments / Notes
+                                            </label>
+                                            <textarea class="form-control"
+                                              id="comments_@prescription.PrescriptionId"
+                                              name="Comments"
+                                              rows="3"
+                                              placeholder="Add any comments or notes about this prescription..."></textarea>
+                                        </div>
+
+                                        <div class="d-grid gap-2">
+                                            <button type="submit"
+                                                    name="Action"
+                                                    value="Approve"
+                                                    class="btn btn-success">
+                                                <i class="bi bi-check-circle"></i> Approve Prescription
                                             </button>
-                                            <button type="button" class="btn btn-sm btn-success verify-prescription"
-                                                    data-prescription-id="@prescription.PrescriptionId"
-                                                    data-order-id="@prescription.OrderId">
-                                                <i class="fas fa-check"></i> Verify
+                                            <button type="submit"
+                                                    name="Action"
+                                                    value="Reject"
+                                                    class="btn btn-danger"
+                                                    onclick="return confirm('Are you sure you want to reject this prescription?');">
+                                                <i class="bi bi-x-circle"></i> Reject Prescription
+                                            </button>
+                                            <button type="button"
+                                                    class="btn btn-warning"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#moreInfo_@prescription.PrescriptionId">
+                                                <i class="bi bi-question-circle"></i> Request More Information
                                             </button>
                                         </div>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            }
-        </div>
-    </div>
-</div>
 
-<!-- Prescription View Modal -->
-<div class="modal fade" id="prescriptionViewModal" tabindex="-1" aria-labelledby="prescriptionViewModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="prescriptionViewModalLabel">View Prescription</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="text-center">
-                    <!-- Dynamic content will be loaded here -->
-                    <div id="prescriptionImageContainer" class="d-none">
-                        <img id="prescriptionImage" src="" class="img-fluid" alt="Prescription" />
-                    </div>
-                    <div id="prescriptionPdfContainer" class="d-none">
-                        <iframe id="prescriptionPdf" src="" width="100%" height="600px" frameborder="0"></iframe>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <a id="prescriptionDownloadBtn" href="#" class="btn btn-primary" download>
-                    <i class="fas fa-download"></i> Download
-                </a>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Prescription Verification Modal -->
-<div class="modal fade" id="verificationModal" tabindex="-1" aria-labelledby="verificationModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="verificationModalLabel">Verify Prescription</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="prescriptionVerificationForm" method="post" action="@Url.Action("ProcessVerification", "Prescription")">
-                    <input type="hidden" id="prescriptionIdInput" name="PrescriptionId" />
-                    <input type="hidden" id="actionInput" name="Action" />
-
-                    <div class="mb-3">
-                        <label class="form-label">Decision</label>
-                        <div class="btn-group w-100" role="group">
-                            <input type="radio" class="btn-check" name="verificationAction" id="approve" value="Approve" autocomplete="off" checked>
-                            <label class="btn btn-outline-success" for="approve">
-                                <i class="fas fa-check"></i> Approve
-                            </label>
-
-                            <input type="radio" class="btn-check" name="verificationAction" id="reject" value="Reject" autocomplete="off">
-                            <label class="btn btn-outline-danger" for="reject">
-                                <i class="fas fa-times"></i> Reject
-                            </label>
-
-                            <input type="radio" class="btn-check" name="verificationAction" id="requestInfo" value="RequestInfo" autocomplete="off">
-                            <label class="btn btn-outline-warning" for="requestInfo">
-                                <i class="fas fa-question"></i> Request Info
-                            </label>
+                                        <!-- More Info Collapse -->
+                                        <div class="collapse mt-3" id="moreInfo_@prescription.PrescriptionId">
+                                            <div class="card card-body">
+                                                <label class="form-label">Specify what information is needed:</label>
+                                                <textarea class="form-control mb-2"
+                                                  name="RequestDetails"
+                                                  rows="2"
+                                                  placeholder="e.g., Need clearer image, missing doctor signature..."></textarea>
+                                                <button type="submit"
+                                                        name="Action"
+                                                        value="RequestInfo"
+                                                        class="btn btn-warning btn-sm">
+                                                    Send Request
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                    <div id="commentsSection" class="mb-3">
-                        <label for="commentsInput" class="form-label">Comments</label>
-                        <textarea id="commentsInput" name="Comments" class="form-control" rows="3"
-                                  placeholder="Add any comments about this prescription..."></textarea>
-                    </div>
-
-                    <div id="requestDetailsSection" class="mb-3 d-none">
-                        <label for="requestDetailsInput" class="form-label">Request Details</label>
-                        <textarea id="requestDetailsInput" name="RequestDetails" class="form-control" rows="3"
-                                  placeholder="Specify what additional information you need from the customer..."></textarea>
-                    </div>
-                </form>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" id="submitVerificationBtn" class="btn btn-primary">Submit</button>
-            </div>
-        </div>
+        }
     </div>
-</div>
+}
+else
+{
+    <div class="text-center py-5">
+        <i class="bi bi-check-circle text-success" style="font-size: 4rem;"></i>
+        <h4 class="mt-3">No Pending Prescriptions</h4>
+        <p class="text-muted">All prescriptions have been reviewed!</p>
+        <a asp-controller="Dashboard" asp-action="Index" class="btn btn-primary mt-3">
+            <i class="bi bi-house"></i> Back to Dashboard
+        </a>
+    </div>
+}
 
 @section Scripts {
     <script>
-        $(document).ready(function() {
-            // View prescription
-            $('.view-prescription').on('click', function() {
-                const prescriptionUrl = $(this).data('prescription-url');
-                const prescriptionId = $(this).data('prescription-id');
-
-                // Determine if it's a PDF or image
-                const isPdf = prescriptionUrl.toLowerCase().endsWith('.pdf');
-
-                // Show appropriate container
-                if (isPdf) {
-                    $('#prescriptionPdfContainer').removeClass('d-none');
-                    $('#prescriptionImageContainer').addClass('d-none');
-                    $('#prescriptionPdf').attr('src', prescriptionUrl);
-                } else {
-                    $('#prescriptionImageContainer').removeClass('d-none');
-                    $('#prescriptionPdfContainer').addClass('d-none');
-                    $('#prescriptionImage').attr('src', prescriptionUrl);
-                }
-
-                // Set download link
-                $('#prescriptionDownloadBtn').attr('href', '@Url.Action("Download", "Prescription")/' + prescriptionId);
-
-                $('#prescriptionViewModal').modal('show');
-            });
-
-            // Verify prescription
-            $('.verify-prescription').on('click', function() {
-                const prescriptionId = $(this).data('prescription-id');
-                $('#prescriptionIdInput').val(prescriptionId);
-                $('#verificationModal').modal('show');
-            });
-
-            // Show/hide request details based on action selection
-            $('input[name="verificationAction"]').change(function() {
-                if ($(this).val() === 'RequestInfo') {
-                    $('#requestDetailsSection').removeClass('d-none');
-                } else {
-                    $('#requestDetailsSection').addClass('d-none');
-                }
-            });
-
-            // Submit verification form
-            $('#submitVerificationBtn').on('click', function() {
-                const action = $('input[name="verificationAction"]:checked').val();
-                $('#actionInput').val(action);
-
-                // Validate form based on selected action
-                let isValid = true;
-
-                if (action === 'Reject' && $('#commentsInput').val().trim() === '') {
-                    alert('Please provide a reason for rejection.');
-                    isValid = false;
-                }
-
-                if (action === 'RequestInfo' && $('#requestDetailsInput').val().trim() === '') {
-                    alert('Please specify what additional information you need.');
-                    isValid = false;
-                }
-
-                if (isValid) {
-                    $('#prescriptionVerificationForm').submit();
-                }
-            });
-        });
+        // Auto-hide alerts after 5 seconds
+        setTimeout(function() {
+            $('.alert').fadeOut('slow');
+        }, 5000);
     </script>
+}
+
+@section Styles {
+    <style>
+        .prescription-viewer {
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            transition: all 0.3s ease;
+        }
+
+            .card:hover {
+                box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+            }
+
+        .list-group-item {
+            border-left: none;
+            border-right: none;
+        }
+
+        .btn i {
+            margin-right: 5px;
+        }
+    </style>
 }

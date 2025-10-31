@@ -28,7 +28,7 @@ namespace PharmaCom.Service.Interfaces
         Task<Product?> GetProductByIdAsync(int id);
         Task<Product?> GetProductWithCategoryAsync(int id);
         Task<Product> CreateProductAsync(Product product);
-        Task UpdateProductAsync(Product product);
+        void UpdateProductAsync(Product product);
         Task DeleteProductAsync(int id);
         Task<bool> ProductExistsAsync(int id);
 

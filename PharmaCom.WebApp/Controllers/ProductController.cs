@@ -80,7 +80,6 @@ namespace PharmaCom.WebApp.Controllers
             return View(product);
         }
 
-        #region Create
         // GET: /Product/Create
         public async Task<IActionResult> Create()
         {
@@ -102,9 +101,7 @@ namespace PharmaCom.WebApp.Controllers
             ViewBag.Categories = new SelectList(await _unitOfWork.Category.GetAllAsync(), "Id", "Name");
             return View(product);
         }
-        #endregion
 
-        #region Edit
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
@@ -125,16 +122,15 @@ namespace PharmaCom.WebApp.Controllers
 
             if (ModelState.IsValid)
             {
-                await _productService.UpdateProductAsync(product);
+                _productService.UpdateProductAsync(product);
                 return RedirectToAction(nameof(Index));
             }
 
             ViewBag.Categories = new SelectList(await _unitOfWork.Category.GetAllAsync(), "Id", "Name", product.CategoryId);
             return View(product);
         }
-        #endregion
 
-        #region Delete
+
         public async Task<IActionResult> Delete(int id)
         {
             var product = await _productService.GetProductByIdAsync(id);
@@ -142,8 +138,7 @@ namespace PharmaCom.WebApp.Controllers
                 return NotFound();
 
             await _productService.DeleteProductAsync(id);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("ProductManagement","Dashboard");
         }
-        #endregion
     }
 }

@@ -154,10 +154,13 @@ namespace PharmaCom.DataInfrastructure.Data
                 entity.Property(e => e.UploadDate).IsRequired();
                 entity.Property(e => e.Comments).HasMaxLength(2000);
 
+                entity.Property(e => e.OrderId).IsRequired(false);
+
                 entity.HasOne(e => e.Order)
                     .WithMany(o => o.Prescription)
                     .HasForeignKey(e => e.OrderId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.SetNull)
+                    .IsRequired(false);
             });
         }
     }

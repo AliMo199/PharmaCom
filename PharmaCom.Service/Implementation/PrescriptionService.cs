@@ -1,16 +1,17 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using PharmaCom.Domain.Models;
 using PharmaCom.Domain.Repositories;
 using PharmaCom.Domain.Static;
+using PharmaCom.Domain.ViewModels;
 using PharmaCom.Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PharmaCom.Domain.ViewModels;
 
 namespace PharmaCom.Service.Implementation
 {
@@ -20,17 +21,20 @@ namespace PharmaCom.Service.Implementation
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IConfiguration _configuration;
         private readonly IEmailService _emailService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public PrescriptionService(
             IUnitOfWork unitOfWork,
             IWebHostEnvironment webHostEnvironment,
             IConfiguration configuration,
-            IEmailService emailService)
+            IEmailService emailService,
+            UserManager<ApplicationUser> userManager)
         {
             _unitOfWork = unitOfWork;
             _webHostEnvironment = webHostEnvironment;
             _configuration = configuration;
             _emailService = emailService;
+            _userManager = userManager;
         }
 
         public async Task<Prescription> UploadPrescriptionAsync(IFormFile file, int orderId)
@@ -72,7 +76,7 @@ namespace PharmaCom.Service.Implementation
                 FileUrl = $"/uploads/prescriptions/{uniqueFileName}",
                 UploadDate = DateTime.UtcNow,
                 Status = ST.Pending,
-                Comments = null
+                Comments = null,
             };
 
             await _unitOfWork.Prescription.AddAsync(prescription);
@@ -99,6 +103,10 @@ namespace PharmaCom.Service.Implementation
             if (!allowedExtensions.Contains(extension))
                 throw new ArgumentException("File type not allowed. Please upload an image or PDF file.");
 
+            // Validate file size (5MB max)
+            if (file.Length > 5 * 1024 * 1024)
+                throw new ArgumentException("File size must be less than 5MB.");
+
             // Create directory if it doesn't exist
             var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads", "prescriptions");
             if (!Directory.Exists(uploadsFolder))
@@ -114,19 +122,31 @@ namespace PharmaCom.Service.Implementation
                 await file.CopyToAsync(fileStream);
             }
 
-            // Create a prescription without an order (will be associated later)
+            // ✅ Create prescription without OrderId - it will be assigned later
             var prescription = new Prescription
             {
                 FileUrl = $"/uploads/prescriptions/{uniqueFileName}",
                 UploadDate = DateTime.UtcNow,
                 Status = ST.Pending,
-                UploadedByUserId = userId
+                UploadedByUserId = userId,
+                OrderId = null // ✅ Explicitly set to null
             };
 
             await _unitOfWork.Prescription.AddAsync(prescription);
             _unitOfWork.Save();
 
             return prescription;
+        }
+
+
+        // ✅ Add helper method to get unassigned prescriptions
+        public async Task<Prescription?> GetLatestApprovedPrescriptionForUserAsync(string userId)
+        {
+            var prescriptions = await _unitOfWork.Prescription.GetUnassignedPrescriptionsByUserIdAsync(userId);
+            return prescriptions
+                .Where(p => p.Status == ST.Approved && p.OrderId == null)
+                .OrderByDescending(p => p.UploadDate)
+                .FirstOrDefault();
         }
 
         public async Task<Prescription> GetPrescriptionByIdAsync(int prescriptionId)
@@ -149,15 +169,39 @@ namespace PharmaCom.Service.Implementation
 
             foreach (var prescription in pendingPrescriptions)
             {
+                // ✅ Check if prescription has an associated order
+                if (!prescription.OrderId.HasValue)
+                {
+                    var user = await _userManager.FindByIdAsync(prescription.UploadedByUserId);
+                    var customerName = user?.UserName ?? user?.FullName ?? "Unknown";
+
+                    var viewModel = new PrescriptionViewModel
+                    {
+                        PrescriptionId = prescription.Id,
+                        OrderId = 0,
+                        UploadDate = prescription.UploadDate,
+                        Status = prescription.Status,
+                        FileUrl = prescription.FileUrl,
+                        Comments = prescription.Comments,
+                        CustomerName = customerName, // ✅ Use actual name
+                        OrderDate = prescription.UploadDate,
+                        OrderTotal = 0m,
+                        PrescriptionProducts = new List<PrescriptionProductViewModel>()
+                    };
+
+                    result.Add(viewModel);
+                    continue;
+                }
+
                 // Get related order details
-                var order = await _unitOfWork.Order.GetOrderWithDetailsAsync(prescription.OrderId);
+                var order = await _unitOfWork.Order.GetOrderWithDetailsAsync(prescription.OrderId.Value);
                 if (order == null) continue;
 
-                // Create view model
-                var viewModel = new PrescriptionViewModel
+                // Create view model with order details
+                var viewModelWithOrder = new PrescriptionViewModel
                 {
                     PrescriptionId = prescription.Id,
-                    OrderId = prescription.OrderId,
+                    OrderId = prescription.OrderId.Value,
                     UploadDate = prescription.UploadDate,
                     Status = prescription.Status,
                     FileUrl = prescription.FileUrl,
@@ -179,7 +223,7 @@ namespace PharmaCom.Service.Implementation
                         }).ToList()
                 };
 
-                result.Add(viewModel);
+                result.Add(viewModelWithOrder);
             }
 
             return result;
@@ -187,55 +231,134 @@ namespace PharmaCom.Service.Implementation
 
         public async Task<bool> VerifyPrescriptionAsync(int prescriptionId, string pharmacistId, bool isApproved, string comments)
         {
-            var prescription = await _unitOfWork.Prescription.GetPrescriptionWithOrderAsync(prescriptionId);
-            if (prescription == null)
-                return false;
-
-            // Update prescription status
-            prescription.Status = isApproved ? ST.Approved : ST.Rejected;
-            prescription.Comments = comments;
-            prescription.VerifiedByUserId = pharmacistId;
-            prescription.VerificationDate = DateTime.UtcNow;
-
-            _unitOfWork.Prescription.Update(prescription);
-
-            // Update order status based on prescription approval
-            if (prescription.Order != null)
+            try
             {
-                prescription.Order.Status = isApproved ? ST.Approved : ST.Rejected;
-                _unitOfWork.Order.Update(prescription.Order);
+                // ✅ Get prescription with order
+                var prescription = await _unitOfWork.Prescription.GetPrescriptionWithOrderAsync(prescriptionId);
+                if (prescription == null)
+                {
+                    Console.WriteLine($"Prescription {prescriptionId} not found");
+                    return false;
+                }
+
+                // ✅ Update prescription status
+                prescription.Status = isApproved ? ST.Approved : ST.Rejected;
+                prescription.Comments = comments;
+                prescription.VerifiedByUserId = pharmacistId;
+                prescription.VerificationDate = DateTime.UtcNow;
+
+                _unitOfWork.Prescription.Update(prescription);
+
+                // ✅ Update associated order status if exists
+                if (prescription.OrderId.HasValue)
+                {
+                    var order = await _unitOfWork.Order.GetByIdAsync(prescription.OrderId.Value);
+
+                    if (order != null)
+                    {
+                        if (isApproved)
+                        {
+                            // Only update to Approved if order is in Pending or PaymentReceived status
+                            if (order.Status == ST.Pending || order.Status == ST.PaymentReceived)
+                            {
+                                order.Status = ST.Approved;
+                                prescription.Status = ST.Approved;
+                                _unitOfWork.Order.Update(order);
+                                Console.WriteLine($"Order {order.Id} status updated to Approved");
+                            }
+                        }
+                        else
+                        {
+                            // If prescription is rejected, reject the order too
+                            order.Status = ST.Rejected;
+                            prescription.Status = ST.Rejected;
+                            _unitOfWork.Order.Update(order);
+                            Console.WriteLine($"Order {order.Id} status updated to Rejected");
+                        }
+                    }
+                }
+
+                // ✅ Save all changes
+                var saveResult = _unitOfWork.Save();
+                Console.WriteLine($"Save returned: {saveResult} changes");
+
+                // Send notification to customer
+                if (prescription.Order?.ApplicationUser?.Email != null)
+                {
+                    await SendPrescriptionVerificationNotificationAsync(prescriptionId, isApproved, comments);
+                }
+
+                return true;
             }
-
-            _unitOfWork.Save();
-
-            // Send notification to customer
-            await SendPrescriptionVerificationNotificationAsync(prescriptionId, isApproved, comments);
-
-            return true;
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in VerifyPrescriptionAsync: {ex.Message}\n{ex.StackTrace}");
+                throw; // Re-throw to be caught by controller
+            }
         }
 
         public async Task<bool> RequireAdditionalInfoAsync(int prescriptionId, string pharmacistId, string requestDetails)
         {
-            var prescription = await _unitOfWork.Prescription.GetPrescriptionWithOrderAsync(prescriptionId);
-            if (prescription == null)
-                return false;
+            try
+            {
+                var prescription = await _unitOfWork.Prescription.GetPrescriptionWithOrderAsync(prescriptionId);
+                if (prescription == null)
+                {
+                    Console.WriteLine($"Prescription {prescriptionId} not found");
+                    return false;
+                }
 
-            prescription.Status = ST.MoreInfoRequired;
-            prescription.Comments = requestDetails;
-            prescription.VerifiedByUserId = pharmacistId;
-            prescription.VerificationDate = DateTime.UtcNow;
+                prescription.Status = ST.MoreInfoRequired;
+                prescription.Comments = requestDetails;
+                prescription.VerifiedByUserId = pharmacistId;
+                prescription.VerificationDate = DateTime.UtcNow;
 
-            _unitOfWork.Prescription.Update(prescription);
-            _unitOfWork.Save();
+                _unitOfWork.Prescription.Update(prescription);
 
-            // Send notification to customer requesting more information
-            await _emailService.SendEmailAsync(
-                prescription.Order.ApplicationUser.Email,
-                "Additional Information Required for Your Prescription",
-                $"Please provide additional information for your prescription: {requestDetails}");
+                // ✅ Update order status if exists
+                if (prescription.OrderId.HasValue)
+                {
+                    var order = await _unitOfWork.Order.GetByIdAsync(prescription.OrderId.Value);
+                    if (order != null)
+                    {
+                        order.Status = ST.MoreInfoRequired;
+                        _unitOfWork.Order.Update(order);
+                    }
+                }
 
-            return true;
+                var saveResult = _unitOfWork.Save();
+                Console.WriteLine($"Save returned: {saveResult} changes");
+
+                // Send notification to customer requesting more information
+                if (prescription.Order?.ApplicationUser?.Email != null)
+                {
+                    await _emailService.SendEmailAsync(
+                        prescription.Order.ApplicationUser.Email,
+                        "Additional Information Required for Your Prescription",
+                        $"Please provide additional information for your prescription: {requestDetails}");
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in RequireAdditionalInfoAsync: {ex.Message}\n{ex.StackTrace}");
+                throw;
+            }
         }
+
+        public async Task<IEnumerable<Prescription>> GetPrescriptionsByUserIdAsync(string userId)
+        {
+            if (string.IsNullOrWhiteSpace(userId))
+                throw new ArgumentException("User ID is required", nameof(userId));
+
+            var prescriptions = await _unitOfWork.Prescription.FindAsync(
+                p => p.UploadedByUserId == userId);
+
+            return prescriptions.OrderByDescending(p => p.UploadDate);
+        }
+
+        
 
         public async Task<(byte[] fileContents, string contentType, string fileName)> DownloadPrescriptionAsync(int prescriptionId)
         {
@@ -295,6 +418,30 @@ namespace PharmaCom.Service.Implementation
                 p => p.Status == ST.Pending);
 
             return pendingPrescriptions.Any();
+        }
+
+        /// <summary>
+        /// Gets the latest prescription (pending or approved) that hasn't been assigned to an order
+        /// </summary>
+        public async Task<Prescription?> GetLatestAvailablePrescriptionForUserAsync(string userId)
+        {
+            if (string.IsNullOrWhiteSpace(userId))
+                throw new ArgumentException("User ID is required", nameof(userId));
+
+            var prescriptions = await _unitOfWork.Prescription.GetUnassignedPrescriptionsByUserIdAsync(userId);
+            return prescriptions
+                .Where(p => (p.Status == ST.Pending || p.Status == ST.Approved) && p.OrderId == null)
+                .OrderByDescending(p => p.UploadDate)
+                .FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Checks if user has any unassigned prescription (pending or approved)
+        /// </summary>
+        public async Task<bool> UserHasAvailablePrescriptionAsync(string userId)
+        {
+            var prescription = await GetLatestAvailablePrescriptionForUserAsync(userId);
+            return prescription != null;
         }
     }
 }

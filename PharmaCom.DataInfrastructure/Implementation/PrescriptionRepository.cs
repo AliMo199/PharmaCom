@@ -33,5 +33,21 @@ namespace PharmaCom.DataInfrastructure.Implementation
                 .Include(p => p.Order)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
+        public async Task<IEnumerable<Prescription>> GetPrescriptionsByUserIdAsync(string userId)
+        {
+            return await _context.Prescriptions
+                .Where(p => p.UploadedByUserId == userId)
+                .OrderByDescending(p => p.UploadDate)
+                .ToListAsync();
+        }
+
+        // ✅ Add this new method
+        public async Task<IEnumerable<Prescription>> GetUnassignedPrescriptionsByUserIdAsync(string userId)
+        {
+            return await _context.Prescriptions
+                .Where(p => p.UploadedByUserId == userId && p.OrderId == null)
+                .OrderByDescending(p => p.UploadDate)
+                .ToListAsync();
+        }
     }
 }

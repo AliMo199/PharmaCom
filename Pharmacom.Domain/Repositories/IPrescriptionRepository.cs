@@ -11,5 +11,7 @@ namespace PharmaCom.Domain.Repositories
     {
         Task<IEnumerable<Prescription>> GetPrescriptionsByOrderIdAsync(int orderId);
         Task<Prescription?> GetPrescriptionWithOrderAsync(int id);
+        Task<IEnumerable<Prescription>> GetPrescriptionsByUserIdAsync(string userId);
+        Task<IEnumerable<Prescription>> GetUnassignedPrescriptionsByUserIdAsync(string userId);
     }
 }

@@ -35,24 +35,15 @@ namespace PharmaCom.Service.Implementation
             if (address == null)
                 throw new ArgumentException("Address not found");
 
-            var prescriptionRequiredProducts = cartItems
-                .Where(ci => ci.Product.IsRxRequired)
-                .Select(ci => ci.Product.Name)
-                .ToList();
-
-            if (prescriptionRequiredProducts.Any())
-            {
-                throw new InvalidOperationException(
-                $"The following products require a prescription: {string.Join(", ", prescriptionRequiredProducts)}. " +
-                "Please remove them from your cart or upload a prescription before checkout.");
-            }
+            // ✅ REMOVED the prescription check - allow order creation with Rx products
+            // The prescription will be linked later in the checkout process
 
             var order = new Order
             {
                 ApplicationUserId = userId,
                 AddressId = addressId,
                 OrderDate = DateTime.UtcNow,
-                Status = ST.Pending,
+                Status = ST.Pending, // ✅ Will stay pending until prescription is approved
                 TotalAmount = await _cartService.CalculateCartTotalAsync(userId),
                 OrderItems = new List<OrderItem>(),
                 PaymentIntentId = "",
@@ -70,8 +61,6 @@ namespace PharmaCom.Service.Implementation
 
             await _unitOfWork.Order.AddAsync(order);
             _unitOfWork.Save();
-
-            await _cartService.ClearCartAsync(userId);
 
             return order;
         }
@@ -95,12 +84,12 @@ namespace PharmaCom.Service.Implementation
                             Name = oi.Product.Name,
                             Description = oi.Product.Description,
                         },
-                        UnitAmount = (long)(oi.Product.Price * 100), // Convert to cents
+                        UnitAmount = (long)Math.Round(oi.Product.Price * 100m), // Convert to cents
                     },
                     Quantity = oi.Quantity,
                 }).ToList(),
                 Mode = "payment",
-                SuccessUrl = successUrl + "?session_id={CHECKOUT_SESSION_ID}",
+                SuccessUrl = successUrl,
                 CancelUrl = cancelUrl,
                 ClientReferenceId = orderId.ToString(),
                 Metadata = new Dictionary<string, string>
@@ -134,6 +123,7 @@ namespace PharmaCom.Service.Implementation
                 order.Status = ST.PaymentReceived;
                 order.PaymentIntentId = session.PaymentIntentId;
                 _unitOfWork.Order.Update(order);
+                await _cartService.ClearCartAsync(order.ApplicationUserId);
                 _unitOfWork.Save();
                 return true;
             }
@@ -153,6 +143,15 @@ namespace PharmaCom.Service.Implementation
             order.Status = status;
             _unitOfWork.Order.Update(order);
             _unitOfWork.Save();
+        }
+        public async Task DeleteOrderAsync(int orderId)
+        {
+            var order = await _unitOfWork.Order.GetByIdAsync(orderId);
+            if (order != null)
+            {
+                _unitOfWork.Order.Remove(order);
+                _unitOfWork.Save();
+            }
         }
 
         public async Task<IEnumerable<Order>> GetUserOrdersAsync(string userId)

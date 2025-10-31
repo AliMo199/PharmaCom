@@ -16,6 +16,7 @@ namespace PharmaCom.Service.Interfaces
         Task<bool> ProcessStripePaymentSuccessAsync(string sessionId);
         Task UpdateOrderStatusAsync(int orderId, string status);
         Task<IEnumerable<Order>> GetUserOrdersAsync(string userId);
+        Task DeleteOrderAsync(int orderId);
         Task<IEnumerable<Order>> GetOrdersByStatusAsync(string status);
         Task<Order> GetOrderWithDetailsAsync(int orderId);
         // NEW: Pagination & Search for orders (admin or user panel)

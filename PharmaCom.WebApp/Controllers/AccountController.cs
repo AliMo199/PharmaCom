@@ -83,7 +83,7 @@ namespace PharmaCom.WebApp.Controllers
                     };
 
                     await _signInManager.SignInWithClaimsAsync(appUser, logInViewModel.RememberMe, Claims);
-                    return RedirectToAction("Home", "Store");
+                    return RedirectToAction("Store", "Home");
                 }
             }
 

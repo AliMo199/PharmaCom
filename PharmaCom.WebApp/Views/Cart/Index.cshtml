@@ -5,6 +5,7 @@
     ViewData["Title"] = "Shopping Cart";
     ViewBag.CurrentPage = "cart";
     decimal cartTotal = ViewBag.CartTotal ?? 0m;
+    bool hasRxProducts = Model?.Items?.Any(i => i.Product.IsRxRequired) ?? false;
 }
 
 @section Breadcrumb {
@@ -25,6 +26,30 @@
     <div class="container">
         @if (Model?.Items != null && Model.Items.Any())
         {
+            <!-- ✅ UPDATED: Just show warning, no upload here -->
+            @if (hasRxProducts)
+            {
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <div class="alert alert-info border-0 shadow-sm" role="alert">
+                            <div class="d-flex align-items-center">
+                                <span class="icon-info mr-3" style="font-size: 32px;"></span>
+                                <div class="flex-grow-1">
+                                    <h5 class="alert-heading mb-2">
+                                        <i class="icon-alert-circle"></i> Prescription Required
+                                    </h5>
+                                    <p class="mb-0">
+                                        Your cart contains items that require a valid prescription.
+                                        You will be able to upload your prescription during the checkout process.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <!-- Cart Items Table -->
             <div class="row mb-5">
                 <div class="col-md-12">
                     <div class="site-blocks-table">
@@ -56,7 +81,9 @@
                                             </h2>
                                             @if (item.Product.IsRxRequired)
                                             {
-                                                <span class="badge badge-danger">Rx Required</span>
+                                                <span class="badge badge-danger">
+                                                    <i class="icon-alert-circle"></i> Rx Required
+                                                </span>
                                             }
                                         </td>
                                         <td class="item-price">$@item.Product.Price.ToString("F2")</td>
@@ -95,6 +122,7 @@
                 </div>
             </div>
 
+            <!-- Action Buttons and Cart Totals -->
             <div class="row">
                 <div class="col-md-6">
                     <div class="row mb-5">
@@ -141,9 +169,16 @@
 
                             <div class="row">
                                 <div class="col-md-12">
+                                    <!-- ✅ UPDATED: Simple checkout button, prescription upload happens during checkout -->
                                     <a asp-controller="Order" asp-action="Checkout" class="btn btn-primary btn-lg btn-block">
-                                        Proceed To Checkout
+                                        <i class="icon-arrow-right mr-2"></i> Proceed To Checkout
                                     </a>
+                                    @if (hasRxProducts)
+                                    {
+                                        <small class="text-muted d-block text-center mt-2">
+                                            <i class="icon-info"></i> You'll upload prescription in the next step
+                                        </small>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -198,7 +233,7 @@
             // Clear ALL handlers first
             $('.js-btn-plus, .js-btn-minus, .btn-remove').off();
 
-            // Attach handlers using event delegation
+            // Cart quantity handlers
             $(document).on('click', '.js-btn-plus', function (e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
@@ -208,10 +243,7 @@
                 var currentQty = parseInt($input.val()) || 0;
                 var newQty = currentQty + 1;
 
-                // Update UI immediately (optimistic update)
                 $input.val(newQty);
-
-                // Then update server
                 updateQuantity(productId, newQty, $input);
             });
 
@@ -225,11 +257,7 @@
 
                 if (currentQty > 1) {
                     var newQty = currentQty - 1;
-
-                    // Update UI immediately (optimistic update)
                     $input.val(newQty);
-
-                    // Then update server
                     updateQuantity(productId, newQty, $input);
                 }
             });
@@ -245,8 +273,6 @@
             });
 
             function updateQuantity(productId, quantity, $input) {
-                var originalQty = quantity; // Store in case we need to rollback
-
                 $.ajax({
                     url: '@Url.Action("UpdateQuantity", "Cart")',
                     type: 'POST',
@@ -257,9 +283,6 @@
                     },
                     success: function (response) {
                         if (response.success) {
-                            // Don't update the input again - we already did it optimistically
-                            // Just update the totals
-
                             var $row = $('tr[data-product-id="' + productId + '"]');
                             var price = parseFloat($row.find('.item-price').text().replace('$', ''));
                             var itemTotal = price * quantity;
@@ -272,14 +295,13 @@
                                 updateCartCount();
                             }
                         } else {
-                            // Rollback on error
                             alert('Error updating quantity: ' + response.message);
-                            location.reload(); // Reload to get correct state
+                            location.reload();
                         }
                     },
                     error: function () {
                         alert('Error updating cart. Please try again.');
-                        location.reload(); // Reload to get correct state
+                        location.reload();
                     }
                 });
             }

@@ -12,6 +12,7 @@
           href="https://getbootstrap.com/docs/5.3/examples/dashboard/" />
     <script src="~/js/color-modes.js"></script>
     @RenderSection("Scripts", required: false)
+    @RenderSection("Styles", required: false)
     <link href="~/css/bootstrap.min.css" rel="stylesheet" />
     <meta name="theme-color" content="#712cf9" />
     <link href="/css/dashboard.css" rel="stylesheet" />
@@ -274,9 +275,8 @@
                     <div class="offcanvas-body  p-0 pt-lg-3 overflow-y-auto">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center gap-2 active"
-                                   aria-current="page"
-                                   href="#">
+                                <a asp-controller="Dashboard" asp-action="Index" class="nav-link d-flex align-items-center gap-2 active"
+                                   aria-current="page">
                                     <svg class="bi" aria-hidden="true">
                                         <use xlink:href="#house-fill"></use>
                                     </svg>
@@ -284,7 +284,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                               <a class="nav-link d-flex align-items-center gap-2" asp-controller="Order" asp-action="Index">
+                               <a class="nav-link d-flex align-items-center gap-2" asp-controller="Dashboard" asp-action="OrderManagement">
                                    <svg class="bi" aria-hidden="true">
                                        <use xlink:href="#file-earmark"></use>
                                    </svg>
@@ -303,7 +303,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a asp-controller="Product" asp-action="Index" class="nav-link d-flex align-items-center gap-2">
+                                <a asp-controller="Dashboard" asp-action="ProductManagement" class="nav-link d-flex align-items-center gap-2">
                                     <svg class="bi" aria-hidden="true">
                                         <use xlink:href="#cart"></use>
                                     </svg>

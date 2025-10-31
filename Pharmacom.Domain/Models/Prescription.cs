@@ -9,7 +9,7 @@ namespace PharmaCom.Domain.Models
     public class Prescription
     {
         public int Id { get; set; }
-        public int OrderId { get; set; }
+        public int? OrderId { get; set; }
         public string FileUrl { get; set; }
         public DateTime UploadDate { get; set; }
         public string Status { get; set; } // Pending, Approved, Rejected, MoreInfoRequired

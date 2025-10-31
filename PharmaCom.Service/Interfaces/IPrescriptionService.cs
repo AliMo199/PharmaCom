@@ -11,23 +11,18 @@ namespace PharmaCom.Service.Interfaces
 {
     public interface IPrescriptionService
     {
-        // Upload methods
         Task<Prescription> UploadPrescriptionAsync(IFormFile file, int orderId);
         Task<Prescription> SavePrescriptionFileAsync(IFormFile file, string userId);
-
-        // Retrieval methods
         Task<Prescription> GetPrescriptionByIdAsync(int prescriptionId);
         Task<IEnumerable<Prescription>> GetPrescriptionsByOrderIdAsync(int orderId);
+        Task<IEnumerable<Prescription>> GetPrescriptionsByUserIdAsync(string userId);
+        Task<Prescription?> GetLatestApprovedPrescriptionForUserAsync(string userId);
+        Task<Prescription?> GetLatestAvailablePrescriptionForUserAsync(string userId); // ✅ NEW
+        Task<bool> UserHasAvailablePrescriptionAsync(string userId); // ✅ NEW
         Task<IEnumerable<PrescriptionViewModel>> GetPendingPrescriptionsAsync();
-
-        // Verification methods
         Task<bool> VerifyPrescriptionAsync(int prescriptionId, string pharmacistId, bool isApproved, string comments);
         Task<bool> RequireAdditionalInfoAsync(int prescriptionId, string pharmacistId, string requestDetails);
-
-        // Download method
         Task<(byte[] fileContents, string contentType, string fileName)> DownloadPrescriptionAsync(int prescriptionId);
-
-        // Notification methods
         Task SendPrescriptionVerificationNotificationAsync(int prescriptionId, bool isApproved, string comments);
         Task<bool> HasPendingPrescriptionsAsync();
     }
