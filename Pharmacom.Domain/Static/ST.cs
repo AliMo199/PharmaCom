@@ -15,8 +15,8 @@ namespace PharmaCom.Domain.Static
             Rejected,
             Completed,
             PaymentReceived,
-            MoreInfoRequired
-
+            MoreInfoRequired,
+            Cancelled
         };
         public static string Pending = "Pending";
         public static string Approved = "Approved";
@@ -24,6 +24,6 @@ namespace PharmaCom.Domain.Static
         public static string Completed = "Completed";
         public static string PaymentReceived = "Payment Received";
         public static string MoreInfoRequired = "MoreInfoRequired";
-
+        public static string Cancelled = "Cancelled";
     }
 }

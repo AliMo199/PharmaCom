@@ -36,7 +36,29 @@
             </div>
         </div>
 
-        <!-- ✅ ADD THIS SECTION HERE - Prescription Status Alert -->
+        <!-- ✅ ADD CANCELLATION NOTICE -->
+        @if (Model.Status == "Cancelled")
+        {
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <div class="alert alert-secondary border-0 shadow-sm" role="alert">
+                        <div class="d-flex align-items-start">
+                            <span class="icon-x-circle mr-3 mt-1" style="font-size: 32px;"></span>
+                            <div class="flex-grow-1">
+                                <h5 class="alert-heading mb-2">
+                                    <i class="icon-info"></i> Order Cancelled
+                                </h5>
+                                <p class="mb-0">
+                                    This order has been cancelled. If you made a payment, a refund will be processed within 5-7 business days.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <!-- Prescription Status Alerts (existing code) -->
         @if (ViewBag.Prescription != null)
         {
             var prescription = ViewBag.Prescription as PharmaCom.Domain.Models.Prescription;
@@ -202,7 +224,6 @@
                 </div>
             }
         }
-        <!-- ✅ END OF PRESCRIPTION STATUS SECTION -->
 
         <div class="row">
             <!-- Order Information Card -->
@@ -341,9 +362,24 @@
                         <a asp-controller="Order" asp-action="Index" class="btn btn-outline-primary btn-block mb-2">
                             <i class="icon-arrow-left mr-2"></i>Back to Orders
                         </a>
-                        <a asp-controller="Home" asp-action="Store" class="btn btn-outline-secondary btn-block">
+                        <a asp-controller="Home" asp-action="Store" class="btn btn-outline-secondary btn-block mb-2">
                             <i class="icon-shopping-bag mr-2"></i>Continue Shopping
                         </a>
+
+                        <!-- ✅ ADD CANCEL ORDER BUTTON -->
+                        @{
+                            var cancellableStatuses = new[] { "Pending", "Payment Received", "MoreInfoRequired" };
+                        }
+                        @if (cancellableStatuses.Contains(Model.Status))
+                        {
+                            <hr class="my-3">
+                            <button type="button" class="btn btn-danger btn-block" id="cancelOrderBtn" data-order-id="@Model.Id">
+                                <i class="icon-x-circle mr-2"></i>Cancel Order
+                            </button>
+                            <small class="text-muted d-block text-center mt-2">
+                                <i class="icon-info"></i> You can cancel before processing
+                            </small>
+                        }
 
                         @if (Model.Status == "Rejected" || Model.Status == "MoreInfoRequired")
                         {
@@ -359,6 +395,52 @@
     </div>
 </div>
 
+<!-- ✅ ADD CANCEL ORDER MODAL -->
+<div class="modal fade" id="cancelOrderModal" tabindex="-1" role="dialog" aria-labelledby="cancelOrderModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cancelOrderModalLabel">
+                    <i class="icon-alert-circle mr-2"></i>Cancel Order
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form asp-action="Cancel" method="post" id="cancelOrderForm">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="orderId" id="cancelOrderId" value="@Model.Id" />
+
+                <div class="modal-body">
+                    <div class="alert alert-warning">
+                        <i class="icon-info mr-2"></i>
+                        <strong>Are you sure you want to cancel this order?</strong>
+                    </div>
+
+                    <p>Order #@Model.Id will be cancelled. If you've already paid, a refund will be processed within 5-7 business days.</p>
+
+                    <div class="form-group">
+                        <label for="cancellationReason">Reason for Cancellation (Optional)</label>
+                        <textarea class="form-control"
+                                  id="cancellationReason"
+                                  name="reason"
+                                  rows="3"
+                                  placeholder="Let us know why you're cancelling..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        <i class="icon-arrow-left mr-2"></i>Go Back
+                    </button>
+                    <button type="submit" class="btn btn-danger" id="confirmCancelBtn">
+                        <i class="icon-x-circle mr-2"></i>Yes, Cancel Order
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 @functions {
     string GetStatusBadgeClass(string status)
     {
@@ -370,9 +452,28 @@
             "Completed" => "success",
             "Rejected" => "danger",
             "Cancelled" => "secondary",
+            "MoreInfoRequired" => "info",
             _ => "secondary"
         };
     }
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Cancel order button click
+            $('#cancelOrderBtn').on('click', function() {
+                var orderId = $(this).data('order-id');
+                $('#cancelOrderId').val(orderId);
+                $('#cancelOrderModal').modal('show');
+            });
+
+            // Form submission
+            $('#cancelOrderForm').on('submit', function(e) {
+                $('#confirmCancelBtn').prop('disabled', true).html('<i class="icon-loading mr-2"></i>Cancelling...');
+            });
+        });
+    </script>
 }
 
 @section Styles {
@@ -381,9 +482,9 @@
             transition: all 0.3s ease;
         }
 
-            .card:hover {
-                transform: translateY(-2px);
-            }
+        .card:hover {
+            transform: translateY(-2px);
+        }
 
         .badge {
             font-size: 0.85rem;
@@ -401,29 +502,30 @@
             border-radius: 8px;
         }
 
-            .alert hr {
-                border-top-color: rgba(0, 0, 0, 0.1);
-            }
+        .alert hr {
+            border-top-color: rgba(0, 0, 0, 0.1);
+        }
 
         address {
             line-height: 1.8;
         }
 
+        .modal-content {
+            border-radius: 8px;
+        }
+
         media (max-width: 768px) {
-            .card-body
+            .card-body {
+                padding: 1.5rem !important;
+            }
 
-        {
-            padding: 1.5rem !important;
-        }
+            .table-responsive {
+                font-size: 0.9rem;
+            }
 
-        .table-responsive {
-            font-size: 0.9rem;
-        }
-
-        .h3, h3 {
-            font-size: 1.5rem;
-        }
-
+            .h3, h3 {
+                font-size: 1.5rem;
+            }
         }
     </style>
 }

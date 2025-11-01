@@ -3,22 +3,6 @@
   "WorkspaceRootPath": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|c:\\users\\alofi\\onedrive\\desktop\\pharmacom\\pharmacom.webapp\\views\\order\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\views\\order\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9D8AE0C-46B2-4EA9-B7C9-A98962FB512A}|Pharmacom.Domain\\PharmaCom.Domain.csproj|c:\\users\\alofi\\onedrive\\desktop\\pharmacom\\pharmacom.domain\\static\\st.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E9D8AE0C-46B2-4EA9-B7C9-A98962FB512A}|Pharmacom.Domain\\PharmaCom.Domain.csproj|solutionrelative:pharmacom.domain\\static\\st.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8B7ED4C4-3A85-41E4-918F-B3B124538C1D}|PharmaCom.Service\\PharmaCom.Service.csproj|c:\\users\\alofi\\onedrive\\desktop\\pharmacom\\pharmacom.service\\implementation\\prescriptionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8B7ED4C4-3A85-41E4-918F-B3B124538C1D}|PharmaCom.Service\\PharmaCom.Service.csproj|solutionrelative:pharmacom.service\\implementation\\prescriptionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|c:\\users\\alofi\\onedrive\\desktop\\pharmacom\\pharmacom.webapp\\controllers\\prescriptioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\controllers\\prescriptioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|c:\\users\\alofi\\onedrive\\desktop\\pharmacom\\pharmacom.webapp\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -47,64 +31,12 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\Views\\Order\\Index.cshtml",
-              "RelativeDocumentMoniker": "PharmaCom.WebApp\\Views\\Order\\Index.cshtml",
-              "ToolTip": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\Views\\Order\\Index.cshtml*",
-              "RelativeToolTip": "PharmaCom.WebApp\\Views\\Order\\Index.cshtml*",
-              "ViewState": "AgIAAEIAAAAAAAAAAAAMwFIAAABCAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-31T19:40:31.294Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ST.cs",
-              "DocumentMoniker": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\Pharmacom.Domain\\Static\\ST.cs",
-              "RelativeDocumentMoniker": "Pharmacom.Domain\\Static\\ST.cs",
-              "ToolTip": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\Pharmacom.Domain\\Static\\ST.cs",
-              "RelativeToolTip": "Pharmacom.Domain\\Static\\ST.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAxwBQAAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-31T19:33:56.919Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PrescriptionService.cs",
-              "DocumentMoniker": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.Service\\Implementation\\PrescriptionService.cs",
-              "RelativeDocumentMoniker": "PharmaCom.Service\\Implementation\\PrescriptionService.cs",
-              "ToolTip": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.Service\\Implementation\\PrescriptionService.cs",
-              "RelativeToolTip": "PharmaCom.Service\\Implementation\\PrescriptionService.cs",
-              "ViewState": "AgIAABIBAAAAAAAAAADwvxEBAAA+AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-31T19:27:08.049Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "PrescriptionController.cs",
-              "DocumentMoniker": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\Controllers\\PrescriptionController.cs",
-              "RelativeDocumentMoniker": "PharmaCom.WebApp\\Controllers\\PrescriptionController.cs",
-              "ToolTip": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\Controllers\\PrescriptionController.cs",
-              "RelativeToolTip": "PharmaCom.WebApp\\Controllers\\PrescriptionController.cs",
-              "ViewState": "AgIAAI0AAAAAAAAAAAAMwJQAAABUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-31T19:26:00.183Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
               "Title": "OrderController.cs",
               "DocumentMoniker": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\Controllers\\OrderController.cs",
               "RelativeDocumentMoniker": "PharmaCom.WebApp\\Controllers\\OrderController.cs",
               "ToolTip": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\Controllers\\OrderController.cs",
               "RelativeToolTip": "PharmaCom.WebApp\\Controllers\\OrderController.cs",
-              "ViewState": "AgIAAOgAAAAAAAAAAAD4v9kAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAABUAAAAAAAAAAAAYwJYAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-30T18:15:24.908Z",
               "EditorCaption": ""

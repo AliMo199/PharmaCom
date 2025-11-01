@@ -1,4 +1,4 @@
-﻿@model CheckoutViewModel
+﻿@model PharmaCom.Domain.ViewModels.CheckoutViewModel
 
 @{
     Layout = "~/Views/Shared/_MainThemeLayout.cshtml";
@@ -100,7 +100,7 @@
 
                             <form id="prescriptionUploadForm" enctype="multipart/form-data">
                                 @Html.AntiForgeryToken()
-                                <input type="hidden" id="tempOrderId" name="tempOrderId" value="" />
+                                <input type="hidden" id="tempPrescriptionId" name="tempPrescriptionId" value="" />
 
                                 <div class="form-group mb-3">
                                     <label class="font-weight-bold">
@@ -185,21 +185,27 @@
                             <strong class="h4 text-primary mb-0">$@Model.TotalAmount.ToString("F2")</strong>
                         </div>
 
-                        @if (Model.RequiresPrescription)
-                        {
-                            <button type="button" id="proceedToPayment" class="btn btn-primary btn-lg btn-block" disabled>
-                                <i class="icon-lock mr-2"></i> Upload Prescription First
-                            </button>
-                            <small class="text-muted d-block text-center mt-2">
-                                <i class="icon-info"></i> Prescription upload required
-                            </small>
-                        }
-                        else
-                        {
-                            <button type="button" id="proceedToPayment" class="btn btn-primary btn-lg btn-block">
-                                <i class="icon-credit-card mr-2"></i> Proceed to Payment
-                            </button>
-                        }
+                        <!-- ✅ FIXED: Form for checkout submission -->
+                        <form id="checkoutForm" asp-action="ProcessCheckout" asp-controller="Order" method="post">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="prescriptionId" id="hiddenPrescriptionId" value="" />
+
+                            @if (Model.RequiresPrescription)
+                            {
+                                <button type="submit" id="proceedToPayment" class="btn btn-primary btn-lg btn-block" disabled>
+                                    <i class="icon-lock mr-2"></i> Upload Prescription First
+                                </button>
+                                <small class="text-muted d-block text-center mt-2">
+                                    <i class="icon-info"></i> Prescription upload required
+                                </small>
+                            }
+                            else
+                            {
+                                <button type="submit" id="proceedToPayment" class="btn btn-primary btn-lg btn-block">
+                                    <i class="icon-credit-card mr-2"></i> Proceed to Payment
+                                </button>
+                            }
+                        </form>
 
                         <a asp-controller="Cart" asp-action="Index" class="btn btn-outline-secondary btn-block mt-2">
                             <i class="icon-arrow-left mr-2"></i> Back to Cart
@@ -217,10 +223,14 @@
             var requiresPrescription = @Model.RequiresPrescription.ToString().ToLower();
             var prescriptionUploaded = false;
 
+            console.log('Checkout page loaded. Requires prescription:', requiresPrescription);
+
             // File input change handler
             $('#prescriptionFile').on('change', function() {
                 var file = this.files[0];
                 if (file) {
+                    console.log('File selected:', file.name, file.size);
+
                     // Validate file size (5MB max)
                     if (file.size > 5 * 1024 * 1024) {
                         alert('File size must be less than 5MB');
@@ -243,9 +253,12 @@
 
             // Clear file button
             $('#clearFile').on('click', function() {
+                console.log('Clear file clicked');
                 $('#prescriptionFile').val('');
                 $('.custom-file-label').text('Choose file...');
                 $('#prescriptionPreview').slideUp();
+                $('#tempPrescriptionId').val('');
+                $('#hiddenPrescriptionId').val('');
                 prescriptionUploaded = false;
                 updatePaymentButton();
             });
@@ -255,14 +268,17 @@
                 var file = $('#prescriptionFile')[0].files[0];
 
                 if (!file) {
+                    console.log('No file selected');
                     return;
                 }
+
+                console.log('Starting prescription upload...');
 
                 formData.append('file', file);
                 formData.append('__RequestVerificationToken', $('input[name="__RequestVerificationToken"]').val());
 
                 $('#uploadStatus').show();
-                $('#uploadMessage').removeClass('alert-success alert-danger').addClass('alert-info').text('Uploading...');
+                $('#uploadMessage').removeClass('alert-success alert-danger').addClass('alert-info').text('Uploading prescription...');
 
                 $.ajax({
                     url: '@Url.Action("UploadPrescriptionForCheckout", "Prescription")',
@@ -271,20 +287,34 @@
                     processData: false,
                     contentType: false,
                     success: function(response) {
+                        console.log('Upload response:', response);
+
                         if (response.success) {
                             $('#uploadMessage').removeClass('alert-info').addClass('alert-success')
                                 .html('<i class="icon-check-circle mr-2"></i><strong>Success!</strong> Prescription uploaded successfully.');
+
                             prescriptionUploaded = true;
-                            $('#tempOrderId').val(response.prescriptionId);
+                            $('#tempPrescriptionId').val(response.prescriptionId);
+                            $('#hiddenPrescriptionId').val(response.prescriptionId);
+
+                            console.log('Prescription ID set to:', response.prescriptionId);
+
                             updatePaymentButton();
+
+                            // Auto-hide success message after 5 seconds
+                            setTimeout(function() {
+                                $('#uploadStatus').slideUp();
+                            }, 5000);
                         } else {
+                            console.error('Upload failed:', response.message);
                             $('#uploadMessage').removeClass('alert-info').addClass('alert-danger')
                                 .html('<i class="icon-alert-circle mr-2"></i><strong>Error:</strong> ' + response.message);
                             prescriptionUploaded = false;
                             updatePaymentButton();
                         }
                     },
-                    error: function(xhr) {
+                    error: function(xhr, status, error) {
+                        console.error('Upload error:', status, error);
                         var errorMsg = 'An error occurred during upload';
                         if (xhr.responseJSON && xhr.responseJSON.message) {
                             errorMsg = xhr.responseJSON.message;
@@ -299,50 +329,80 @@
             }
 
             function updatePaymentButton() {
+                var $button = $('#proceedToPayment');
+
                 if (!requiresPrescription || prescriptionUploaded) {
-                    $('#proceedToPayment')
+                    console.log('Enabling payment button');
+                    $button
                         .prop('disabled', false)
+                        .removeClass('btn-secondary')
+                        .addClass('btn-primary')
                         .html('<i class="icon-credit-card mr-2"></i> Proceed to Payment');
                 } else {
-                    $('#proceedToPayment')
+                    console.log('Disabling payment button - prescription required but not uploaded');
+                    $button
                         .prop('disabled', true)
+                        .removeClass('btn-primary')
+                        .addClass('btn-secondary')
                         .html('<i class="icon-lock mr-2"></i> Upload Prescription First');
                 }
             }
 
-            // Proceed to payment
-            $('#proceedToPayment').on('click', function() {
-                if ($(this).prop('disabled')) {
-                    return;
+            // ✅ FIXED: Form submission handler
+            $('#checkoutForm').on('submit', function(e) {
+                e.preventDefault();
+
+                var $button = $('#proceedToPayment');
+                var prescriptionId = $('#hiddenPrescriptionId').val();
+
+                console.log('Form submitting. Prescription ID:', prescriptionId);
+                console.log('Requires prescription:', requiresPrescription);
+                console.log('Prescription uploaded:', prescriptionUploaded);
+
+                // Validate prescription if required
+                if (requiresPrescription && !prescriptionId) {
+                    alert('Please upload a prescription before proceeding.');
+                    return false;
                 }
 
-                $(this).prop('disabled', true).html('<i class="icon-loading"></i> Processing...');
+                // Disable button and show loading
+                $button.prop('disabled', true).html('<i class="icon-loading mr-2"></i> Processing...');
 
-                var prescriptionId = requiresPrescription ? $('#tempOrderId').val() : null;
-
+                // Submit via AJAX to handle redirect
                 $.ajax({
-                    url: '@Url.Action("ProcessCheckout", "Order")',
+                    url: $(this).attr('action'),
                     type: 'POST',
                     data: {
-                        prescriptionId: prescriptionId,
+                        prescriptionId: prescriptionId || null,
                         __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
                     },
                     success: function(response) {
+                        console.log('Checkout response:', response);
+
                         if (response.success && response.redirectUrl) {
+                            console.log('Redirecting to:', response.redirectUrl);
                             window.location.href = response.redirectUrl;
                         } else {
                             alert('Error: ' + (response.message || 'Failed to process checkout'));
-                            $('#proceedToPayment').prop('disabled', false)
+                            $button.prop('disabled', false)
                                 .html('<i class="icon-credit-card mr-2"></i> Proceed to Payment');
                         }
                     },
-                    error: function() {
+                    error: function(xhr, status, error) {
+                        console.error('Checkout error:', status, error);
                         alert('An error occurred. Please try again.');
-                        $('#proceedToPayment').prop('disabled', false)
+                        $button.prop('disabled', false)
                             .html('<i class="icon-credit-card mr-2"></i> Proceed to Payment');
                     }
                 });
+
+                return false;
             });
+
+            // Initialize button state
+            updatePaymentButton();
+
+            console.log('Script initialization complete');
         });
     </script>
 }
@@ -364,6 +424,31 @@
 
         address {
             line-height: 1.8;
+        }
+
+        /* Loading animation */
+        .icon-loading {
+            display: inline-block;
+            animation: spin 1s linear infinite;
+        }
+
+        keyframes spin {
+            0%
+
+        {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+
+        }
+
+        /* Button states */
+        #proceedToPayment:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
         }
     </style>
 }

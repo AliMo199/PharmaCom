@@ -9,5 +9,6 @@ namespace PharmaCom.Domain.ViewModels
         public AddressViewModel ShippingAddress { get; set; } = new AddressViewModel();
         public decimal TotalAmount { get; set; }
         public bool RequiresPrescription { get; set; }
+        public int? PrescriptionId { get; set; }
     }
 }

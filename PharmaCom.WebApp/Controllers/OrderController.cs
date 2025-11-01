@@ -248,6 +248,53 @@ namespace PharmaCom.WebApp.Controllers
             return RedirectToAction("Index", "Cart");
         }
 
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> CanCancel(int orderId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var canCancel = await _orderService.CanCancelOrderAsync(orderId, userId);
+
+            return Json(new { success = true, canCancel = canCancel });
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Cancel(int orderId, string? reason)
+        {
+            try
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                // Check if order can be cancelled
+                if (!await _orderService.CanCancelOrderAsync(orderId, userId))
+                {
+                    TempData["Error"] = "This order cannot be cancelled at this time.";
+                    return RedirectToAction("Details", new { id = orderId });
+                }
+
+                // Cancel the order
+                var success = await _orderService.CancelOrderAsync(orderId, userId, reason);
+
+                if (success)
+                {
+                    TempData["Success"] = "Order cancelled successfully. Any payment will be refunded within 5-7 business days.";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["Error"] = "Failed to cancel order. Please contact support.";
+                    return RedirectToAction("Details", new { id = orderId });
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = $"Error cancelling order: {ex.Message}";
+                return RedirectToAction("Details", new { id = orderId });
+            }
+        }
+
         [Authorize(Roles = "Admin,Pharmacist")]
         public async Task<IActionResult> Manage()
         {

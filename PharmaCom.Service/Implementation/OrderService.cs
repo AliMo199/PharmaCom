@@ -174,6 +174,112 @@ namespace PharmaCom.Service.Implementation
             return await _unitOfWork.Order.GetOrderBySessionIdAsync(sessionId);
         }
 
+        /// <summary>
+        /// Checks if an order can be cancelled by the user
+        /// </summary>
+        public async Task<bool> CanCancelOrderAsync(int orderId, string userId)
+        {
+            var order = await _unitOfWork.Order.GetByIdAsync(orderId);
+
+            if (order == null)
+                return false;
+
+            // Only the order owner can cancel
+            if (order.ApplicationUserId != userId)
+                return false;
+
+            // Only pending and payment received orders can be cancelled
+            var cancellableStatuses = new[] { ST.Pending, ST.PaymentReceived, ST.MoreInfoRequired };
+            return cancellableStatuses.Contains(order.Status);
+        }
+
+        /// <summary>
+        /// Cancels an order and processes refund if payment was made
+        /// </summary>
+        public async Task<bool> CancelOrderAsync(int orderId, string userId, string? reason = null)
+        {
+            try
+            {
+                var order = await _unitOfWork.Order.GetOrderWithDetailsAsync(orderId);
+
+                if (order == null)
+                {
+                    Console.WriteLine($"Order {orderId} not found");
+                    return false;
+                }
+
+                // Verify user owns this order
+                if (order.ApplicationUserId != userId)
+                {
+                    Console.WriteLine($"User {userId} does not own order {orderId}");
+                    return false;
+                }
+
+                // Check if order can be cancelled
+                if (!await CanCancelOrderAsync(orderId, userId))
+                {
+                    Console.WriteLine($"Order {orderId} cannot be cancelled. Current status: {order.Status}");
+                    return false;
+                }
+
+                // ✅ Update order status to Cancelled
+                order.Status = "Cancelled";
+                _unitOfWork.Order.Update(order);
+
+                // ✅ If there's an associated prescription, reset it so it can be reused
+                if (order.PrescriptionId.HasValue)
+                {
+                    var prescription = await _unitOfWork.Prescription.GetByIdAsync(order.PrescriptionId.Value);
+                    if (prescription != null)
+                    {
+                        // Unlink prescription from order so it can be used for a new order
+                        prescription.OrderId = null;
+                        prescription.Comments = $"Order #{orderId} was cancelled. Prescription available for reuse.";
+                        _unitOfWork.Prescription.Update(prescription);
+                    }
+                }
+
+                // ✅ Process refund if payment was received
+                if (order.Status == ST.PaymentReceived && !string.IsNullOrEmpty(order.PaymentIntentId))
+                {
+                    try
+                    {
+                        var refundService = new Stripe.RefundService();
+                        var refundOptions = new Stripe.RefundCreateOptions
+                        {
+                            PaymentIntent = order.PaymentIntentId,
+                            Reason = Stripe.RefundReasons.RequestedByCustomer,
+                            Metadata = new Dictionary<string, string>
+                    {
+                        { "order_id", orderId.ToString() },
+                        { "cancelled_by", userId },
+                        { "cancellation_reason", reason ?? "Customer requested cancellation" }
+                    }
+                        };
+
+                        var refund = await refundService.CreateAsync(refundOptions);
+                        Console.WriteLine($"Refund created for order {orderId}: {refund.Id}");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error processing refund for order {orderId}: {ex.Message}");
+                        // Continue with cancellation even if refund fails
+                        // Admin can process refund manually
+                    }
+                }
+
+                _unitOfWork.Save();
+
+                Console.WriteLine($"Order {orderId} cancelled successfully by user {userId}");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error cancelling order {orderId}: {ex.Message}\n{ex.StackTrace}");
+                return false;
+            }
+        }
+
         public async Task<PagedResult<Order>> GetOrdersPagedAsync(
             int pageNumber,
             int pageSize,

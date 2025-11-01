@@ -88,10 +88,21 @@
                                             <span class="badge @badgeClass px-3 py-2">@order.Status</span>
                                         </td>
                                         <td class="text-center">
-                                            <a asp-action="Details" asp-route-id="@order.Id"
-                                               class="btn btn-primary btn-sm px-4">
-                                                View Details
-                                            </a>
+                                            @if (order.Status == "Pending" || order.Status == "Payment Received" || order.Status == "MoreInfoRequired")
+                                            {
+                                                <a asp-action="Details" asp-route-id="@order.Id" class="btn btn-sm btn-outline-primary mr-2">
+                                                    <i class="icon-eye"></i> View
+                                                </a>
+                                                <small class="text-muted d-block text-center mt-2">
+                                                    <i class="icon-info"></i> You can cancel before processing
+                                                </small>
+                                            }
+                                            else
+                                            {
+                                                <a asp-action="Details" asp-route-id="@order.Id" class="btn btn-sm btn-outline-primary mr-2">
+                                                    <i class="icon-eye"></i> View
+                                                </a>
+                                            }
                                         </td>
                                     </tr>
                                 }
@@ -112,11 +123,11 @@
                             case "pending":
                                 badgeClass = "badge-warning";
                                 break;
-                            case "paymentreceived":
-                            case "payment received":
+                            case "approved":
                                 badgeClass = "badge-success";
                                 break;
                             case "processing":
+                            case "payment received":
                                 badgeClass = "badge-info";
                                 break;
                             case "shipped":
@@ -125,7 +136,7 @@
                             case "delivered":
                                 badgeClass = "badge-success";
                                 break;
-                            case "cancelled":
+                            case "rejected":
                                 badgeClass = "badge-danger";
                                 break;
                         }

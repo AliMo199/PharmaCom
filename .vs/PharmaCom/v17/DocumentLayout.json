@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|c:\\users\\alofi\\onedrive\\desktop\\pharmacom\\pharmacom.webapp\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|c:\\users\\alofi\\onedrive\\desktop\\pharmacom\\pharmacom.webapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,8 +14,21 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\Program.cs",
+              "RelativeDocumentMoniker": "PharmaCom.WebApp\\Program.cs",
+              "ToolTip": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\Program.cs",
+              "RelativeToolTip": "PharmaCom.WebApp\\Program.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABcAAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-01T18:32:12.222Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
@@ -27,19 +40,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "OrderController.cs",
-              "DocumentMoniker": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\Controllers\\OrderController.cs",
-              "RelativeDocumentMoniker": "PharmaCom.WebApp\\Controllers\\OrderController.cs",
-              "ToolTip": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\Controllers\\OrderController.cs",
-              "RelativeToolTip": "PharmaCom.WebApp\\Controllers\\OrderController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T18:15:24.908Z",
-              "EditorCaption": ""
             }
           ]
         }

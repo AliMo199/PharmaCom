@@ -37,5 +37,7 @@ namespace PharmaCom.Service.Interfaces
             );
 
         Task<Order> GetOrderBySessionIdAsync(string sessionId);
+        Task<bool> CanCancelOrderAsync(int orderId, string userId);
+        Task<bool> CancelOrderAsync(int orderId, string userId, string? reason = null);
     }
 }
