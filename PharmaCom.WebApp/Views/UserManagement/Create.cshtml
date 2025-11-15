@@ -1,0 +1,193 @@
+﻿@model AdminRegisterViewModel
+
+@{
+    ViewData["Title"] = "Create New User";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">
+        <i class="bi bi-person-plus"></i> Create New User
+    </h1>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <form asp-action="Create" method="post">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
+
+                    <h5 class="mb-3">Account Information</h5>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="UserName" class="form-label"></label>
+                            <input asp-for="UserName" class="form-control" />
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Email" class="form-label"></label>
+                            <input asp-for="Email" class="form-control" type="email" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Password" class="form-label"></label>
+                            <input asp-for="Password" class="form-control" type="password" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="ConfirmPassword" class="form-label"></label>
+                            <input asp-for="ConfirmPassword" class="form-control" type="password" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+                    <h5 class="mb-3">Personal Information</h5>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="FirstName" class="form-label"></label>
+                            <input asp-for="FirstName" class="form-control" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="LastName" class="form-label"></label>
+                            <input asp-for="LastName" class="form-control" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="PhoneNumber" class="form-label"></label>
+                        <input asp-for="PhoneNumber" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+
+                    <hr class="my-4">
+                    <h5 class="mb-3">Roles & Permissions</h5>
+
+                    <div class="mb-3">
+                        <label class="form-label">Assign Roles <span class="text-danger">*</span></label>
+                        <div class="border rounded p-3">
+                            @foreach (var role in ViewBag.AvailableRoles)
+                            {
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="SelectedRoles" value="@role" id="role_@role">
+                                    <label class="form-check-label" for="role_@role">
+                                        <strong>@role</strong>
+                                        <small class="text-muted d-block">@GetRoleDescription(role)</small>
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                        <span asp-validation-for="SelectedRoles" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check form-switch">
+                                <input asp-for="EmailConfirmed" class="form-check-input" />
+                                <label asp-for="EmailConfirmed" class="form-check-label"></label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check form-switch">
+                                <input asp-for="PhoneNumberConfirmed" class="form-check-input" />
+                                <label asp-for="PhoneNumberConfirmed" class="form-check-label"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+                    <h5 class="mb-3">Address (Optional)</h5>
+
+                    <div class="mb-3">
+                        <label asp-for="Line1" class="form-label"></label>
+                        <input asp-for="Line1" class="form-control" />
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="City" class="form-label"></label>
+                            <input asp-for="City" class="form-control" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Governorate" class="form-label"></label>
+                            <input asp-for="Governorate" class="form-control" />
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left"></i> Cancel
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-circle"></i> Create User
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card bg-light">
+            <div class="card-body">
+                <h6 class="card-title">
+                    <i class="bi bi-info-circle"></i> Role Descriptions
+                </h6>
+                <hr>
+                <dl>
+                    <dt>Admin</dt>
+                    <dd class="text-muted">Full system access. Can manage users, products, orders, and all system settings.</dd>
+
+                    <dt>Pharmacist</dt>
+                    <dd class="text-muted">Can verify prescriptions, view orders, and manage prescription-related tasks.</dd>
+
+                    <dt>Customer</dt>
+                    <dd class="text-muted">Regular user who can browse products, place orders, and upload prescriptions.</dd>
+                </dl>
+            </div>
+        </div>
+
+        <div class="card bg-light mt-3">
+            <div class="card-body">
+                <h6 class="card-title">
+                    <i class="bi bi-shield-check"></i> Password Requirements
+                </h6>
+                <hr>
+                <ul class="small text-muted">
+                    <li>Minimum 6 characters long</li>
+                    <li>At least one uppercase letter (recommended)</li>
+                    <li>At least one lowercase letter (recommended)</li>
+                    <li>At least one number (recommended)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    string GetRoleDescription(string role)
+    {
+        return role switch
+        {
+            "Admin" => "Full system access and management capabilities",
+            "Pharmacist" => "Can verify prescriptions and manage orders",
+            "Customer" => "Standard user with shopping capabilities",
+            _ => "Custom role"
+        };
+    }
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

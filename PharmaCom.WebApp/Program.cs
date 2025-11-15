@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PharmaCom.DataInfrastructure.Data;
 using PharmaCom.DataInfrastructure.Implementation;
@@ -13,7 +13,7 @@ namespace PharmaCom.WebApp
 {
     public class Program
     {
-        public static void Main(string[] args) 
+        public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -21,10 +21,11 @@ namespace PharmaCom.WebApp
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddDbContext<ApplicationDBContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("cs")));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("ali")));
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-            .AddEntityFrameworkStores<ApplicationDBContext>() // or your DbContext
+            .AddEntityFrameworkStores<ApplicationDBContext>()
             .AddDefaultTokenProviders();
+            builder.Services.AddAutoMapper(typeof(Program).Assembly);
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<ICartService, CartService>();
             builder.Services.AddScoped<IOrderService, OrderService>();
@@ -42,15 +43,38 @@ namespace PharmaCom.WebApp
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-               
+
                 app.UseHsts();
             }
 
             using (var scope = app.Services.CreateScope())
             {
-                var context = scope.ServiceProvider.GetRequiredService<ApplicationDBContext>();
-                DataSeeder.Seed(context);
+                var services = scope.ServiceProvider;
+
+                // Run seeding asynchronously
+                Task.Run(async () =>
+                {
+                    try
+                    {
+                        var context = services.GetRequiredService<ApplicationDBContext>();
+                        var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+                        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+                        await context.Database.MigrateAsync();
+
+                        await DataSeeder.SeedAsync(context, userManager, roleManager);
+
+                        Console.WriteLine("✓ Database seeding completed successfully");
+                    }
+                    catch (Exception ex)
+                    {
+                        var logger = services.GetRequiredService<ILogger<Program>>();
+                        logger.LogError(ex, "An error occurred while seeding the database");
+                        Console.WriteLine($"✗ Error seeding database: {ex.Message}");
+                    }
+                }).Wait();
             }
+
 
             app.UseHttpsRedirection();
             app.UseRouting();

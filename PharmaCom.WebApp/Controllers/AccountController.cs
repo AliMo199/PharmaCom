@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PharmaCom.Domain.Models;
 using PharmaCom.Domain.Repositories;
 using PharmaCom.Domain.ViewModels;
+using PharmaCom.WebApp.Mappings;
 using System.Security.Claims;
 
 namespace PharmaCom.WebApp.Controllers
@@ -12,11 +15,13 @@ namespace PharmaCom.WebApp.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IMapper _mapper;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -36,6 +41,7 @@ namespace PharmaCom.WebApp.Controllers
                 FirstName = registerViewModel.FirstName,
                 LastName = registerViewModel.LastName,
                 Email = registerViewModel.Email,
+                PhoneNumber = registerViewModel.PhoneNumber
             };
 
 
@@ -409,6 +415,26 @@ namespace PharmaCom.WebApp.Controllers
             }
 
             return Json(new { success = false, message = "Failed to set default address" });
+        }
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetMyProfileJson()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+                return NotFound();
+
+            //AUTOMAPPER HERE
+            var userDto = _mapper.Map<UserProfileDto>(user);
+
+            return Json(new
+            {
+                success = true,
+                data = userDto,
+                message = "Profile data retrieved successfully using AutoMapper"
+            });
         }
     }
 }

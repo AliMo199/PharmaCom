@@ -306,9 +306,11 @@ wwwroot\scss\bootstrap\utilities\_spacing.scss
 wwwroot\scss\bootstrap\utilities\_text.scss
 wwwroot\scss\bootstrap\utilities\_visibility.scss
 wwwroot\scss\style.scss
+wwwroot\uploads\prescriptions\10156cbf-098f-4103-9c41-eb4cd8db9cab.png
 wwwroot\uploads\prescriptions\2073f778-50b6-46af-8784-aee9fc0f37b1.pdf
 wwwroot\uploads\prescriptions\33ec01a2-2c8a-44ba-9703-609e1355208b.jpg
 wwwroot\uploads\prescriptions\34268b03-2ca9-4dc3-8c46-b1484f6d01cb.png
+wwwroot\uploads\prescriptions\41dfd1b4-82c9-4c0a-9c99-233f59e80cd9.png
 wwwroot\uploads\prescriptions\5e45cb8b-9515-478f-911c-23ffc7e97791.jpg
 wwwroot\uploads\prescriptions\862afabe-bf9b-4b8a-bd8a-79f77229ba27.jpg
 wwwroot\uploads\prescriptions\b5b2c597-53ab-49c1-ad4b-984aa05c7609.jpg

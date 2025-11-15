@@ -27,6 +27,9 @@ namespace PharmaCom.Domain.ViewModels
         [Required(ErrorMessage = "*")]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+        [Required(ErrorMessage = "*")]
+        [Phone(ErrorMessage = "Invalid Phone Number")]
+        public string PhoneNumber { get; set; }
 
 
         [Display(Name = "Address Line")]

@@ -1,4 +1,5 @@
-﻿using PharmaCom.DataInfrastructure.Data;
+﻿using Microsoft.AspNetCore.Identity;
+using PharmaCom.DataInfrastructure.Data;
 using PharmaCom.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,17 @@ namespace PharmaCom.DataInfrastructure.Seeders
 {
     public static class DataSeeder
     {
-        public static void Seed(ApplicationDBContext context)
+        public static async Task SeedAsync(
+            ApplicationDBContext context,
+            UserManager<ApplicationUser> userManager,
+            RoleManager<IdentityRole> roleManager)
         {
+            // ✅ Seed Roles First
+            await SeedRolesAsync(roleManager);
+
+            // ✅ Seed Default Users
+            await SeedDefaultUsersAsync(userManager);
+
             // Seed Categories if none exist
             if (!context.Categories.Any())
             {
@@ -121,6 +131,115 @@ namespace PharmaCom.DataInfrastructure.Seeders
 
                 context.Products.AddRange(products);
                 context.SaveChanges();
+            }
+        }
+
+        // ✅ NEW: Seed Roles
+        private static async Task SeedRolesAsync(RoleManager<IdentityRole> roleManager)
+        {
+            string[] roleNames = { "Admin", "Pharmacist", "Customer" };
+
+            foreach (var roleName in roleNames)
+            {
+                var roleExist = await roleManager.RoleExistsAsync(roleName);
+                if (!roleExist)
+                {
+                    await roleManager.CreateAsync(new IdentityRole(roleName));
+                    Console.WriteLine($"✓ Created role: {roleName}");
+                }
+            }
+        }
+
+        // ✅ NEW: Seed Default Users
+        private static async Task SeedDefaultUsersAsync(UserManager<ApplicationUser> userManager)
+        {
+            // Seed Default Admin
+            var adminEmail = "admin@pharmacom.com";
+            var adminUser = await userManager.FindByEmailAsync(adminEmail);
+
+            if (adminUser == null)
+            {
+                var admin = new ApplicationUser
+                {
+                    UserName = "admin",
+                    Email = adminEmail,
+                    FirstName = "System",
+                    LastName = "Administrator",
+                    EmailConfirmed = true,
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = false,
+                    LockoutEnabled = false
+                };
+
+                var result = await userManager.CreateAsync(admin, "Admin@123");
+
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(admin, "Admin");
+                    Console.WriteLine($"✓ Created default admin user: {adminEmail}");
+                }
+                else
+                {
+                    Console.WriteLine("✗ Failed to create admin user:");
+                    foreach (var error in result.Errors)
+                    {
+                        Console.WriteLine($"  - {error.Description}");
+                    }
+                }
+            }
+
+            // Seed Default Pharmacist
+            var pharmacistEmail = "pharmacist@pharmacom.com";
+            var pharmacistUser = await userManager.FindByEmailAsync(pharmacistEmail);
+
+            if (pharmacistUser == null)
+            {
+                var pharmacist = new ApplicationUser
+                {
+                    UserName = "pharmacist",
+                    Email = pharmacistEmail,
+                    FirstName = "John",
+                    LastName = "Pharmacist",
+                    EmailConfirmed = true,
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = false,
+                    LockoutEnabled = false
+                };
+
+                var result = await userManager.CreateAsync(pharmacist, "Pharmacist@123");
+
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(pharmacist, "Pharmacist");
+                    Console.WriteLine($"✓ Created default pharmacist user: {pharmacistEmail}");
+                }
+            }
+
+            // Seed Default Customer
+            var customerEmail = "customer@pharmacom.com";
+            var customerUser = await userManager.FindByEmailAsync(customerEmail);
+
+            if (customerUser == null)
+            {
+                var customer = new ApplicationUser
+                {
+                    UserName = "customer",
+                    Email = customerEmail,
+                    FirstName = "Jane",
+                    LastName = "Customer",
+                    EmailConfirmed = true,
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = false,
+                    LockoutEnabled = false
+                };
+
+                var result = await userManager.CreateAsync(customer, "Customer@123");
+
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(customer, "Customer");
+                    Console.WriteLine($"✓ Created default customer user: {customerEmail}");
+                }
             }
         }
     }

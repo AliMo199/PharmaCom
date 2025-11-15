@@ -1,0 +1,171 @@
+﻿@model EditUserViewModel
+
+@{
+    ViewData["Title"] = "Edit User";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">
+        <i class="bi bi-pencil-square"></i> Edit User: @Model.UserName
+    </h1>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <form asp-action="Edit" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="Id" />
+                    <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
+
+                    <h5 class="mb-3">Account Information</h5>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="UserName" class="form-label"></label>
+                            <input asp-for="UserName" class="form-control" />
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Email" class="form-label"></label>
+                            <input asp-for="Email" class="form-control" type="email" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+                    <h5 class="mb-3">Personal Information</h5>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="FirstName" class="form-label"></label>
+                            <input asp-for="FirstName" class="form-control" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="LastName" class="form-label"></label>
+                            <input asp-for="LastName" class="form-control" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="PhoneNumber" class="form-label"></label>
+                        <input asp-for="PhoneNumber" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+
+                    <hr class="my-4">
+                    <h5 class="mb-3">Roles & Permissions</h5>
+
+                    <div class="mb-3">
+                        <label class="form-label">User Roles</label>
+                        <div class="border rounded p-3">
+                            @foreach (var role in ViewBag.AvailableRoles)
+                            {
+                                <div class="form-check">
+                                    <input class="form-check-input"
+                                           type="checkbox"
+                                           name="SelectedRoles"
+                                           value="@role"
+                                           id="role_@role"
+                                           @(Model.SelectedRoles.Contains(role) ? "checked" : "")>
+                                    <label class="form-check-label" for="role_@role">
+                                        <strong>@role</strong>
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+                    <h5 class="mb-3">Account Status</h5>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check form-switch">
+                                <input asp-for="EmailConfirmed" class="form-check-input" />
+                                <label asp-for="EmailConfirmed" class="form-check-label"></label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check form-switch">
+                                <input asp-for="PhoneNumberConfirmed" class="form-check-input" />
+                                <label asp-for="PhoneNumberConfirmed" class="form-check-label"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check form-switch">
+                                <input asp-for="TwoFactorEnabled" class="form-check-input" />
+                                <label asp-for="TwoFactorEnabled" class="form-check-label"></label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check form-switch">
+                                <input asp-for="LockoutEnabled" class="form-check-input" />
+                                <label asp-for="LockoutEnabled" class="form-check-label"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left"></i> Cancel
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-circle"></i> Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card bg-light">
+            <div class="card-body">
+                <h6 class="card-title">
+                    <i class="bi bi-info-circle"></i> Quick Actions
+                </h6>
+                <hr>
+                <div class="d-grid gap-2">
+                    <a asp-action="ChangePassword" asp-route-id="@Model.Id" class="btn btn-warning">
+                        <i class="bi bi-key"></i> Change Password
+                    </a>
+                    <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-primary">
+                        <i class="bi bi-eye"></i> View Full Details
+                    </a>
+                    <a asp-controller="Dashboard" asp-action="OrderManagement" asp-route-userId="@Model.Id" class="btn btn-outline-secondary">
+                        <i class="bi bi-cart"></i> View Orders
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card bg-light mt-3">
+            <div class="card-body">
+                <h6 class="card-title">
+                    <i class="bi bi-exclamation-triangle"></i> Important Notes
+                </h6>
+                <hr>
+                <ul class="small text-muted mb-0">
+                    <li>Changing username or email may affect user login</li>
+                    <li>Removing all roles will restrict user access</li>
+                    <li>Email confirmation allows password reset</li>
+                    <li>Lockout enabled allows automatic account locking</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

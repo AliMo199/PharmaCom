@@ -1,0 +1,401 @@
+﻿@model IEnumerable<UserManagementViewModel>
+
+@{
+    ViewData["Title"] = "User Management";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">
+        <i class="bi bi-people"></i> User Management
+    </h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <a asp-action="Create" class="btn btn-sm btn-primary">
+                <i class="bi bi-person-plus"></i> Create New User
+            </a>
+            <a asp-action="ExportUsers" class="btn btn-sm btn-outline-secondary">
+                <i class="bi bi-download"></i> Export to CSV
+            </a>
+        </div>
+    </div>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-circle me-2"></i>@TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<!-- Search and Filter -->
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-4">
+                <label class="form-label">Search</label>
+                <input type="text" name="searchTerm" class="form-control" placeholder="Username, email, name..." value="@ViewBag.SearchTerm">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Filter by Role</label>
+                <select name="roleFilter" class="form-select">
+                    <option value="">All Roles</option>
+                    @foreach (var role in ViewBag.AvailableRoles)
+                    {
+                        <option value="@role" selected="@(ViewBag.RoleFilter == role)">@role</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Page Size</label>
+                <select name="pageSize" class="form-select">
+                    <option value="10" selected="@(ViewBag.PageSize == 10)">10</option>
+                    <option value="25" selected="@(ViewBag.PageSize == 25)">25</option>
+                    <option value="50" selected="@(ViewBag.PageSize == 50)">50</option>
+                    <option value="100" selected="@(ViewBag.PageSize == 100)">100</option>
+                </select>
+            </div>
+            <div class="col-md-3 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary me-2">
+                    <i class="bi bi-search"></i> Search
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-clockwise"></i> Reset
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Statistics Cards -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title mb-0">Total Users</h6>
+                        <h2 class="mb-0">@ViewBag.TotalUsers</h2>
+                    </div>
+                    <i class="bi bi-people" style="font-size: 2rem;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title mb-0">Active Users</h6>
+                        <h2 class="mb-0">@Model.Count(u => u.LockoutEnd == null || u.LockoutEnd < DateTimeOffset.Now)</h2>
+                    </div>
+                    <i class="bi bi-check-circle" style="font-size: 2rem;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-warning text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title mb-0">Locked Users</h6>
+                        <h2 class="mb-0">@Model.Count(u => u.LockoutEnd != null && u.LockoutEnd > DateTimeOffset.Now)</h2>
+                    </div>
+                    <i class="bi bi-lock" style="font-size: 2rem;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-info text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title mb-0">Admins</h6>
+                        <h2 class="mb-0">@Model.Count(u => u.Roles.Contains("Admin"))</h2>
+                    </div>
+                    <i class="bi bi-shield-check" style="font-size: 2rem;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Users Table -->
+<div class="card">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Username</th>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Roles</th>
+                        <th class="text-end">Orders</th>
+                        <th class="text-end">Total Spent</th>
+                        <th>Status</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                        var isLocked = user.LockoutEnd != null && user.LockoutEnd > DateTimeOffset.Now;
+                        <tr id="user-row-@user.Id">
+                            <td>
+                                <strong>@user.UserName</strong>
+                                @if (!user.EmailConfirmed)
+                                {
+                                    <i class="bi bi-exclamation-circle text-warning" title="Email not confirmed"></i>
+                                }
+                            </td>
+                            <td>@user.FullName</td>
+                            <td>
+                                <small>@user.Email</small>
+                            </td>
+                            <td>
+                                <small>@(user.PhoneNumber ?? "N/A")</small>
+                            </td>
+                            <td>
+                                @foreach (var role in user.Roles)
+                                {
+                                    <span class="badge bg-@GetRoleBadgeClass(role) me-1">@role</span>
+                                }
+                            </td>
+                            <td class="text-end">
+                                <span class="badge bg-secondary">@user.TotalOrders</span>
+                            </td>
+                            <td class="text-end">
+                                <strong>$@user.TotalSpent.ToString("F2")</strong>
+                            </td>
+                            <td id="status-@user.Id">
+                                @if (isLocked)
+                                {
+                                    <span class="badge bg-danger">
+                                        <i class="bi bi-lock"></i> Locked
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-success">
+                                        <i class="bi bi-check-circle"></i> Active
+                                    </span>
+                                }
+                            </td>
+                            <td class="text-end">
+                                <div class="btn-group btn-group-sm" id="actions-@user.Id">
+                                    <a asp-action="Details" asp-route-id="@user.Id" class="btn btn-outline-primary" title="View Details">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-outline-secondary" title="Edit">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    @if (isLocked)
+                                    {
+                                        <button type="button" class="btn btn-outline-success btn-unlock" data-user-id="@user.Id" data-username="@user.UserName" title="Unlock">
+                                            <i class="bi bi-unlock"></i>
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="btn btn-outline-warning btn-lock" data-user-id="@user.Id" data-username="@user.UserName" title="Lock">
+                                            <i class="bi bi-lock"></i>
+                                        </button>
+                                    }
+                                    <button type="button" class="btn btn-outline-danger btn-delete" data-user-id="@user.Id" data-username="@user.UserName" title="Delete">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Pagination -->
+@if (ViewBag.TotalPages > 1)
+{
+    <nav class="mt-4">
+        <ul class="pagination justify-content-center">
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                <li class="page-item @(i == ViewBag.PageNumber ? "active" : "")">
+                    <a class="page-link" href="?pageNumber=@i&pageSize=@ViewBag.PageSize&searchTerm=@ViewBag.SearchTerm&roleFilter=@ViewBag.RoleFilter">
+                        @i
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+}
+
+@functions {
+    string GetRoleBadgeClass(string role)
+    {
+        return role switch
+        {
+            "Admin" => "danger",
+            "Pharmacist" => "primary",
+            "Customer" => "secondary",
+            _ => "info"
+        };
+    }
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Get anti-forgery token
+            var token = $('input[name="__RequestVerificationToken"]').val();
+
+            // Lock user button click
+            $(document).on('click', '.btn-lock', function() {
+                var userId = $(this).data('user-id');
+                var username = $(this).data('username');
+
+                console.log('Lock button clicked for user:', userId);
+
+                if (confirm('Are you sure you want to lock user "' + username + '" for 7 days?')) {
+                    $.ajax({
+                        url: '@Url.Action("LockUser", "UserManagement")',
+                        type: 'POST',
+                        data: {
+                            id: userId,
+                            lockoutDays: 7,
+                            __RequestVerificationToken: token
+                        },
+                        success: function(response) {
+                            console.log('Lock response:', response);
+                            if (response.success) {
+                                // Show success message
+                                showAlert('success', response.message);
+
+                                // Update status badge
+                                $('#status-' + userId).html(
+                                    '<span class="badge bg-danger"><i class="bi bi-lock"></i> Locked</span>'
+                                );
+
+                                // Update action buttons - replace lock with unlock
+                                var $actionsDiv = $('#actions-' + userId);
+                                $actionsDiv.find('.btn-lock').replaceWith(
+                                    '<button type="button" class="btn btn-outline-success btn-unlock" data-user-id="' + userId + '" data-username="' + username + '" title="Unlock">' +
+                                    '<i class="bi bi-unlock"></i></button>'
+                                );
+                            } else {
+                                showAlert('danger', 'Error: ' + response.message);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Lock error:', error);
+                            showAlert('danger', 'An error occurred while locking the user.');
+                        }
+                    });
+                }
+            });
+
+            // Unlock user button click
+            $(document).on('click', '.btn-unlock', function() {
+                var userId = $(this).data('user-id');
+                var username = $(this).data('username');
+
+                console.log('Unlock button clicked for user:', userId);
+
+                if (confirm('Are you sure you want to unlock user "' + username + '"?')) {
+                    $.ajax({
+                        url: '@Url.Action("UnlockUser", "UserManagement")',
+                        type: 'POST',
+                        data: {
+                            id: userId,
+                            __RequestVerificationToken: token
+                        },
+                        success: function(response) {
+                            console.log('Unlock response:', response);
+                            if (response.success) {
+                                // Show success message
+                                showAlert('success', response.message);
+
+                                // Update status badge
+                                $('#status-' + userId).html(
+                                    '<span class="badge bg-success"><i class="bi bi-check-circle"></i> Active</span>'
+                                );
+
+                                // Update action buttons - replace unlock with lock
+                                var $actionsDiv = $('#actions-' + userId);
+                                $actionsDiv.find('.btn-unlock').replaceWith(
+                                    '<button type="button" class="btn btn-outline-warning btn-lock" data-user-id="' + userId + '" data-username="' + username + '" title="Lock">' +
+                                    '<i class="bi bi-lock"></i></button>'
+                                );
+                            } else {
+                                showAlert('danger', 'Error: ' + response.message);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Unlock error:', error);
+                            showAlert('danger', 'An error occurred while unlocking the user.');
+                        }
+                    });
+                }
+            });
+
+            // Delete user button click
+            $(document).on('click', '.btn-delete', function() {
+                var userId = $(this).data('user-id');
+                var username = $(this).data('username');
+
+                if (confirm('Are you sure you want to delete user "' + username + '"? This action cannot be undone.')) {
+                    $.ajax({
+                        url: '@Url.Action("Delete", "UserManagement")',
+                        type: 'POST',
+                        data: {
+                            id: userId,
+                            __RequestVerificationToken: token
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                showAlert('success', response.message);
+                                // Remove the row with animation
+                                $('#user-row-' + userId).fadeOut(300, function() {
+                                    $(this).remove();
+                                });
+                            } else {
+                                showAlert('danger', 'Error: ' + response.message);
+                            }
+                        },
+                        error: function() {
+                            showAlert('danger', 'An error occurred while deleting the user.');
+                        }
+                    });
+                }
+            });
+
+            // Helper function to show alerts
+            function showAlert(type, message) {
+                var alertHtml = '<div class="alert alert-' + type + ' alert-dismissible fade show" role="alert">' +
+                    '<i class="bi bi-' + (type === 'success' ? 'check-circle' : 'exclamation-circle') + ' me-2"></i>' + message +
+                    '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
+                    '</div>';
+
+                // Insert at the top of the page
+                $('.border-bottom').after(alertHtml);
+
+                // Auto-hide after 5 seconds
+                setTimeout(function() {
+                    $('.alert').fadeOut('slow', function() {
+                        $(this).remove();
+                    });
+                }, 5000);
+            }
+        });
+    </script>
+
+    <!-- Anti-forgery token for AJAX -->
+    @Html.AntiForgeryToken()
+}
