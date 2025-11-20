@@ -234,6 +234,53 @@
     </div>
 </div>
 
+@section Styles {
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* Make the Datatable responsive inside its card */
+        @@media (max-width: 991.98px) {
+            .card-body
+
+        {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        #ordersTable {
+            min-width: 800px;
+            width: 100%;
+            font-size: 14px;
+        }
+
+            #ordersTable th, #ordersTable td {
+                white-space: nowrap;
+                text-align: center;
+                vertical-align: middle;
+            }
+
+            /* Make badges and buttons more compact */
+            #ordersTable .badge {
+                font-size: 12px;
+                padding: 4px 8px;
+            }
+
+            #ordersTable .btn-sm {
+                padding: 4px 6px;
+                font-size: 12px;
+            }
+
+        }
+
+        /* Optional: ensures the table doesn't spill outside container */
+        .card-body {
+            overflow-x: auto;
+        }
+    </style>
+}
+
 @section Scripts {
     <script>
         $(document).ready(function() {

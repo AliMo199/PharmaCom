@@ -35,10 +35,10 @@
                             <div class="d-flex align-items-center">
                                 <span class="icon-info mr-3" style="font-size: 32px;"></span>
                                 <div class="flex-grow-1">
-                                    <h5 class="alert-heading mb-2">
+                                    <h5 class="alert-heading mb-2 ms-3">
                                         <i class="icon-alert-circle"></i> Prescription Required
                                     </h5>
-                                    <p class="mb-0">
+                                    <p class="mb-0 ms-3">
                                         Your cart contains items that require a valid prescription.
                                         You will be able to upload your prescription during the checkout process.
                                     </p>
@@ -87,10 +87,10 @@
                                             }
                                         </td>
                                         <td class="item-price">$@item.Product.Price.ToString("F2")</td>
-                                        <td class="text-center align-middle justify-content-center">
+                                        <td class="text-center d-lg-flex justify-content-center" style="height: 200px; border: none; min-width: 160px">
                                             <div class="input-group mb-3" style="max-width: 120px; align-items:center; justify-content:center;">
                                                 <div class="input-group-prepend mw-md-80">
-                                                    <button class="btn btn-outline-primary js-btn-minus" type="button"
+                                                    <button class="btn btn-outline-primary js-btn-minus p-ms-1" type="button"
                                                             data-product-id="@item.ProductId">
                                                         &minus;
                                                     </button>
@@ -98,7 +98,7 @@
                                                 <input type="text" class="form-control text-center quantity-input"
                                                        value="@item.Quantity" readonly
                                                        data-product-id="@item.ProductId"
-                                                       style="border-radius:3px; height: 100%">
+                                                       style="border-radius:3px; height: 20%;">
                                                 <div class="input-group-append">
                                                     <button class="btn btn-outline-primary js-btn-plus" type="button"
                                                             data-product-id="@item.ProductId">
@@ -124,8 +124,8 @@
 
             <!-- Action Buttons and Cart Totals -->
             <div class="row">
-                <div class="col-md-6">
-                    <div class="row mb-5">
+                <div class="col-md-6 d-sm-flex flex-column gap-2 d-lg-block">
+                    <div class="mb-5 d-flex gap-2">
                         <div class="col-md-6">
                             <a asp-controller="Home" asp-action="Store" class="btn btn-outline-primary btn-md btn-block">
                                 Continue Shopping

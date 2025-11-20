@@ -1,4 +1,4 @@
-﻿@model SalesStatisticsViewModel
+﻿@model PharmaCom.Domain.ViewModels.SalesStatisticsViewModel
 @{
     ViewData["Title"] = "Sales Report";
     Layout = "_DashboardLayout";
@@ -13,6 +13,7 @@
         <li class="breadcrumb-item active">Sales Report</li>
     </ol>
 
+    <!-- Date Range Selection -->
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-calendar me-1"></i>
@@ -29,26 +30,27 @@
                     <input type="date" class="form-control" id="endDate" name="endDate" value="@endDate" required>
                 </div>
                 <div class="col-md-4 d-flex align-items-end">
-                    <button type="submit" class="btn btn-primary">Apply Date Range</button>
+                    <button type="submit" class="btn btn-primary w-100">Apply Date Range</button>
                 </div>
             </form>
         </div>
     </div>
 
+    <!-- Summary + Export Section -->
     <div class="row">
         <!-- Revenue Summary -->
-        <div class="col-xl-4">
-            <div class="card mb-4">
+        <div class="col-xl-6 col-md-12 mb-3">
+            <div class="card mb-4 h-100">
                 <div class="card-header">
                     <i class="fas fa-dollar-sign me-1"></i>
                     Revenue Summary
                 </div>
                 <div class="card-body">
-                    <table class="table table-borderless">
+                    <table class="table table-borderless mb-0">
                         <tbody>
                             <tr>
                                 <td>Total Revenue:</td>
-                                <td class="text-end"><strong>$@Model.TotalRevenue.ToString("N2")</strong></td>
+                                <td class="text-end fw-bold">$@Model.TotalRevenue.ToString("N2")</td>
                             </tr>
                             <tr>
                                 <td>Average Order Value:</td>
@@ -70,12 +72,174 @@
                     </table>
                 </div>
             </div>
+        </div>
 
-            <div class="card mb-4">
+        <!-- Export Options -->
+        <div class="col-xl-6 col-md-12 mb-3">
+            <div class="card mb-4 h-100">
                 <div class="card-header">
                     <i class="fas fa-download me-1"></i>
                     Export Options
                 </div>
-                <div class="card-body">
-                    <div class="d-grid gap-2">
-                        <button id=" exportPdfBtn
+                <div class="card-body d-grid gap-2">
+                    <button id="exportPdfBtn" class="btn btn-danger">
+                        <i class="fas fa-file-pdf me-1"></i> Export as PDF
+                    </button>
+                    <button id="exportExcelBtn" class="btn btn-success">
+                        <i class="fas fa-file-excel me-1"></i> Export as Excel
+                    </button>
+                    <button id="exportCsvBtn" class="btn btn-info text-white">
+                        <i class="fas fa-file-csv me-1"></i> Export as CSV
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Revenue Trend Chart -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-chart-line me-1"></i>
+            Revenue Trend Over Time
+        </div>
+        <div class="card-body">
+            <canvas id="revenueTrendChart"></canvas>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* ===== SALES REPORT RESPONSIVENESS (SIDEBAR-SAFE) ===== */
+
+        .container-fluid .card {
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* --- Responsive Form --- */
+        @@media (max-width: 767.98px) {
+            #dateRangeForm
+
+        {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        #dateRangeForm .col-md-4 {
+            width: 100%;
+        }
+
+        #dateRangeForm button {
+            width: 100%;
+        }
+
+        }
+
+        /* --- Headings --- */
+        h1.mt-4 {
+            font-size: 1.5rem;
+            margin-top: 1rem !important;
+        }
+
+        ol.breadcrumb {
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+        }
+
+        /* --- Tables --- */
+        table {
+            width: 100%;
+        }
+
+        th, td {
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        @@media (max-width: 767.98px) {
+            table
+
+        {
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 6px 8px;
+        }
+
+        }
+
+        /* --- Charts --- */
+        canvas {
+            width: 100% !important;
+            height: auto !important;
+            min-height: 250px;
+        }
+
+        /* --- Buttons and Cards --- */
+        .card-body .btn {
+            font-size: 0.95rem;
+        }
+
+        .card-header {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Revenue Trend Chart
+            const revenueTrendData = @Json.Serialize(Model.RevenueTrend);
+            const revenueTrendCtx = document.getElementById('revenueTrendChart');
+
+            new Chart(revenueTrendCtx, {
+                type: 'line',
+                data: {
+                    labels: Object.keys(revenueTrendData),
+                    datasets: [{
+                        label: 'Revenue',
+                        data: Object.values(revenueTrendData),
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderWidth: 2,
+                        tension: 0.1,
+                        fill: true,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value;
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: true, position: 'top' }
+                    }
+                }
+            });
+
+            // Export button placeholders (connect to backend export endpoints as needed)
+            document.getElementById("exportPdfBtn").addEventListener("click", () => alert("Exporting PDF..."));
+            document.getElementById("exportExcelBtn").addEventListener("click", () => alert("Exporting Excel..."));
+            document.getElementById("exportCsvBtn").addEventListener("click", () => alert("Exporting CSV..."));
+        });
+    </script>
+}

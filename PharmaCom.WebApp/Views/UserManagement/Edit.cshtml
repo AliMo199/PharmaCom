@@ -6,19 +6,22 @@
 }
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">
-        <i class="bi bi-pencil-square"></i> Edit User: @Model.UserName
+    <h1 class="h2" style="text-transform: capitalize;">
+        <i class="bi bi-pencil-square me-3"></i> Edit User: @Model.UserName
     </h1>
 </div>
 
 <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-8 mb-lg-3">
         <div class="card">
             <div class="card-body">
                 <form asp-action="Edit" method="post">
                     @Html.AntiForgeryToken()
                     <input type="hidden" asp-for="Id" />
-                    <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
+                    @if (!ViewData.ModelState.IsValid && ViewData.ModelState.Count > 0)
+                    {
+                        <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
+                    }
 
                     <h5 class="mb-3">Account Information</h5>
 
@@ -128,7 +131,7 @@
         </div>
     </div>
 
-    <div class="col-lg-4">
+    <div class="col-lg-4 mt-3">
         <div class="card bg-light">
             <div class="card-body">
                 <h6 class="card-title">
@@ -149,7 +152,7 @@
             </div>
         </div>
 
-        <div class="card bg-light mt-3">
+        <div class="card bg-light mt-3 mb-3">
             <div class="card-body">
                 <h6 class="card-title">
                     <i class="bi bi-exclamation-triangle"></i> Important Notes

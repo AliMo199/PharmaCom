@@ -116,7 +116,7 @@
                     </div>
                 </div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">View Details</a>
+                    <a class="small text-white stretched-link" href="/UserManagement/Index">View Details</a>
                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                 </div>
             </div>
@@ -180,8 +180,8 @@
                                     <td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
                                     <td>
                                         <span class="badge @(order.Status == "Completed" ? "bg-success" :
-                                                                                                         order.Status == "Pending" ? "bg-warning" :
-                                                                                                         order.Status == "Rejected" ? "bg-danger" : "bg-info")">
+                                                                                                                                                                                                                                                   order.Status == "Pending" ? "bg-warning" :
+                                                                                                                                                                                                                                                   order.Status == "Rejected" ? "bg-danger" : "bg-info")">
                                         @order.Status
                                     </span>
                                 </td>
@@ -234,6 +234,157 @@
         </div>
     </div>
 </div>
+
+@section Styles {
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* ======= DASHBOARD CONTENT RESPONSIVENESS (SIDEBAR SAFE) ======= */
+
+        /* Keep page from horizontal scrolling */
+        /* html, body {
+            overflow-x: hidden;
+        } */
+
+        /* ✅ Responsive cards and content inside container-fluid */
+        .container-fluid .card {
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        /* Smaller inner padding on mobile */
+        @@media (max-width: 767.98px) {
+            .container-fluid .card-body
+
+        {
+            padding: 1rem;
+        }
+
+        .container-fluid .card h5 {
+            font-size: 1rem;
+        }
+
+        .container-fluid .card h2 {
+            font-size: 1.4rem;
+        }
+
+        }
+
+        /* ✅ Responsive grid behavior for summary cards only */
+        @@media (max-width: 1199.98px) {
+            .row > .col-xl-3
+
+        {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+
+        }
+        @@media (max-width: 767.98px) {
+            .row > .col-xl-3, .row > .col-md-6
+
+        {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+
+        }
+
+        /* ✅ Tables responsive (keeps sidebar intact) */
+        .container-fluid .card-body {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        table {
+            width: 100%;
+            min-width: 700px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        @@media (max-width: 767.98px) {
+            table
+
+        {
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 6px 8px;
+        }
+
+        .badge {
+            font-size: 12px;
+            padding: 4px 8px;
+        }
+
+        .btn-sm {
+            padding: 4px 6px;
+            font-size: 12px;
+        }
+
+        }
+
+        /* ✅ Chart.js responsiveness */
+        .container-fluid canvas {
+            width: 100% !important;
+            height: auto !important;
+            min-height: 250px;
+        }
+
+        /* ✅ Date filter form responsiveness */
+        @@media (max-width: 767.98px) {
+            #dateRangeForm
+
+        {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        #dateRangeForm .col-auto {
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+
+        #dateRangeForm .btn {
+            width: 100%;
+        }
+
+        }
+
+        /* ✅ Breadcrumb & heading adjustments */
+        ol.breadcrumb {
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+        }
+
+        h1.mt-4 {
+            font-size: 1.5rem;
+            margin-top: 1rem !important;
+        }
+
+        /* Prevent tight headers from cluttering small screens */
+        @@media (max-width: 575.98px) {
+            .card-header i
+
+        {
+            display: none;
+        }
+
+        }</style>
+}
+
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>

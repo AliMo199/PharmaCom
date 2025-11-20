@@ -111,6 +111,7 @@ a {
 
 .site-section {
     padding: 2.5em 0;
+    z-index: -1;
 }
 
 @media (min-width: 768px) {
@@ -563,6 +564,7 @@ a {
     padding: 20px;
     height: calc(100vh - 52px);
     padding-bottom: 150px;
+    z-index: 2000;
 }
 
 .site-mobile-menu .site-nav-wrap {
@@ -1464,7 +1466,7 @@ a {
 .banner-wrap {
     background: #74d12b;
     border-radius: 4px;
-    position:relative;
+    position: relative;
     z-index: 1000;
 }
 
@@ -1581,4 +1583,150 @@ a {
 
 .custom-table td {
     color: #000;
+}
+
+/* User Account Dropdown Styles */
+.user-account-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+    .user-account-dropdown .user-dropdown {
+        visibility: hidden;
+        opacity: 0;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        text-align: left;
+        border-top: 2px solid #51eaea;
+        -webkit-box-shadow: 0 0px 4px 0px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 0px 4px 0px rgba(0, 0, 0, 0.05);
+        border-left: 1px solid #edf0f5;
+        border-right: 1px solid #edf0f5;
+        border-bottom: 1px solid #edf0f5;
+        padding: 0;
+        margin-top: 20px;
+        margin-left: 0;
+        background: #fff;
+        -webkit-transition: 0.2s 0s;
+        -o-transition: 0.2s 0s;
+        transition: 0.2s 0s;
+        list-style: none;
+        min-width: 150px;
+        /*z-index: 1000;*/
+    }
+
+    .user-account-dropdown:hover .user-dropdown,
+    .user-account-dropdown:focus .user-dropdown,
+    .user-account-dropdown:active .user-dropdown {
+        -webkit-transition-delay: 0s;
+        -o-transition-delay: 0s;
+        transition-delay: 0s;
+        margin-top: 0px;
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .user-account-dropdown .user-dropdown li {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        .user-account-dropdown .user-dropdown li a {
+            padding: 9px 20px;
+            display: block;
+            font-size: 16px;
+            text-transform: none;
+            letter-spacing: normal;
+            color: #25262a;
+            -webkit-transition: 0s all;
+            -o-transition: 0s all;
+            transition: 0s all;
+            text-decoration: none;
+        }
+
+            .user-account-dropdown .user-dropdown li a:hover {
+                background: #f4f5f9;
+                color: #25262a;
+            }
+
+    .user-account-dropdown .user-dropdown .dropdown-item-btn {
+        width: 100%;
+        padding: 9px 20px;
+        display: block;
+        font-size: 16px;
+        text-transform: none;
+        letter-spacing: normal;
+        color: #25262a;
+        background: none;
+        border: none;
+        text-align: left;
+        cursor: pointer;
+        -webkit-transition: 0s all;
+        -o-transition: 0s all;
+        transition: 0s all;
+    }
+
+        .user-account-dropdown .user-dropdown .dropdown-item-btn:hover {
+            background: #f4f5f9;
+            color: #25262a;
+        }
+
+    /* Ensure dropdown stays visible when hovering over it */
+    .user-account-dropdown .user-dropdown:hover {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    /* Fix for account dropdown specifically */
+    .user-account-dropdown .user-dropdown {
+        z-index: 9999 !important;
+        position: absolute;
+    }
+
+/* Fix z-index issues on mobile */
+@media (max-width: 991.98px) {
+    .banner-wrap,
+    .site-blocks-cover,
+    .site-navbar:focus {
+        position: relative;
+        z-index: 1 !important;
+    }
+
+    .banner-1 {
+        position: relative;
+        z-index: -1 !important;
+    }
+
+    /* Disable the dark overlay on mobile */
+    .offcanvas-menu .site-wrap:before {
+        display: none !important;
+    }
+}
+
+/* Prevent horizontal overflow on mobile */
+@media (max-width: 991.98px) {
+    html,body {
+        overflow-x: hidden;
+        width: 100%;
+        position: relative;
+    }
+
+    /* Fix search overlay overflow */
+    .search-wrap {
+        overflow-x: hidden;
+        max-width: 100vw;
+        width: 100%;
+        left: 0;
+        right: 0;
+    }
+
+    /* Ensure all major containers don't overflow */
+    .site-navbar,
+    .site-blocks-cover,
+    .site-section {
+        max-width: 100%;
+        overflow-x: visible;
+    }
 }

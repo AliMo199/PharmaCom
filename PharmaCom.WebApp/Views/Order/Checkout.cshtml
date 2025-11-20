@@ -37,7 +37,7 @@
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-header bg-white border-bottom py-3">
                         <h5 class="mb-0">
-                            <i class="icon-shopping-bag mr-2"></i>Order Summary
+                            <i class="icon-shopping-bag me-2"></i>Order Summary
                         </h5>
                     </div>
                     <div class="card-body p-0">
@@ -66,7 +66,7 @@
                                                 }
                                             </td>
                                             <td class="align-middle text-center py-3">
-                                                <span class="badge badge-secondary px-3 py-2">@item.Quantity</span>
+                                                <span class="badge badge-secondary px-3 py-2 text-dark">@item.Quantity</span>
                                             </td>
                                             <td class="align-middle text-right py-3">
                                                 $@item.Product.Price.ToString("F2")
@@ -88,12 +88,12 @@
                     <div class="card border-0 shadow-sm mb-4">
                         <div class="card-header bg-danger text-white py-3">
                             <h5 class="mb-0">
-                                <i class="icon-alert-circle mr-2"></i>Prescription Required
+                                <i class="icon-alert-circle me-2"></i>Prescription Required
                             </h5>
                         </div>
                         <div class="card-body p-4">
                             <div class="alert alert-warning mb-4">
-                                <i class="icon-info mr-2"></i>
+                                <i class="icon-info me-2"></i>
                                 <strong>Important:</strong> Your order contains prescription-required medications.
                                 Please upload a valid prescription to complete your order.
                             </div>
@@ -128,9 +128,9 @@
                                         <div class="card-body p-3">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <div>
-                                                    <i class="icon-file-text mr-2"></i>
+                                                    <i class="icon-file-text me-2"></i>
                                                     <span id="fileName"></span>
-                                                    <span id="fileSize" class="text-muted ml-2"></span>
+                                                    <span id="fileSize" class="text-muted ms-2"></span>
                                                 </div>
                                                 <button type="button" class="btn btn-sm btn-outline-danger" id="clearFile">
                                                     <i class="icon-close"></i>
@@ -155,7 +155,7 @@
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-header bg-white border-bottom py-3">
                         <h5 class="mb-0">
-                            <i class="icon-location-arrow mr-2"></i>Shipping Address
+                            <i class="icon-location-arrow me-2"></i>Shipping Address
                         </h5>
                     </div>
                     <div class="card-body p-4">
@@ -171,7 +171,7 @@
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-header bg-white border-bottom py-3">
                         <h5 class="mb-0">
-                            <i class="icon-credit-card mr-2"></i>Order Total
+                            <i class="icon-credit-card me-2"></i>Order Total
                         </h5>
                     </div>
                     <div class="card-body p-4">
@@ -193,7 +193,7 @@
                             @if (Model.RequiresPrescription)
                             {
                                 <button type="submit" id="proceedToPayment" class="btn btn-primary btn-lg btn-block" disabled>
-                                    <i class="icon-lock mr-2"></i> Upload Prescription First
+                                    <i class="icon-lock me-2"></i> Upload Prescription First
                                 </button>
                                 <small class="text-muted d-block text-center mt-2">
                                     <i class="icon-info"></i> Prescription upload required
@@ -202,13 +202,13 @@
                             else
                             {
                                 <button type="submit" id="proceedToPayment" class="btn btn-primary btn-lg btn-block">
-                                    <i class="icon-credit-card mr-2"></i> Proceed to Payment
+                                    <i class="icon-credit-card me-2"></i> Proceed to Payment
                                 </button>
                             }
                         </form>
 
                         <a asp-controller="Cart" asp-action="Index" class="btn btn-outline-secondary btn-block mt-2">
-                            <i class="icon-arrow-left mr-2"></i> Back to Cart
+                            <i class="icon-arrow-left me-2"></i> Back to Cart
                         </a>
                     </div>
                 </div>
@@ -291,7 +291,7 @@
 
                         if (response.success) {
                             $('#uploadMessage').removeClass('alert-info').addClass('alert-success')
-                                .html('<i class="icon-check-circle mr-2"></i><strong>Success!</strong> Prescription uploaded successfully.');
+                                .html('<i class="icon-check-circle me-2"></i><strong>Success!</strong> Prescription uploaded successfully.');
 
                             prescriptionUploaded = true;
                             $('#tempPrescriptionId').val(response.prescriptionId);
@@ -308,7 +308,7 @@
                         } else {
                             console.error('Upload failed:', response.message);
                             $('#uploadMessage').removeClass('alert-info').addClass('alert-danger')
-                                .html('<i class="icon-alert-circle mr-2"></i><strong>Error:</strong> ' + response.message);
+                                .html('<i class="icon-alert-circle me-2"></i><strong>Error:</strong> ' + response.message);
                             prescriptionUploaded = false;
                             updatePaymentButton();
                         }
@@ -321,7 +321,7 @@
                         }
 
                         $('#uploadMessage').removeClass('alert-info').addClass('alert-danger')
-                            .html('<i class="icon-alert-circle mr-2"></i><strong>Error:</strong> ' + errorMsg);
+                            .html('<i class="icon-alert-circle me-2"></i><strong>Error:</strong> ' + errorMsg);
                         prescriptionUploaded = false;
                         updatePaymentButton();
                     }
@@ -337,14 +337,14 @@
                         .prop('disabled', false)
                         .removeClass('btn-secondary')
                         .addClass('btn-primary')
-                        .html('<i class="icon-credit-card mr-2"></i> Proceed to Payment');
+                        .html('<i class="icon-credit-card me-2"></i> Proceed to Payment');
                 } else {
                     console.log('Disabling payment button - prescription required but not uploaded');
                     $button
                         .prop('disabled', true)
                         .removeClass('btn-primary')
                         .addClass('btn-secondary')
-                        .html('<i class="icon-lock mr-2"></i> Upload Prescription First');
+                        .html('<i class="icon-lock me-2"></i> Upload Prescription First');
                 }
             }
 
@@ -366,7 +366,7 @@
                 }
 
                 // Disable button and show loading
-                $button.prop('disabled', true).html('<i class="icon-loading mr-2"></i> Processing...');
+                $button.prop('disabled', true).html('<i class="icon-loading me-2"></i> Processing...');
 
                 // Submit via AJAX to handle redirect
                 $.ajax({
@@ -385,14 +385,14 @@
                         } else {
                             alert('Error: ' + (response.message || 'Failed to process checkout'));
                             $button.prop('disabled', false)
-                                .html('<i class="icon-credit-card mr-2"></i> Proceed to Payment');
+                                .html('<i class="icon-credit-card me-2"></i> Proceed to Payment');
                         }
                     },
                     error: function(xhr, status, error) {
                         console.error('Checkout error:', status, error);
                         alert('An error occurred. Please try again.');
                         $button.prop('disabled', false)
-                            .html('<i class="icon-credit-card mr-2"></i> Proceed to Payment');
+                            .html('<i class="icon-credit-card me-2"></i> Proceed to Payment');
                     }
                 });
 

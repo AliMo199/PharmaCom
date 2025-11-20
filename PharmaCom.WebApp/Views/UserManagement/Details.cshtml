@@ -7,30 +7,31 @@
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">
-        <i class="bi bi-person-circle"></i> User Details
+        <i class="bi bi-person-circle me-3"></i>
+        User Details
     </h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
-            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-primary">
-                <i class="bi bi-pencil"></i> Edit User
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-primary d-flex align-items-center me-1">
+                <i class="bi bi-pencil me-1"></i>Edit User
             </a>
-            <a asp-action="ChangePassword" asp-route-id="@Model.Id" class="btn btn-sm btn-warning">
-                <i class="bi bi-key"></i> Change Password
+            <a asp-action="ChangePassword" asp-route-id="@Model.Id" class="btn btn-sm btn-warning d-flex align-items-center me-1">
+                <i class="bi bi-key me-1"></i>Change Password
             </a>
             @if (Model.LockoutEnd != null && Model.LockoutEnd > DateTimeOffset.Now)
             {
-                <button type="button" class="btn btn-sm btn-success" onclick="unlockUser('@Model.Id')">
-                    <i class="bi bi-unlock"></i> Unlock User
+                <button type="button" class="btn btn-sm btn-success d-flex align-items-center me-1" onclick="unlockUser('@Model.Id')">
+                    <i class="bi bi-unlock me-1"></i>Unlock User
                 </button>
             }
             else
             {
-                <button type="button" class="btn btn-sm btn-warning" onclick="lockUser('@Model.Id')">
-                    <i class="bi bi-lock"></i> Lock User
+                <button type="button" class="btn btn-sm btn-warning d-flex align-items-center me-1" onclick="lockUser('@Model.Id')">
+                    <i class="bi bi-lock me-1"></i>Lock User
                 </button>
             }
-            <a asp-action="Index" class="btn btn-sm btn-outline-secondary">
-                <i class="bi bi-arrow-left"></i> Back to List
+            <a asp-action="Index" class="btn btn-sm btn-outline-secondary d-flex align-items-center">
+                <i class="bi bi-arrow-left me-1"></i>Back to List
             </a>
         </div>
     </div>
@@ -38,9 +39,10 @@
 
 @if (TempData["Success"] != null)
 {
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <i class="bi bi-check-circle me-2"></i>@TempData["Success"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <div class="alert alert-success alert-dismissible fade show d-flex align-items-center" role="alert">
+        <i class="bi bi-check-circle me-2"></i>
+        <div>@TempData["Success"]</div>
+        <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
     </div>
 }
 
@@ -49,36 +51,36 @@
     <div class="col-lg-4 mb-4">
         <div class="card">
             <div class="card-body text-center">
-                <div class="mb-3">
-                    <i class="bi bi-person-circle text-primary" style="font-size: 5rem;"></i>
+                <div class="mb-3 justify-content-center">
+                    <i class="bi bi-person-circle text-primary" style="font-size: 5rem; margin-left: -4rem;"></i>
                 </div>
-                <h4 class="card-title">@Model.FirstName @Model.LastName</h4>
-                <p class="text-muted mb-2">@@@Model.UserName</p>
+                <h4 class="card-title mb-1">@Model.FirstName @Model.LastName</h4>
+                <p class="text-muted mb-2">@Model.UserName</p>
 
                 <!-- Status Badges -->
                 <div class="mb-3">
                     @if (Model.LockoutEnd != null && Model.LockoutEnd > DateTimeOffset.Now)
                     {
-                        <span class="badge bg-danger">
-                            <i class="bi bi-lock"></i> Locked Until @Model.LockoutEnd.Value.ToString("MMM dd, yyyy")
+                        <span class="badge bg-danger me-1 d-inline-flex align-items-center">
+                            <i class="bi bi-lock me-1"></i>Locked Until @Model.LockoutEnd.Value.ToString("MMM dd, yyyy")
                         </span>
                     }
                     else
                     {
-                        <span class="badge bg-success">
-                            <i class="bi bi-check-circle"></i> Active
+                        <span class="badge bg-success me-1 d-inline-flex align-items-center">
+                            <i class="bi bi-check-circle me-1"></i>Active
                         </span>
                     }
                     @if (Model.EmailConfirmed)
                     {
-                        <span class="badge bg-info">
-                            <i class="bi bi-envelope-check"></i> Email Verified
+                        <span class="badge bg-info me-1 d-inline-flex align-items-center">
+                            <i class="bi bi-envelope-check me-1"></i>Email Verified
                         </span>
                     }
                     @if (Model.TwoFactorEnabled)
                     {
-                        <span class="badge bg-warning">
-                            <i class="bi bi-shield-check"></i> 2FA Enabled
+                        <span class="badge bg-warning d-inline-flex align-items-center">
+                            <i class="bi bi-shield-check me-1"></i>2FA Enabled
                         </span>
                     }
                 </div>
@@ -94,21 +96,23 @@
 
                 <hr>
 
-                <!-- Contact Information -->
+                <!-- Contact Info -->
                 <div class="text-start">
-                    <h6 class="text-muted mb-3">Contact Information</h6>
-                    <p class="mb-2">
+                    <h6 class="text-muted mb-3 d-flex align-items-center">
+                        <i class="bi bi-person-vcard me-2"></i>Contact Information
+                    </h6>
+                    <p class="mb-2 d-flex align-items-center">
                         <i class="bi bi-envelope me-2"></i>
                         <small>@Model.Email</small>
                     </p>
                     @if (!string.IsNullOrEmpty(Model.PhoneNumber))
                     {
-                        <p class="mb-2">
+                        <p class="mb-2 d-flex align-items-center">
                             <i class="bi bi-telephone me-2"></i>
                             <small>@Model.PhoneNumber</small>
                             @if (Model.PhoneNumberConfirmed)
                             {
-                                <i class="bi bi-check-circle text-success" title="Verified"></i>
+                                <i class="bi bi-check-circle text-success ms-2" title="Verified"></i>
                             }
                         </p>
                     }
@@ -118,7 +122,9 @@
 
                 <!-- Account Settings -->
                 <div class="text-start">
-                    <h6 class="text-muted mb-3">Account Settings</h6>
+                    <h6 class="text-muted mb-3 d-flex align-items-center">
+                        <i class="bi bi-gear me-2"></i>Account Settings
+                    </h6>
                     <div class="form-check form-switch mb-2">
                         <input class="form-check-input" type="checkbox" disabled @(Model.EmailConfirmed ? "checked" : "")>
                         <label class="form-check-label">Email Confirmed</label>
@@ -140,7 +146,7 @@
                 @if (Model.AccessFailedCount > 0)
                 {
                     <hr>
-                    <div class="alert alert-warning mb-0" role="alert">
+                    <div class="alert alert-warning mb-0 d-flex align-items-center" role="alert">
                         <i class="bi bi-exclamation-triangle me-2"></i>
                         <small>Failed Login Attempts: @Model.AccessFailedCount</small>
                     </div>
@@ -149,38 +155,38 @@
         </div>
     </div>
 
-    <!-- Statistics and Details -->
+    <!-- Right Column -->
     <div class="col-lg-8">
-        <!-- Statistics Cards -->
-        <div class="row mb-4">
-            <div class="col-md-3">
-                <div class="card bg-primary text-white">
-                    <div class="card-body">
-                        <h6 class="card-title">Total Orders</h6>
+        <!-- Statistics Row -->
+        <div class="row mb-4 text-center">
+            <div class="col-sm-6 col-md-3 mb-3 mb-md-0">
+                <div class="card bg-primary text-white h-100">
+                    <div class="card-body d-flex flex-column justify-content-center">
+                        <h6 class="card-title mb-1">Total Orders</h6>
                         <h3 class="mb-0">@Model.Statistics.TotalOrders</h3>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card bg-success text-white">
-                    <div class="card-body">
-                        <h6 class="card-title">Total Spent</h6>
+            <div class="col-sm-6 col-md-3 mb-3 mb-md-0">
+                <div class="card bg-success text-white h-100">
+                    <div class="card-body d-flex flex-column justify-content-center">
+                        <h6 class="card-title mb-1">Total Spent</h6>
                         <h3 class="mb-0">$@Model.Statistics.TotalSpent.ToString("F2")</h3>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card bg-info text-white">
-                    <div class="card-body">
-                        <h6 class="card-title">Avg Order</h6>
+            <div class="col-sm-6 col-md-3 mb-3 mb-md-0">
+                <div class="card bg-info text-white h-100">
+                    <div class="card-body d-flex flex-column justify-content-center">
+                        <h6 class="card-title mb-1">Avg Order</h6>
                         <h3 class="mb-0">$@Model.Statistics.AverageOrderValue.ToString("F2")</h3>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card bg-warning text-white">
-                    <div class="card-body">
-                        <h6 class="card-title">Pending</h6>
+            <div class="col-sm-6 col-md-3">
+                <div class="card bg-warning text-white h-100">
+                    <div class="card-body d-flex flex-column justify-content-center">
+                        <h6 class="card-title mb-1">Pending</h6>
                         <h3 class="mb-0">@Model.Statistics.PendingOrders</h3>
                     </div>
                 </div>
@@ -189,18 +195,18 @@
 
         <!-- Order Statistics -->
         <div class="card mb-4">
-            <div class="card-header bg-white">
-                <h5 class="mb-0">
-                    <i class="bi bi-graph-up"></i> Order Statistics
+            <div class="card-header bg-white d-flex align-items-center">
+                <h5 class="mb-0 d-flex align-items-center">
+                    <i class="bi bi-graph-up me-2"></i>Order Statistics
                 </h5>
             </div>
             <div class="card-body">
                 <div class="row text-center">
-                    <div class="col-md-4">
+                    <div class="col-md-4 mb-3 mb-md-0">
                         <h6 class="text-muted">Completed</h6>
                         <h4 class="text-success">@Model.Statistics.CompletedOrders</h4>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 mb-3 mb-md-0">
                         <h6 class="text-muted">Pending</h6>
                         <h4 class="text-warning">@Model.Statistics.PendingOrders</h4>
                     </div>
@@ -214,7 +220,8 @@
                     <hr>
                     <p class="mb-0 text-center">
                         <small class="text-muted">
-                            Last Order: @Model.Statistics.LastOrderDate.Value.ToString("MMMM dd, yyyy")
+                            <i class="bi bi-clock-history me-2"></i>Last Order:
+                            @Model.Statistics.LastOrderDate.Value.ToString("MMMM dd, yyyy")
                         </small>
                     </p>
                 }
@@ -224,18 +231,20 @@
         <!-- Recent Orders -->
         <div class="card mb-4">
             <div class="card-header bg-white d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">
-                    <i class="bi bi-cart"></i> Recent Orders
+                <h5 class="mb-0 d-flex align-items-center">
+                    <i class="bi bi-cart me-2"></i>Recent Orders
                 </h5>
-                <a asp-controller="Dashboard" asp-action="OrderManagement" asp-route-userId="@Model.Id" class="btn btn-sm btn-outline-primary">
-                    View All Orders
+                <a asp-controller="Dashboard" asp-action="OrderManagement"
+                   asp-route-userId="@Model.Id"
+                   class="btn btn-sm btn-outline-primary d-flex align-items-center">
+                    <i class="bi bi-eye me-1"></i>View All Orders
                 </a>
             </div>
             <div class="card-body p-0">
                 @if (Model.RecentOrders.Any())
                 {
                     <div class="table-responsive">
-                        <table class="table table-hover mb-0">
+                        <table class="table table-hover mb-0 align-middle">
                             <thead class="table-light">
                                 <tr>
                                     <th>Order #</th>
@@ -258,8 +267,9 @@
                                         </td>
                                         <td class="text-end">$@order.TotalAmount.ToString("F2")</td>
                                         <td class="text-end">
-                                            <a asp-controller="Order" asp-action="Details" asp-route-id="@order.OrderId" class="btn btn-sm btn-outline-primary">
-                                                <i class="bi bi-eye"></i> View
+                                            <a asp-controller="Order" asp-action="Details" asp-route-id="@order.OrderId"
+                                               class="btn btn-sm btn-outline-primary d-inline-flex align-items-center">
+                                                <i class="bi bi-eye me-1"></i>View
                                             </a>
                                         </td>
                                     </tr>
@@ -279,10 +289,10 @@
         </div>
 
         <!-- Addresses -->
-        <div class="card">
-            <div class="card-header bg-white">
-                <h5 class="mb-0">
-                    <i class="bi bi-geo-alt"></i> Addresses
+        <div class="card mb-5">
+            <div class="card-header bg-white d-flex align-items-center">
+                <h5 class="mb-0 d-flex align-items-center">
+                    <i class="bi bi-geo-alt me-2"></i>Addresses
                 </h5>
             </div>
             <div class="card-body">
@@ -291,12 +301,12 @@
                     <div class="row">
                         @foreach (var address in Model.Addresses)
                         {
-                            <div class="col-md-6 mb-3">
-                                <div class="border rounded p-3 @(address.IsDefault ? "border-primary" : "")">
+                            <div class="col-sm-12 col-md-6 mb-3">
+                                <div class="border rounded p-3 h-100 @(address.IsDefault ? "border-primary" : "")">
                                     @if (address.IsDefault)
                                     {
-                                        <span class="badge bg-success mb-2">
-                                            <i class="bi bi-star"></i> Default
+                                        <span class="badge bg-success mb-2 d-inline-flex align-items-center">
+                                            <i class="bi bi-star me-1"></i>Default
                                         </span>
                                     }
                                     <p class="mb-1"><strong>@address.Line1</strong></p>
@@ -308,7 +318,7 @@
                 }
                 else
                 {
-                    <p class="text-muted mb-0">
+                    <p class="text-muted mb-0 d-flex align-items-center">
                         <i class="bi bi-info-circle me-2"></i>No addresses on file
                     </p>
                 }
@@ -342,66 +352,4 @@
             _ => "secondary"
         };
     }
-}
-
-@section Scripts {
-    <script>
-        $(document).ready(function() {
-            var token = $('input[name="__RequestVerificationToken"]').val();
-
-            function lockUser(userId) {
-                if (confirm('Are you sure you want to lock this user for 7 days?')) {
-                    $.ajax({
-                        url: '@Url.Action("LockUser", "UserManagement")',
-                        type: 'POST',
-                        data: {
-                            id: userId,
-                            lockoutDays: 7,
-                            __RequestVerificationToken: token
-                        },
-                        success: function(response) {
-                            if (response.success) {
-                                alert(response.message);
-                                location.reload();
-                            } else {
-                                alert('Error: ' + response.message);
-                            }
-                        },
-                        error: function() {
-                            alert('An error occurred while locking the user.');
-                        }
-                    });
-                }
-            }
-
-            function unlockUser(userId) {
-                if (confirm('Are you sure you want to unlock this user?')) {
-                    $.ajax({
-                        url: '@Url.Action("UnlockUser", "UserManagement")',
-                        type: 'POST',
-                        data: {
-                            id: userId,
-                            __RequestVerificationToken: token
-                        },
-                        success: function(response) {
-                            if (response.success) {
-                                alert(response.message);
-                                location.reload();
-                            } else {
-                                alert('Error: ' + response.message);
-                            }
-                        },
-                        error: function() {
-                            alert('An error occurred while unlocking the user.');
-                        }
-                    });
-                }
-            }
-
-            // Expose functions globally
-            window.lockUser = lockUser;
-            window.unlockUser = unlockUser;
-        });
-    </script>
-    @Html.AntiForgeryToken()
 }

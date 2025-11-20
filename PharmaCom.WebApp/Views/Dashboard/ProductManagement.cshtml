@@ -11,7 +11,7 @@
         <li class="breadcrumb-item"><a href="/Dashboard">Dashboard</a></li>
         <li class="breadcrumb-item active">Product Management</li>
     </ol>
-    
+
     <div class="card mb-4">
         <div class="card-header d-flex justify-content-between align-items-center">
             <div>
@@ -30,7 +30,7 @@
                 <div class="row mb-3">
                     <div class="col-md-4">
                         <label for="searchTerm" class="form-label">Search</label>
-                        <input type="text" class="form-control" id="searchTerm" name="searchTerm" value="@ViewBag.SearchTerm" 
+                        <input type="text" class="form-control" id="searchTerm" name="searchTerm" value="@ViewBag.SearchTerm"
                                placeholder="Product name, brand, description...">
                     </div>
                     <div class="col-md-3">
@@ -68,75 +68,77 @@
                     </div>
                 </div>
             </form>
-            
+
             <!-- Products Table -->
-            <table id="productsTable" class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Image</th>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Brand</th>
-                        <th>Price</th>
-                        <th>Rx Required</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var product in Model.Items)
-                    {
+            <div class="table-responsive-wrapper">
+                <table id="productsTable" class="table table-striped table-bordered">
+                    <thead>
                         <tr>
-                            <td>@product.Id</td>
-                            <td>
-                                @if (!string.IsNullOrEmpty(product.ImageURLString))
-                                {
-                                    <img src="@product.ImageURLString" alt="@product.Name" style="height: 50px;" />
-                                }
-                                else
-                                {
-                                    <span class="text-muted">No image</span>
-                                }
-                            </td>
-                            <td>@product.Name</td>
-                            <td>@(product.Category?.Name ?? "N/A")</td>
-                            <td>@product.Brand</td>
-                            <td>$@product.Price.ToString("N2")</td>
-                            <td>
-                                @if (product.IsRxRequired)
-                                {
-                                    <span class="badge bg-warning">Yes</span>
-                                }
-                                else
-                                {
-                                    <span class="badge bg-success">No</span>
-                                }
-                            </td>
-                            <td>
-                                <div class="btn-group">
-                                    <a href="/Product/Details/@product.Id" class="btn btn-sm btn-info">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <a href="/Product/Edit/@product.Id" class="btn btn-sm btn-primary">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a asp-controller="Product" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-sm btn-danger delete-product">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </div>
-                            </td>
+                            <th>ID</th>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Brand</th>
+                            <th>Price</th>
+                            <th>Rx Required</th>
+                            <th>Actions</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
-            
+                    </thead>
+                    <tbody>
+                        @foreach (var product in Model.Items)
+                        {
+                            <tr>
+                                <td>@product.Id</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(product.ImageURLString))
+                                    {
+                                        <img src="@product.ImageURLString" alt="@product.Name" style="height: 50px;" />
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">No image</span>
+                                    }
+                                </td>
+                                <td>@product.Name</td>
+                                <td>@(product.Category?.Name ?? "N/A")</td>
+                                <td>@product.Brand</td>
+                                <td>$@product.Price.ToString("N2")</td>
+                                <td>
+                                    @if (product.IsRxRequired)
+                                    {
+                                        <span class="badge bg-warning">Yes</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-success">No</span>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="/Product/Details/@product.Id" class="btn btn-sm btn-info">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="/Product/Edit/@product.Id" class="btn btn-sm btn-primary">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a asp-controller="Product" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-sm btn-danger delete-product">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
             <!-- Pagination -->
             <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-center">
                     @if (Model.HasPrevious)
                     {
                         <li class="page-item">
-                            <a class="page-link" href="/Dashboard/ProductManagement?pageNumber=@(Model.PageNumber-1)&pageSize=@Model.PageSize&searchTerm=@ViewBag.SearchTerm&categoryId=@ViewBag.CategoryId&sortBy=@ViewBag.SortBy&sortDescending=@ViewBag.SortDescending">
+                            <a class="page-link" href="/Dashboard/ProductManagement?pageNumber=@(Model.PageNumber - 1)&pageSize=@Model.PageSize&searchTerm=@ViewBag.SearchTerm&categoryId=@ViewBag.CategoryId&sortBy=@ViewBag.SortBy&sortDescending=@ViewBag.SortDescending">
                                 Previous
                             </a>
                         </li>
@@ -147,7 +149,7 @@
                             <span class="page-link">Previous</span>
                         </li>
                     }
-                    
+
                     @for (int i = 1; i <= Model.TotalPages; i++)
                     {
                         <li class="page-item @(i == Model.PageNumber ? "active" : "")">
@@ -156,11 +158,11 @@
                             </a>
                         </li>
                     }
-                    
+
                     @if (Model.HasNext)
                     {
                         <li class="page-item">
-                            <a class="page-link" href="/Dashboard/ProductManagement?pageNumber=@(Model.PageNumber+1)&pageSize=@Model.PageSize&searchTerm=@ViewBag.SearchTerm&categoryId=@ViewBag.CategoryId&sortBy=@ViewBag.SortBy&sortDescending=@ViewBag.SortDescending">
+                            <a class="page-link" href="/Dashboard/ProductManagement?pageNumber=@(Model.PageNumber + 1)&pageSize=@Model.PageSize&searchTerm=@ViewBag.SearchTerm&categoryId=@ViewBag.CategoryId&sortBy=@ViewBag.SortBy&sortDescending=@ViewBag.SortDescending">
                                 Next
                             </a>
                         </li>
@@ -197,6 +199,174 @@
     </div>
 </div>
 
+@section Styles {
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* ===== PRODUCT MANAGEMENT: FULLY RESPONSIVE, NO PAGE SCROLL ===== */
+
+        /* --- GENERAL CARD STYLE --- */
+        .container-fluid .card {
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .card-header {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        @@media (max-width: 767.98px) {
+            .container-fluid .card-body
+
+        {
+            padding: 1rem;
+        }
+
+        .card-header {
+            flex-direction: column;
+            align-items: flex-start !important;
+            gap: 0.5rem;
+        }
+
+            .card-header .btn {
+                width: 100%;
+            }
+
+        }
+
+        /* --- FILTER FORM RESPONSIVE STACK --- */
+        @@media (max-width: 991.98px) {
+            #productFilterForm .row > div
+
+        {
+            margin-bottom: 1rem;
+        }
+
+        }
+
+        @@media (max-width: 767.98px) {
+            #productFilterForm
+
+        {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        #productFilterForm .row > div {
+            width: 100%;
+            margin-bottom: 0.75rem;
+        }
+
+        #productFilterForm .btn {
+            width: 100%;
+        }
+
+        }
+
+        /* --- TABLE: ONLY THIS SCROLLS --- */
+        .table-responsive-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            width: 100%;
+        }
+
+        #productsTable {
+            width: 100%;
+            min-width: 800px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+            td img {
+                max-height: 45px;
+                border-radius: 4px;
+            }
+
+        @@media (max-width: 767.98px) {
+            #productsTable
+
+        {
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 6px 8px;
+        }
+
+        .badge {
+            font-size: 12px;
+            padding: 4px 8px;
+        }
+
+        .btn-sm {
+            padding: 4px 6px;
+            font-size: 12px;
+        }
+
+        }
+
+        /* --- PAGINATION --- */
+        .pagination {
+            flex-wrap: wrap;
+        }
+
+            .pagination .page-link {
+                padding: 0.4rem 0.75rem;
+                font-size: 0.9rem;
+            }
+
+        /* --- HEADING + BREADCRUMB --- */
+        h1.mt-4 {
+            font-size: 1.5rem;
+            margin-top: 1rem !important;
+        }
+
+        ol.breadcrumb {
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+        }
+
+        /* --- BUTTON GROUPS --- */
+        .btn-group {
+            flex-wrap: nowrap;
+        }
+
+        @@media (max-width: 575.98px) {
+            .btn-group
+
+        {
+            flex-wrap: wrap;
+            gap: 0.25rem;
+        }
+
+        .card-header i {
+            display: none;
+        }
+
+        }
+
+        /* --- MODALS --- */
+        @@media (max-width: 575.98px) {
+            .modal-dialog
+
+        {
+            margin: 1rem;
+        }
+
+        }</style>
+}
+
 @section Scripts {
     <script>
         $(document).ready(function() {
@@ -205,12 +375,12 @@
                 paging: false,
                 searching: false
             });
-            
+
             // Delete Product
             $('.delete-product').on('click', function() {
                 const productId = $(this).data('id');
                 const productName = $(this).data('name');
-                
+
                 $('#deleteProductName').text(productName);
                 $('#confirmDeleteBtn').attr('href', '/Product/Delete/' + productId);
                 $('#deleteModal').modal('show');

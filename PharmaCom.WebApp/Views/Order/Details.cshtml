@@ -82,7 +82,7 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
                                             <strong>Prescription Status:</strong>
-                                            <span class="badge badge-warning ml-2">
+                                            <span class="badge badge-warning me-2 text-dark">
                                                 <i class="icon-clock"></i> @prescription.Status
                                             </span>
                                         </div>
@@ -115,12 +115,12 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
                                             <strong>Prescription Status:</strong>
-                                            <span class="badge badge-success ml-2">
+                                            <span class="badge badge-success me-2">
                                                 <i class="icon-check-circle"></i> @prescription.Status
                                             </span>
                                             @if (prescription.VerificationDate.HasValue)
                                             {
-                                                <span class="text-muted ml-2">
+                                                <span class="text-muted me-2">
                                                     <small>Approved on @prescription.VerificationDate.Value.ToString("MMM dd, yyyy")</small>
                                                 </span>
                                             }
@@ -160,12 +160,12 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
                                             <strong>Prescription Status:</strong>
-                                            <span class="badge badge-danger ml-2">
+                                            <span class="badge badge-danger me-2">
                                                 <i class="icon-x-circle"></i> @prescription.Status
                                             </span>
                                         </div>
                                         <div>
-                                            <a href="@prescription.FileUrl" target="_blank" class="btn btn-sm btn-outline-danger mr-2">
+                                            <a href="@prescription.FileUrl" target="_blank" class="btn btn-sm btn-outline-danger me-2">
                                                 <i class="icon-eye"></i> View Prescription
                                             </a>
                                             <a asp-controller="Home" asp-action="Contact" class="btn btn-sm btn-primary">
@@ -204,12 +204,12 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
                                             <strong>Prescription Status:</strong>
-                                            <span class="badge badge-info ml-2">
+                                            <span class="badge badge-info me-2">
                                                 <i class="icon-info"></i> @prescription.Status
                                             </span>
                                         </div>
                                         <div>
-                                            <a href="@prescription.FileUrl" target="_blank" class="btn btn-sm btn-outline-info mr-2">
+                                            <a href="@prescription.FileUrl" target="_blank" class="btn btn-sm btn-outline-info me-2">
                                                 <i class="icon-eye"></i> View Prescription
                                             </a>
                                             <a asp-controller="Home" asp-action="Contact" class="btn btn-sm btn-primary">
@@ -231,7 +231,7 @@
                 <div class="card border-0 shadow-sm">
                     <div class="card-header bg-white border-bottom py-3">
                         <h5 class="mb-0">
-                            <i class="icon-shopping-bag mr-2"></i>Order Information
+                            <i class="icon-shopping-bag me-2"></i>Order Information
                         </h5>
                     </div>
                     <div class="card-body p-4">
@@ -254,7 +254,7 @@
                             <div class="col-md-6">
                                 <p class="mb-2">
                                     <strong class="text-muted">Status:</strong><br>
-                                    <span class="badge badge-@GetStatusBadgeClass(Model.Status)">@Model.Status</span>
+                                    <span class="badge badge-@GetStatusBadgeClass(Model.Status) text-dark">@Model.Status</span>
                                 </p>
                             </div>
                             <div class="col-md-6">
@@ -271,7 +271,7 @@
                 <div class="card border-0 shadow-sm mt-4">
                     <div class="card-header bg-white border-bottom py-3">
                         <h5 class="mb-0">
-                            <i class="icon-list mr-2"></i>Order Items
+                            <i class="icon-list me-2"></i>Order Items
                         </h5>
                     </div>
                     <div class="card-body p-0">
@@ -304,7 +304,7 @@
                                                 </div>
                                             </td>
                                             <td class="align-middle text-center py-3">
-                                                <span class="badge badge-secondary px-3 py-2">@item.Quantity</span>
+                                                <span class="badge badge-secondary px-3 py-2 text-dark">@item.Quantity</span>
                                             </td>
                                             <td class="align-middle text-right py-3">
                                                 <span class="text-black">$@item.Price.ToString("F2")</span>
@@ -336,7 +336,7 @@
                 <div class="card border-0 shadow-sm">
                     <div class="card-header bg-white border-bottom py-3">
                         <h5 class="mb-0">
-                            <i class="icon-location-arrow mr-2"></i>Shipping Address
+                            <i class="icon-location-arrow me-2"></i>Shipping Address
                         </h5>
                     </div>
                     <div class="card-body p-4">
@@ -355,15 +355,15 @@
                 <div class="card border-0 shadow-sm mt-4">
                     <div class="card-header bg-white border-bottom py-3">
                         <h5 class="mb-0">
-                            <i class="icon-settings mr-2"></i>Actions
+                            <i class="icon-settings me-2"></i>Actions
                         </h5>
                     </div>
                     <div class="card-body p-4">
                         <a asp-controller="Order" asp-action="Index" class="btn btn-outline-primary btn-block mb-2">
-                            <i class="icon-arrow-left mr-2"></i>Back to Orders
+                            <i class="icon-arrow-left me-2"></i>Back to Orders
                         </a>
                         <a asp-controller="Home" asp-action="Store" class="btn btn-outline-secondary btn-block mb-2">
-                            <i class="icon-shopping-bag mr-2"></i>Continue Shopping
+                            <i class="icon-shopping-bag me-2"></i>Continue Shopping
                         </a>
 
                         <!-- ✅ ADD CANCEL ORDER BUTTON -->
@@ -374,7 +374,7 @@
                         {
                             <hr class="my-3">
                             <button type="button" class="btn btn-danger btn-block" id="cancelOrderBtn" data-order-id="@Model.Id">
-                                <i class="icon-x-circle mr-2"></i>Cancel Order
+                                <i class="icon-x-circle me-2"></i>Cancel Order
                             </button>
                             <small class="text-muted d-block text-center mt-2">
                                 <i class="icon-info"></i> You can cancel before processing
@@ -385,7 +385,7 @@
                         {
                             <hr class="my-3">
                             <a asp-controller="Home" asp-action="Contact" class="btn btn-primary btn-block">
-                                <i class="icon-phone mr-2"></i>Contact Support
+                                <i class="icon-phone me-2"></i>Contact Support
                             </a>
                         }
                     </div>
@@ -401,7 +401,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="cancelOrderModalLabel">
-                    <i class="icon-alert-circle mr-2"></i>Cancel Order
+                    <i class="icon-alert-circle me-2"></i>Cancel Order
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -413,7 +413,7 @@
 
                 <div class="modal-body">
                     <div class="alert alert-warning">
-                        <i class="icon-info mr-2"></i>
+                        <i class="icon-info me-2"></i>
                         <strong>Are you sure you want to cancel this order?</strong>
                     </div>
 
@@ -430,10 +430,10 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                        <i class="icon-arrow-left mr-2"></i>Go Back
+                        <i class="icon-arrow-left me-2"></i>Go Back
                     </button>
                     <button type="submit" class="btn btn-danger" id="confirmCancelBtn">
-                        <i class="icon-x-circle mr-2"></i>Yes, Cancel Order
+                        <i class="icon-x-circle me-2"></i>Yes, Cancel Order
                     </button>
                 </div>
             </form>
@@ -470,7 +470,7 @@
 
             // Form submission
             $('#cancelOrderForm').on('submit', function(e) {
-                $('#confirmCancelBtn').prop('disabled', true).html('<i class="icon-loading mr-2"></i>Cancelling...');
+                $('#confirmCancelBtn').prop('disabled', true).html('<i class="icon-loading me-2"></i>Cancelling...');
             });
         });
     </script>

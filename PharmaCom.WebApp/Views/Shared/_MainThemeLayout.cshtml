@@ -164,9 +164,21 @@
                         <!-- User Account Icon -->
                         @if (User.Identity?.IsAuthenticated == true)
                         {
-                            <a asp-controller="Account" asp-action="Profile" class="icons-btn d-inline-block" title="Account">
-                                <span class="icon-person"></span>
-                            </a>
+                            <div class="user-account-dropdown d-inline-block" style="position: relative;">
+                                <a href="#" class="icons-btn d-inline-block user-account-toggle" title="Account">
+                                    <span class="icon-person"></span>
+                                </a>
+                                <ul class="dropdown user-dropdown">
+                                    <li>
+                                        <a asp-controller="Account" asp-action="Profile">Profile</a>
+                                    </li>
+                                    <li>
+                                        <form asp-controller="Account" asp-action="SignOut" method="post" style="margin: 0;">
+                                            <button type="submit" class="dropdown-item-btn">Logout</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
                         }
                         else
                         {
@@ -183,73 +195,74 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- ========== BREADCRUMB SECTION (OPTIONAL PER PAGE) ========== -->
-        @RenderSection("Breadcrumb", required: false)
+    <!-- ========== BREADCRUMB SECTION (OPTIONAL PER PAGE) ========== -->
+    @RenderSection("Breadcrumb", required: false)
 
-        <!-- ========== MAIN CONTENT (CHANGES PER PAGE) ========== -->
-        <main>
-            @RenderBody()
-        </main>
+    <!-- ========== MAIN CONTENT (CHANGES PER PAGE) ========== -->
+    <main>
+        @RenderBody()
+    </main>
 
-        <!-- ========== PROMO BANNER SECTION (OPTIONAL PER PAGE) ========== -->
-        @RenderSection("PromoBanner", required: false)
+    <!-- ========== PROMO BANNER SECTION (OPTIONAL PER PAGE) ========== -->
+    @RenderSection("PromoBanner", required: false)
 
-        <!-- ========== FOOTER (STAYS THE SAME) ========== -->
-        <footer class="site-footer">
-            <div class="container">
-                <div class="row">
-                    <!-- About Us -->
-                    <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-                        <div class="block-7">
-                            <h3 class="footer-heading mb-4">About Us</h3>
-                            <p>PharmaCom is your trusted online pharmacy providing quality medications and healthcare products with fast, reliable delivery.</p>
-                        </div>
-                    </div>
-
-                    <!-- Quick Links -->
-                    <div class="col-lg-3 mx-auto mb-5 mb-lg-0">
-                        <h3 class="footer-heading mb-4">Quick Links</h3>
-                        <ul class="list-unstyled">
-                            <li><a asp-controller="Product" asp-action="Index">All Products</a></li>
-                            <li><a asp-controller="Home" asp-action="About">About Us</a></li>
-                            <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
-                            @if (User.Identity?.IsAuthenticated == true)
-                            {
-                                <li><a asp-controller="Order" asp-action="Index">My Orders</a></li>
-                            }
-                            else
-                            {
-                                <li><a asp-page="/Account/Register">Register</a></li>
-                            }
-                        </ul>
-                    </div>
-
-                    <!-- Contact Info -->
-                    <div class="col-md-6 col-lg-3">
-                        <div class="block-5 mb-5">
-                            <h3 class="footer-heading mb-4">Contact Info</h3>
-                            <ul class="list-unstyled">
-                                <li class="address">203 Fake St. Mountain View, San Francisco, California, USA</li>
-                                <li class="phone"><a href="tel://23923929210">+2 392 3929 210</a></li>
-                                <li class="email"><a href="mailto:info@pharmacom.com">info@pharmacom.com</a></li>
-                            </ul>
-                        </div>
+    <!-- ========== FOOTER (STAYS THE SAME) ========== -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <!-- About Us -->
+                <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
+                    <div class="block-7">
+                        <h3 class="footer-heading mb-4">About Us</h3>
+                        <p>PharmaCom is your trusted online pharmacy providing quality medications and healthcare products with fast, reliable delivery.</p>
                     </div>
                 </div>
 
-                <!-- Copyright -->
-                <div class="row pt-5 mt-5 text-center">
-                    <div class="col-md-12">
-                        <p>
-                            Copyright &copy; @DateTime.Now.Year All rights reserved |
-                            This template is made with <i class="icon-heart" aria-hidden="true"></i> by
-                            <a href="https://colorlib.com" target="_blank" class="text-primary">Colorlib</a>
-                        </p>
+                <!-- Quick Links -->
+                <div class="col-lg-3 mx-auto mb-5 mb-lg-0">
+                    <h3 class="footer-heading mb-4">Quick Links</h3>
+                    <ul class="list-unstyled">
+                        <li><a asp-controller="Product" asp-action="Index">All Products</a></li>
+                        <li><a asp-controller="Home" asp-action="About">About Us</a></li>
+                        <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <li><a asp-controller="Order" asp-action="Index">My Orders</a></li>
+                        }
+                        else
+                        {
+                            <li><a asp-page="/Account/Register">Register</a></li>
+                        }
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="block-5 mb-5">
+                        <h3 class="footer-heading mb-4">Contact Info</h3>
+                        <ul class="list-unstyled">
+                            <li class="address">203 Fake St. Mountain View, San Francisco, California, USA</li>
+                            <li class="phone"><a href="tel://23923929210">+2 392 3929 210</a></li>
+                            <li class="email"><a href="mailto:info@pharmacom.com">info@pharmacom.com</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </footer>
+
+            <!-- Copyright -->
+            <div class="row pt-5 mt-5 text-center">
+                <div class="col-md-12">
+                    <p>
+                        Copyright &copy; @DateTime.Now.Year All rights reserved |
+                        This template is made with <i class="icon-heart" aria-hidden="true"></i> by
+                        <a href="https://colorlib.com" target="_blank" class="text-primary">Colorlib</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     </div>
 

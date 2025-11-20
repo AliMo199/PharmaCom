@@ -10,27 +10,120 @@
 
     <a asp-action="Create" class="btn btn-primary mb-3">Create New Category</a>
 
-    <table class="table mt-1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var category in Model)
-            {
+    <div class="table-responsive-wrapper">
+        <table class="table mt-1">
+            <thead>
                 <tr>
-                    <td>@category.Id</td>
-                    <td>@category.Name</td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@category.Id" class="btn btn-info btn-sm me-1">Details</a>
-                        <a asp-action="Edit" asp-route-id="@category.Id" class="btn btn-primary btn-sm me-1">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@category.Id" class="btn btn-danger btn-sm">Delete</a>
-                    </td>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Actions</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var category in Model)
+                {
+                    <tr>
+                        <td>@category.Id</td>
+                        <td>@category.Name</td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@category.Id" class="btn btn-info btn-sm me-1">Details</a>
+                            <a asp-action="Edit" asp-route-id="@category.Id" class="btn btn-primary btn-sm me-1">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@category.Id" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
 </div>
+
+@section Styles {
+    <!-- Font Awesome (optional, for consistency with dashboard icons) -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* ===== CATEGORIES VIEW: RESPONSIVE + SIDEBAR SAFE ===== */
+
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        /* --- Container --- */
+        .container {
+            max-width: 100%;
+            padding: 0 1rem;
+        }
+
+        /* --- Heading + Button row --- */
+        h1 {
+            font-size: 1.8rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            font-size: 0.95rem;
+        }
+
+            /* Create button spacing */
+            .btn.mb-3 {
+                margin-bottom: 1rem !important;
+            }
+
+        /* --- Table wrapper: only table scrolls horizontally --- */
+        .table-responsive-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            width: 100%;
+        }
+
+        table {
+            width: 100%;
+            min-width: 600px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        @@media (max-width: 767.98px) {
+            table {
+                font-size: 14px;
+            }
+
+            th, td {
+                padding: 8px 6px;
+            }
+
+            .btn-sm {
+                padding: 4px 6px;
+                font-size: 12px;
+            }
+            /* Stack header and button on small screens */
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            a.btn.mb-3 {
+                width: 100%;
+            }
+        }
+
+        /* --- Pagination support (if added later) --- */
+        .pagination {
+            flex-wrap: wrap;
+        }
+
+        /* --- Maintain spacing from sidebar/page edges --- */
+        .mt-2 {
+            margin-top: 1rem !important;
+        }
+    </style>
+}
