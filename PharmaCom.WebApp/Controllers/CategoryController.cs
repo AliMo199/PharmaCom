@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PharmaCom.Domain.Models;
 using PharmaCom.Domain.Repositories;
 
 namespace PharmaCom.WebApp.Controllers
 {
+    [Authorize(Roles = "Admin, Pharmacist")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

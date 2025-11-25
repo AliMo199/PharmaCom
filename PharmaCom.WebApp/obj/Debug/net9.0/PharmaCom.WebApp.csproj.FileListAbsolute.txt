@@ -769,7 +769,6 @@ C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\comp
 C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\compressed\ftmvwk2rp6-5mpc99bmbb.gz
 C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\compressed\0hbpg07sh3-t7g9wg1led.gz
 C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\compressed\pb0emrlbb8-lsa12csan3.gz
-C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\compressed\c7qv7qa22y-za042psttn.gz
 C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\compressed\w2yz7kcd5a-yr8gftiii7.gz
 C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\compressed\8ixbz48wp4-e6i7aflm80.gz
 C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\compressed\9pwoht44zy-sm0l8n7dw6.gz
@@ -1703,3 +1702,6 @@ C:\Users\alofi\OneDrive\Desktop\temp\PharmaCom.WebApp\obj\Debug\net9.0\ref\Pharm
 D:\Depi.Net\GraduationProject\PharmaCom\PharmaCom.WebApp\bin\Debug\net9.0\AutoMapper.dll
 D:\Depi.Net\GraduationProject\PharmaCom\PharmaCom.WebApp\bin\Debug\net9.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 D:\Depi.Net\GraduationProject\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\compressed\c7qv7qa22y-xqgvhnnein.gz
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.WebApp\bin\Debug\net9.0\AutoMapper.dll
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.WebApp\bin\Debug\net9.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\alofi\OneDrive\Desktop\PharmaCom\PharmaCom.WebApp\obj\Debug\net9.0\compressed\c7qv7qa22y-31d4gihdeu.gz

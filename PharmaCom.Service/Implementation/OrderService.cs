@@ -223,7 +223,7 @@ namespace PharmaCom.Service.Implementation
                 }
 
                 // ✅ Update order status to Cancelled
-                order.Status = "Cancelled";
+                order.Status = ST.Cancelled;
                 _unitOfWork.Order.Update(order);
 
                 // ✅ If there's an associated prescription, reset it so it can be reused
@@ -234,7 +234,8 @@ namespace PharmaCom.Service.Implementation
                     {
                         // Unlink prescription from order so it can be used for a new order
                         prescription.OrderId = null;
-                        prescription.Comments = $"Order #{orderId} was cancelled. Prescription available for reuse.";
+                        prescription.Comments = $"Order #{orderId} was cancelled.";
+                        prescription.Status = ST.Cancelled;
                         _unitOfWork.Prescription.Update(prescription);
                     }
                 }

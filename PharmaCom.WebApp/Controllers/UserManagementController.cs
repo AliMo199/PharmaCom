@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace PharmaCom.WebApp.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class UserManagementController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

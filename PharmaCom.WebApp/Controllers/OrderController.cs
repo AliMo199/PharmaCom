@@ -295,7 +295,7 @@ namespace PharmaCom.WebApp.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin,Pharmacist")]
+        [Authorize(Roles = "Admin, Pharmacist")]
         public async Task<IActionResult> Manage()
         {
             var pendingOrders = await _orderService.GetOrdersByStatusAsync("Payment Received");
@@ -303,7 +303,7 @@ namespace PharmaCom.WebApp.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin,Pharmacist")]
+        [Authorize(Roles = "Admin, Pharmacist")]
         public async Task<IActionResult> UpdateStatus(int orderId, string status)
         {
             try

@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PharmaCom.Domain.Static;
 using PharmaCom.Domain.ViewModels;
 using PharmaCom.Service.Interfaces;
 using System.Security.Claims;
 
 namespace PharmaCom.WebApp.Controllers
 {
+    [Authorize (Roles ="Admin, Pharmacist")]
     public class PrescriptionController : Controller
     {
         private readonly IPrescriptionService _prescriptionService;
@@ -147,7 +149,7 @@ namespace PharmaCom.WebApp.Controllers
                 {
                     case "Approve":
                         result = await _prescriptionService.VerifyPrescriptionAsync(
-                            model.PrescriptionId, userId, true, model.Comments ?? "Approved by pharmacist");
+                            model.PrescriptionId, userId, ST.Approved, model.Comments ?? "Approved by pharmacist");
 
                         if (result)
                         {
@@ -167,7 +169,7 @@ namespace PharmaCom.WebApp.Controllers
                         }
 
                         result = await _prescriptionService.VerifyPrescriptionAsync(
-                            model.PrescriptionId, userId, false, model.Comments);
+                            model.PrescriptionId, userId, ST.Rejected, model.Comments);
 
                         if (result)
                         {

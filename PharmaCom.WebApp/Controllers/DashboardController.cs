@@ -6,6 +6,7 @@ using PharmaCom.Service.Interfaces;
 
 namespace PharmaCom.WebApp.Controllers
 {
+    [Authorize (Roles ="Admin, Pharmacist")]
     public class DashboardController : Controller
     {
         private readonly IDashboardService _dashboardService;

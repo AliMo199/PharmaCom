@@ -229,7 +229,7 @@ namespace PharmaCom.Service.Implementation
             return result;
         }
 
-        public async Task<bool> VerifyPrescriptionAsync(int prescriptionId, string pharmacistId, bool isApproved, string comments)
+        public async Task<bool> VerifyPrescriptionAsync(int prescriptionId, string pharmacistId, string Status, string comments)
         {
             try
             {
@@ -242,7 +242,7 @@ namespace PharmaCom.Service.Implementation
                 }
 
                 // ✅ Update prescription status
-                prescription.Status = isApproved ? ST.Approved : ST.Rejected;
+                prescription.Status = Status;
                 prescription.Comments = comments;
                 prescription.VerifiedByUserId = pharmacistId;
                 prescription.VerificationDate = DateTime.UtcNow;
@@ -256,7 +256,7 @@ namespace PharmaCom.Service.Implementation
 
                     if (order != null)
                     {
-                        if (isApproved)
+                        if (Status==ST.Approved)
                         {
                             // Only update to Approved if order is in Pending or PaymentReceived status
                             if (order.Status == ST.Pending || order.Status == ST.PaymentReceived)
@@ -285,7 +285,7 @@ namespace PharmaCom.Service.Implementation
                 // Send notification to customer
                 if (prescription.Order?.ApplicationUser?.Email != null)
                 {
-                    await SendPrescriptionVerificationNotificationAsync(prescriptionId, isApproved, comments);
+                    await SendPrescriptionVerificationNotificationAsync(prescriptionId, prescription.Status, comments);
                 }
 
                 return true;
@@ -391,7 +391,7 @@ namespace PharmaCom.Service.Implementation
             return (fileBytes, contentType, fileName);
         }
 
-        public async Task SendPrescriptionVerificationNotificationAsync(int prescriptionId, bool isApproved, string comments)
+        public async Task SendPrescriptionVerificationNotificationAsync(int prescriptionId, string Status, string comments)
         {
             var prescription = await _unitOfWork.Prescription.GetPrescriptionWithOrderAsync(prescriptionId);
             if (prescription == null || prescription.Order?.ApplicationUser == null)
@@ -401,11 +401,11 @@ namespace PharmaCom.Service.Implementation
             if (string.IsNullOrEmpty(userEmail))
                 return;
 
-            var subject = isApproved
+            var subject = Status==ST.Approved
                 ? "Your Prescription Has Been Approved"
                 : "Your Prescription Could Not Be Approved";
 
-            var message = isApproved
+            var message = Status==ST.Approved
                 ? $"Good news! Your prescription has been approved and your order is now being processed. Order #: {prescription.OrderId}"
                 : $"Unfortunately, your prescription could not be approved. Reason: {comments}. Order #: {prescription.OrderId}";
 

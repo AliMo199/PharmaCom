@@ -1,97 +1,45 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\",
+  "WorkspaceRootPath": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|d:\\depi.net\\graduationproject\\pharmacom\\pharmacom.webapp\\views\\category\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\views\\category\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|d:\\depi.net\\graduationproject\\pharmacom\\pharmacom.webapp\\views\\usermanagement\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\views\\usermanagement\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|d:\\depi.net\\graduationproject\\pharmacom\\pharmacom.webapp\\views\\usermanagement\\changepassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\views\\usermanagement\\changepassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|d:\\depi.net\\graduationproject\\pharmacom\\pharmacom.webapp\\views\\usermanagement\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\views\\usermanagement\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|d:\\depi.net\\graduationproject\\pharmacom\\pharmacom.webapp\\views\\usermanagement\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\views\\usermanagement\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|c:\\users\\alofi\\onedrive\\desktop\\pharmacom\\pharmacom.webapp\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6335A16-576A-4A5C-B8A0-EAF4A1B8D9BA}|PharmaCom.WebApp\\PharmaCom.WebApp.csproj|solutionrelative:pharmacom.webapp\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
     {
-      "Orientation": 1,
+      "Orientation": 0,
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedHeight": 200,
+          "DockedWidth": 200,
           "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Details.cshtml",
-              "DocumentMoniker": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\Views\\Category\\Details.cshtml",
-              "RelativeDocumentMoniker": "PharmaCom.WebApp\\Views\\Category\\Details.cshtml",
-              "ToolTip": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\Views\\Category\\Details.cshtml",
-              "RelativeToolTip": "PharmaCom.WebApp\\Views\\Category\\Details.cshtml",
-              "ViewState": "AgIAAEAAAAAAAAAAAAAAAEwAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-20T18:16:46.4Z",
+              "Title": "DashboardController.cs",
+              "DocumentMoniker": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\Controllers\\DashboardController.cs",
+              "RelativeDocumentMoniker": "PharmaCom.WebApp\\Controllers\\DashboardController.cs",
+              "ToolTip": "C:\\Users\\alofi\\OneDrive\\Desktop\\PharmaCom\\PharmaCom.WebApp\\Controllers\\DashboardController.cs",
+              "RelativeToolTip": "PharmaCom.WebApp\\Controllers\\DashboardController.cs",
+              "ViewState": "AgIAAHcAAAAAAAAAAAAswAsAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-20T20:16:14.776Z",
               "EditorCaption": ""
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ChangePassword.cshtml",
-              "DocumentMoniker": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\Views\\UserManagement\\ChangePassword.cshtml",
-              "RelativeDocumentMoniker": "PharmaCom.WebApp\\Views\\UserManagement\\ChangePassword.cshtml",
-              "ToolTip": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\Views\\UserManagement\\ChangePassword.cshtml",
-              "RelativeToolTip": "PharmaCom.WebApp\\Views\\UserManagement\\ChangePassword.cshtml",
-              "ViewState": "AgIAACQAAAAAAAAAAAAAAB0AAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-20T18:12:04.706Z"
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Edit.cshtml",
-              "DocumentMoniker": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\Views\\UserManagement\\Edit.cshtml",
-              "RelativeDocumentMoniker": "PharmaCom.WebApp\\Views\\UserManagement\\Edit.cshtml",
-              "ToolTip": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\Views\\UserManagement\\Edit.cshtml",
-              "RelativeToolTip": "PharmaCom.WebApp\\Views\\UserManagement\\Edit.cshtml",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABEAAAA2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-20T18:05:15.457Z"
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\Views\\UserManagement\\Index.cshtml",
-              "RelativeDocumentMoniker": "PharmaCom.WebApp\\Views\\UserManagement\\Index.cshtml",
-              "ToolTip": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\Views\\UserManagement\\Index.cshtml",
-              "RelativeToolTip": "PharmaCom.WebApp\\Views\\UserManagement\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-20T17:20:41.198Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Details.cshtml",
-              "DocumentMoniker": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\Views\\UserManagement\\Details.cshtml",
-              "RelativeDocumentMoniker": "PharmaCom.WebApp\\Views\\UserManagement\\Details.cshtml",
-              "ToolTip": "D:\\Depi.Net\\GraduationProject\\PharmaCom\\PharmaCom.WebApp\\Views\\UserManagement\\Details.cshtml",
-              "RelativeToolTip": "PharmaCom.WebApp\\Views\\UserManagement\\Details.cshtml",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAAADMAAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-20T17:20:38.823Z"
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             }
           ]
         }

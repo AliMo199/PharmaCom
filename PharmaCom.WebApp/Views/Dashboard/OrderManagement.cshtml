@@ -98,16 +98,10 @@
                         <td>
                             @if (order.PrescriptionId.HasValue)
                                 {
-                                    var status = order.Prescription?.FirstOrDefault()?.Status;
-                                    <span class="badge @(status == "Approved" ? "bg-success" :
-                                                                      status == "Rejected" ? "bg-danger" :
-                                                                      status == "MoreInfoRequired" ? "bg-warning" : "bg-info")">
-                                @(status ?? "Pending")
-                            </span>
-                            <a href="@Url.Action("View", "Prescription", new { id = order.PrescriptionId })" class="btn btn-sm btn-info">
-                                <i class="fas fa-eye"></i>
-                            </a>
-                                                        }
+                                    <a href="@Url.Action("View", "Prescription", new { id = order.PrescriptionId })" class="btn btn-sm btn-info">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                }
                                 else if (order.OrderItems.Any(oi => oi.Product.IsRxRequired))
                                 {
                                     <span class="badge bg-danger">Required</span>
