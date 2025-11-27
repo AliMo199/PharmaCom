@@ -112,8 +112,8 @@ namespace PharmaCom.DataInfrastructure.Seeders
                     decimal price = (decimal)(random.Next(1000, 10000) / 100.0); // 10.00 to 100.00
                     string description = $"High-quality {baseName} from {brand}. {form} form for effective relief.";
                     string? gtin = random.Next(10) == 0 ? $"0123456789{random.Next(10000, 99999)}" : null; // 10% have GTIN
-                    string? imageUrl = random.Next(7).ToString();
-                    imageUrl = $"/images/product_0{imageUrl}.png" ?? null;
+                    string? imageUrl = random.Next(1, 7).ToString();
+                    imageUrl = $"/images/product_0{imageUrl}.png";
 
                     products.Add(new Product
                     {
