@@ -1,31 +1,450 @@
+﻿/* =============================
+   GLOBAL SETTINGS
+   ============================= */
 html {
-  font-size: 14px;
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+    html {
+        font-size: 16px;
+    }
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #333;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+:root {
+    --pharma-red: #8B0000;
+    --pharma-red-hover: #5a0000;
+    --bs-primary: var(--pharma-red);
+    --bs-primary-rgb: 139, 0, 0;
+    --bs-link-color: var(--pharma-red);
+    --bs-link-hover-color: var(--pharma-red-hover);
+    --bs-btn-focus-box-shadow: none;
+    --bs-focus-ring-box-shadow: none;
+    --bs-focus-ring-color: transparent;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+/* =============================
+   NAVBAR & MENUS
+   ============================= */
+.site-navigation .site-menu > li {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+    .site-navigation .site-menu > li > a {
+        color: #333 !important;
+        font-weight: 700;
+        text-decoration: none;
+        position: relative;
+        padding-bottom: 5px;
+        transition: 0.3s ease;
+    }
+
+        .site-navigation .site-menu > li > a::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--pharma-red);
+            transition: 0.3s ease;
+        }
+
+        .site-navigation .site-menu > li > a:hover,
+        .site-navigation .site-menu > li.active > a {
+            color: var(--pharma-red) !important;
+        }
+
+            .site-navigation .site-menu > li > a:hover::after,
+            .site-navigation .site-menu > li.active > a::after {
+                width: 100%;
+            }
+
+.site-navbar .icons-btn {
+    color: #333 !important;
+    transition: 0.3s ease;
+}
+
+    .site-navbar .icons-btn:hover {
+        color: var(--pharma-red) !important;
+    }
+
+    .site-navbar .icons-btn .count,
+    .site-navbar .icons-btn .number,
+    .badge {
+        background: var(--pharma-red) !important;
+        color: #fff !important;
+        border-radius: 50%;
+    }
+
+/* =============================
+   DROPDOWN STYLES (RED THEME)
+   ============================= */
+.site-navbar .site-navigation .site-menu .has-children .dropdown,
+ul.dropdown,
+.dropdown-menu {
+    border: none !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+    padding: 8px !important;
+    margin-top: 15px !important;
+    background-color: #fff !important;
+    min-width: 220px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease !important;
+    display: block;
+}
+
+.site-navbar .site-navigation .site-menu .has-children:hover .dropdown {
+    opacity: 1 !important;
+    visibility: visible !important;
+    margin-top: 0 !important;
+}
+
+.site-navbar .site-navigation .site-menu .has-children .dropdown > li > a,
+.dropdown-item {
+    color: #333 !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+    padding: 10px 20px !important;
+    border-radius: 8px !important;
+    transition: all 0.2s ease-in-out !important;
+    background: transparent !important;
+    display: block !important;
+    text-transform: none !important;
+}
+
+    .site-navbar .site-navigation .site-menu .has-children .dropdown > li > a:hover,
+    .dropdown-item:hover,
+    .dropdown-item:focus {
+        background-color: var(--pharma-red) !important;
+        color: #fff !important;
+        padding-left: 25px !important;
+        box-shadow: 0 4px 10px rgba(139, 0, 0, 0.2) !important;
+        text-decoration: none !important;
+    }
+
+.site-navbar .site-navigation .site-menu .has-children .dropdown:before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 20px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #fff;
+    filter: drop-shadow(0 -2px 2px rgba(0,0,0,0.05));
+}
+
+/* =============================
+   FOOTER
+   ============================= */
+.site-footer .footer-heading {
+    color: #333;
+    font-weight: 700;
+}
+
+.site-footer a {
+    color: #5c626e;
+    transition: 0.3s ease;
+}
+
+    .site-footer a:hover {
+        color: var(--pharma-red) !important;
+        text-decoration: none;
+    }
+
+.site-footer .block-5 ul li.address:before,
+.site-footer .block-5 ul li.phone:before,
+.site-footer .block-5 ul li.email:before,
+.site-footer .block-5 ul li .icon,
+.site-footer .icon-heart {
+    color: var(--pharma-red) !important;
+}
+
+/* =============================
+   PRODUCT CARDS
+   ============================= */
+.product-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 18px;
+    overflow: hidden;
+    height: 100%;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: 0.3s ease;
+}
+
+.card-img-wrapper {
+    background: #fff;
+    padding: 20px;
+    border-bottom: 1px solid #f8f9fa;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-img {
+    max-height: 180px;
+    object-fit: contain;
+    transform: none !important;
+    transition: none !important;
+}
+
+.product-card:hover {
+    border-color: var(--pharma-red);
+    box-shadow: 0 5px 20px rgba(139,0,0,0.1);
+}
+
+.card-title a {
+    color: #333;
+    font-weight: 700;
+}
+
+    .card-title a:hover {
+        color: var(--pharma-red);
+    }
+
+.price {
+    color: var(--pharma-red);
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+/* =============================
+   BUTTONS & INPUTS
+   ============================= */
+.btn {
+    border-radius: 50px;
+    font-weight: 600;
+    box-shadow: none !important;
+}
+
+    .btn:hover, .btn:focus, .btn:active, a.btn:hover {
+        text-decoration: none !important;
+    }
+
+.btn-primary, .btn-custom-red-solid {
+    background: var(--pharma-red) !important;
+    border: 2px solid var(--pharma-red) !important;
+    color: #fff !important;
+}
+
+    .btn-primary:hover, .btn-custom-red-solid:hover {
+        background: #fff !important;
+        color: var(--pharma-red) !important;
+    }
+
+.btn-outline-primary, .btn-custom-red {
+    border: 2px solid var(--pharma-red) !important;
+    color: var(--pharma-red) !important;
+    background: transparent !important;
+}
+
+    .btn-outline-primary:hover, .btn-custom-red:hover {
+        background: var(--pharma-red) !important;
+        color: #fff !important;
+    }
+
+.btn-outline-white {
+    color: #fff !important;
+    border: 2px solid #fff !important;
+    background: transparent !important;
+    transition: 0.3s ease;
+}
+
+    .btn-outline-white:hover {
+        background: #fff !important;
+        color: var(--pharma-red) !important;
+    }
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--pharma-red) !important;
+    box-shadow: none !important;
+}
+
+/* =============================
+   PROMO & BRANDS
+   ============================= */
+.site-section.overlay {
+    position: relative;
+    padding: 5em 0;
+    z-index: 1;
+}
+
+    .site-section.overlay:before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(139, 0, 0, 0.85);
+        z-index: 1;
+    }
+
+    .site-section.overlay > .container {
+        position: relative;
+        z-index: 2;
+    }
+
+.promo-content-inner h2 {
+    font-weight: 800;
+}
+
+.brand-box {
+    background: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s ease;
+}
+
+.brand-name {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: #ccc;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: 0.3s ease;
+}
+
+.brand-box:hover {
+    background: #fff;
+    border-color: var(--pharma-red);
+    box-shadow: 0 5px 15px rgba(139,0,0,0.08);
+}
+
+    .brand-box:hover .brand-name {
+        color: var(--pharma-red);
+    }
+
+/* =============================
+   HERO & FEATURES
+   ============================= */
+.hero-section {
+    background: linear-gradient(135deg, #fff5f5, #ffffff);
+    padding: 4em 0;
+    overflow: hidden;
+}
+
+.bg-danger-subtle {
+    background: rgba(139,0,0,0.1) !important;
+    color: var(--pharma-red) !important;
+}
+
+.feature-card {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    border: 1px solid rgba(0,0,0,0.02);
+    height: 100%;
+}
+
+.icon-wrapper {
+    width: 80px;
+    height: 80px;
+    background: #fff5f5;
+    color: var(--pharma-red);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+}
+
+.title-section h2 {
+    color: #333;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* =============================
+   PAGINATION
+   ============================= */
+.site-block-27 ul li a,
+.site-block-27 ul li span {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    border: 1px solid #eee;
+    color: #555;
+    font-weight: 600;
+    margin: 0 4px;
+    transition: all 0.3s ease-in-out;
+    background-color: #fff;
+}
+
+    .site-block-27 ul li a:hover {
+        color: var(--pharma-red);
+        border-color: var(--pharma-red);
+        background-color: #fff5f5;
+        text-decoration: none;
+        transform: translateY(-2px);
+    }
+
+.site-block-27 ul li.active span,
+.site-block-27 ul li.active a {
+    background: var(--pharma-red) !important;
+    color: #fff !important;
+    border-color: var(--pharma-red) !important;
+    box-shadow: 0 4px 12px rgba(139, 0, 0, 0.3);
+    transform: scale(1.05);
+}
+
+.site-block-27 ul li.disabled span {
+    color: #ccc;
+    border-color: #f0f0f0;
+    cursor: not-allowed;
+    background: #f9f9f9;
+}
+
+/* =============================
+   LOGIN & REGISTER UTILS
+   ============================= */
+.form-group a,
+.form-check label a,
+div > a {
+    color: var(--pharma-red) !important;
+    transition: all 0.3s ease;
+}
+
+    .form-group a:hover,
+    div > a:hover {
+        color: var(--pharma-red-hover) !important;
+        text-decoration: underline;
+    }
+
+.form-check-input:checked {
+    background-color: var(--pharma-red) !important;
+    border-color: var(--pharma-red) !important;
+}
+
+.form-check-input:focus {
+    border-color: var(--pharma-red) !important;
+    box-shadow: 0 0 0 0.25rem rgba(139, 0, 0, 0.25) !important;
+}
+
+.site-mobile-menu .site-nav-wrap a:hover {
+    color: #dc3545 !important; 
+}
+
+.site-mobile-menu .site-nav-wrap li.active > a {
+    color: #dc3545 !important;
 }

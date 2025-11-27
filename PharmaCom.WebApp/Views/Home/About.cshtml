@@ -1,193 +1,264 @@
-﻿@* ========================================
-   ABOUT PAGE - Complete View
-   Location: Views/Home/About.cshtml
-   ======================================== *@
-
-@{
+﻿@{
     Layout = "~/Views/Shared/_MainThemeLayout.cshtml";
     ViewData["Title"] = "About Us";
     ViewBag.CurrentPage = "about";
 }
 
-@* Hero Section with Background Image *@
-@section Breadcrumb {
-    <div class="site-blocks-cover inner-page" style="background-image: url('/images/hero_1.jpg');">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-7 mx-auto align-self-center">
-                    <div class="text-center">
-                        <h1>About Us</h1>
-                        <p>Your trusted online pharmacy providing quality medications and healthcare products.</p>
-                    </div>
-                </div>  
+@* =========================
+   1. HERO SECTION
+   ========================= *@
+<div class="site-section bg-light" style="background: linear-gradient(135deg, #fff5f5, #ffffff);">
+    <div class="container">
+        <div class="row align-items-center justify-content-center text-center py-5">
+            <div class="col-md-8">
+                <span class="d-inline-block py-1 px-3 rounded-pill bg-danger-subtle text-danger fw-bold mb-3 shadow-sm">
+                    <small>🌟 Trusted Healthcare</small>
+                </span>
+                <h1 class="display-4 fw-bolder text-black mb-3">
+                    We Put Your Health <span style="color: var(--pharma-red);">First</span>
+                </h1>
+                <p class="lead text-muted mb-5">
+                    A trusted pharmaceutical platform providing medicines, supplements, and healthcare products with ease, safety, and reliability.
+                </p>
             </div>
         </div>
     </div>
-}
+</div>
 
-@* How We Started Section *@
-<div class="site-section bg-light custom-border-bottom" data-aos="fade">
+@* =========================
+   2. OUR STORY
+   ========================= *@
+<div class="site-section bg-white">
     <div class="container">
-        <div class="row mb-5">
+        <div class="row align-items-center">
+            @* Image Side *@
+            <div class="col-lg-6 mb-5 mb-lg-0 order-lg-2">
+                <div class="position-relative text-center">
+                    <img src="~/images/pills.jpg" alt="Our Pharmacy" class="img-fluid rounded-5 shadow-lg border border-white border-5" style="width: 85%; object-fit: cover;">
+
+                    @* Experience Box *@
+                    <div class="position-absolute bg-white p-3 p-md-4 rounded-4 shadow-sm" style="bottom: -20px; left: 20px; min-width: 220px; width: auto; text-align: left;">
+                        <div class="d-flex align-items-center gap-3">
+                            <span class="display-4 fw-bold text-danger">10+</span>
+                            <div class="text-muted lh-1 small fw-bold">
+                                Years of <br> Experience
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @* Text Side *@
+            <div class="col-lg-6 order-lg-1">
+                <h2 class="text-black fw-bold mb-4">Our Story</h2>
+                <p class="text-muted mb-4 lead">
+                    Since the founding of PharmaCom, our goal has been to provide a secure and easy digital pharmacy experience, ensuring the highest levels of quality and user comfort.
+                </p>
+                <p class="text-muted mb-4">
+                    We work with the best authorized suppliers to ensure that original medicines reach your home quickly and easily. We believe that healthcare should be accessible to everyone, everywhere.
+                </p>
+
+                @* Certifications *@
+                <div class="d-flex gap-3 mt-4">
+                    <div class="d-flex align-items-center text-black">
+                        <span class="icon-check-circle text-danger me-2 fs-5"></span> Authorized
+                    </div>
+                    <div class="d-flex align-items-center text-black">
+                        <span class="icon-check-circle text-danger me-2 fs-5"></span> GMP Certified
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* =========================
+   3. MISSION & VISION
+   ========================= *@
+<div class="site-section bg-light">
+    <div class="container">
+        <div class="row">
+            @* Mission *@
+            <div class="col-md-6 mb-4 mb-md-0">
+                <div class="card h-100 border-0 shadow-sm p-4 rounded-4 hover-up">
+                    <div class="card-body">
+                        <div class="icon-wrapper bg-danger-subtle mb-4" style="width: 60px; height: 60px; display:flex; align-items:center; justify-content:center; border-radius:50%;">
+                            <span class="icon-bullseye text-danger fs-3"></span>
+                        </div>
+                        <h3 class="h4 text-black fw-bold mb-3">Our Mission</h3>
+                        <ul class="list-unstyled text-muted">
+                            <li class="mb-2"><span class="icon-check text-danger me-2"></span> Providing 100% authentic medicines.</li>
+                            <li class="mb-2"><span class="icon-check text-danger me-2"></span> Facilitating access to healthcare.</li>
+                            <li class="mb-2"><span class="icon-check text-danger me-2"></span> 24/7 dedicated customer support.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            @* Vision *@
             <div class="col-md-6">
-                <div class="block-16">
-                    <figure>
-                        <img src="~/images/bg_1.jpg" alt="PharmaCom Story" class="img-fluid rounded">
-                        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="play-button popup-vimeo">
-                            <span class="icon-play"></span>
-                        </a>
-                    </figure>
+                <div class="card h-100 border-0 shadow-sm p-4 rounded-4 hover-up">
+                    <div class="card-body">
+                        <div class="icon-wrapper bg-danger-subtle mb-4" style="width: 60px; height: 60px; display:flex; align-items:center; justify-content:center; border-radius:50%;">
+                            <span class="icon-eye text-danger fs-3"></span>
+                        </div>
+                        <h3 class="h4 text-black fw-bold mb-3">Our Vision</h3>
+                        <ul class="list-unstyled text-muted">
+                            <li class="mb-2"><span class="icon-check text-danger me-2"></span> To be the region's most trusted platform.</li>
+                            <li class="mb-2"><span class="icon-check text-danger me-2"></span> Enhancing digital E-Health solutions.</li>
+                            <li class="mb-2"><span class="icon-check text-danger me-2"></span> Innovating for a healthier future.</li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-5">
-                <div class="site-section-heading pt-3 mb-4">
-                    <h2 class="text-black">How We Started</h2>
-                </div>
-                <p>PharmaCom was founded with a simple mission: to make quality healthcare accessible to everyone. What started as a small community pharmacy has grown into a trusted online platform serving thousands of customers.</p>
-                <p>We believe that everyone deserves access to affordable, genuine medications and healthcare products. Our team of licensed pharmacists works tirelessly to ensure that every product meets the highest quality standards.</p>
-                <p>Today, we're proud to be one of the leading online pharmacies, offering a wide range of prescription and over-the-counter medications, wellness products, and health supplements.</p>
             </div>
         </div>
     </div>
 </div>
 
-@* We Are Trusted Section *@
-<div class="site-section bg-light custom-border-bottom" data-aos="fade">
+@* =========================
+   4. WHY CHOOSE US
+   ========================= *@
+<div class="site-section bg-white">
     <div class="container">
-        <div class="row mb-5">
-            <div class="col-md-6 order-md-2">
-                <div class="block-16">
-                    <figure>
-                        <img src="~/images/hero_1.jpg" alt="Trust and Quality" class="img-fluid rounded">
-                        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="play-button popup-vimeo">
-                            <span class="icon-play"></span>
-                        </a>
-                    </figure>
+        <div class="row justify-content-center text-center mb-5">
+            <div class="col-md-8">
+                <h2 class="text-black fw-bold">Why Choose Us?</h2>
+                <p class="text-muted">We go the extra mile to ensure your well-being.</p>
+            </div>
+        </div>
+
+        <div class="row text-center">
+            <div class="col-6 col-md-3 mb-4">
+                <div class="p-3">
+                    <span class="icon-verified_user text-danger display-4 mb-3 d-block"></span>
+                    <h5 class="fw-bold text-black">100% Authentic</h5>
+                    <p class="text-muted small">MOH Approved Medicines.</p>
                 </div>
             </div>
-            <div class="col-md-5 mr-auto">
-                <div class="site-section-heading pt-3 mb-4">
-                    <h2 class="text-black">We Are Trusted Company</h2>
+            <div class="col-6 col-md-3 mb-4">
+                <div class="p-3">
+                    <span class="icon-clock-o text-danger display-4 mb-3 d-block"></span>
+                    <h5 class="fw-bold text-black">Fast Delivery</h5>
+                    <p class="text-muted small">Within 24 hours.</p>
                 </div>
-                <p class="text-black">With over 10 years of experience in the pharmaceutical industry, PharmaCom has built a reputation for reliability, quality, and excellent customer service.</p>
-                <p class="text-black">All our products are sourced directly from licensed manufacturers and distributors. We maintain strict quality control measures and work only with FDA-approved suppliers.</p>
-                <p class="text-black">Our licensed pharmacists are available to answer your questions and provide personalized healthcare advice. We're committed to your health and wellbeing.</p>
+            </div>
+            <div class="col-6 col-md-3 mb-4">
+                <div class="p-3">
+                    <span class="icon-user-md text-danger display-4 mb-3 d-block"></span>
+                    <h5 class="fw-bold text-black">Expert Care</h5>
+                    <p class="text-muted small">Pharmacist supervision.</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3 mb-4">
+                <div class="p-3">
+                    <span class="icon-lock text-danger display-4 mb-3 d-block"></span>
+                    <h5 class="fw-bold text-black">Secure & Private</h5>
+                    <p class="text-muted small">100% confidential.</p>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-@* Why Choose Us Section *@
-<div class="site-section site-section-sm site-blocks-1 border-0" data-aos="fade">
+@* =========================
+   5. TEAM SECTION
+   ========================= *@
+<div class="site-section bg-light">
     <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="">
-                <div class="icon mr-4 align-self-start">
-                    <span class="icon-truck text-primary"></span>
-                </div>
-                <div class="text">
-                    <h2>Free Shipping</h2>
-                    <p>Enjoy free shipping on all orders over $50. We deliver nationwide with secure packaging to ensure your products arrive safely.</p>
-                </div>
+        <div class="row align-items-center">
+            <div class="col-lg-5 mb-4 mb-lg-0">
+                <h2 class="text-black fw-bold mb-4">Our Medical Team</h2>
+                <p class="text-muted mb-4">
+                    Behind PharmaCom is a dedicated team of pharmacists and healthcare specialists ready to serve you.
+                </p>
+                <a asp-controller="Home" asp-action="Contact" class="btn btn-outline-primary rounded-pill px-4">Meet The Team</a>
             </div>
-            <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="icon mr-4 align-self-start">
-                    <span class="icon-refresh2 text-primary"></span>
-                </div>
-                <div class="text">
-                    <h2>Easy Returns</h2>
-                    <p>Not satisfied? We offer hassle-free returns within 30 days. Your satisfaction is our priority, and we stand behind every product we sell.</p>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="icon mr-4 align-self-start">
-                    <span class="icon-help text-primary"></span>
-                </div>
-                <div class="text">
-                    <h2>24/7 Customer Support</h2>
-                    <p>Our licensed pharmacists and customer service team are available around the clock to answer your questions and provide expert advice.</p>
+            <div class="col-lg-7">
+                <div class="row gap-3 justify-content-center">
+                    <div class="col-5 col-md-4">
+                        <img src="~/images/person_1.jpg" class="img-fluid rounded-4 shadow-sm grayscale-hover" alt="Pharmacist">
+                    </div>
+                    <div class="col-5 col-md-4 mt-4">
+                        <img src="~/images/person_2.jpg" class="img-fluid rounded-4 shadow-sm grayscale-hover" alt="Specialist">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-@* The Team Section *@
-<div class="site-section bg-light custom-border-bottom" data-aos="fade">
+@* =========================
+   6. CALL TO ACTION
+   ========================= *@
+<div class="site-section py-5" style="background-color: var(--pharma-red);">
     <div class="container">
-        <div class="row justify-content-center mb-5">
-            <div class="col-md-7 site-section-heading text-center pt-4">
-                <h2>Meet Our Team</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 col-lg-3 mb-5">
-                <div class="block-38 text-center">
-                    <div class="block-38-img">
-                        <div class="block-38-header">
-                            <img src="~/images/person_1.jpg" alt="Elizabeth Graham" class="mb-4">
-                            <h3 class="block-38-heading h4">Dr. Elizabeth Graham</h3>
-                            <p class="block-38-subheading">CEO / Chief Pharmacist</p>
-                        </div>
-                        <div class="block-38-body">
-                            <p>With over 15 years of pharmaceutical experience, Dr. Graham leads our team with a passion for accessible healthcare.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 mb-5">
-                <div class="block-38 text-center">
-                    <div class="block-38-img">
-                        <div class="block-38-header">
-                            <img src="~/images/person_2.jpg" alt="Jennifer Greive" class="mb-4">
-                            <h3 class="block-38-heading h4">Jennifer Greive</h3>
-                            <p class="block-38-subheading">Co-Founder / Operations</p>
-                        </div>
-                        <div class="block-38-body">
-                            <p>Jennifer ensures smooth operations and maintains our commitment to quality and customer satisfaction.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 mb-5">
-                <div class="block-38 text-center">
-                    <div class="block-38-img">
-                        <div class="block-38-header">
-                            <img src="~/images/person_3.jpg" alt="Patrick Marx" class="mb-4">
-                            <h3 class="block-38-heading h4">Dr. Patrick Marx</h3>
-                            <p class="block-38-subheading">Lead Pharmacist</p>
-                        </div>
-                        <div class="block-38-body">
-                            <p>Dr. Marx leads our pharmaceutical team, ensuring all medications meet the highest safety standards.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 mb-5">
-                <div class="block-38 text-center">
-                    <div class="block-38-img">
-                        <div class="block-38-header">
-                            <img src="~/images/person_4.jpg" alt="Mike Coolbert" class="mb-4">
-                            <h3 class="block-38-heading h4">Mike Coolbert</h3>
-                            <p class="block-38-subheading">Customer Support Manager</p>
-                        </div>
-                        <div class="block-38-body">
-                            <p>Mike and his team provide exceptional 24/7 customer support to assist with all your healthcare needs.</p>
-                        </div>
-                    </div>
+        <div class="row align-items-center justify-content-center text-center">
+            <div class="col-md-8">
+                <h2 class="text-white fw-bold mb-3">Ready to order your meds?</h2>
+                <p class="text-white-50 mb-4 lead">Experience the new standard of online pharmacy today.</p>
+                <div class="d-flex justify-content-center gap-3">
+                    @* Custom Buttons *@
+                    <a asp-controller="Home" asp-action="Store" class="btn btn-white-custom rounded-pill px-5 fw-bold">Shop Now</a>
+                    <a asp-controller="Home" asp-action="Contact" class="btn btn-outline-white-custom rounded-pill px-5 fw-bold">Contact Us</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-@section Scripts {
-    <script>
-        // Initialize AOS animations
-        AOS.init({
-            duration: 1000,
-            once: true
-        });
-    </script>
-}
+<style>
+    /* Card Hover Effect */
+    .hover-up {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .hover-up:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+        }
+
+    /* Grayscale Image Effect */
+    .grayscale-hover {
+        filter: grayscale(100%);
+        transition: 0.3s ease;
+    }
+
+        .grayscale-hover:hover {
+            filter: grayscale(0%);
+        }
+
+    /* =========================================
+           CUSTOM BUTTONS (Swapping Styles Logic)
+           ========================================= */
+
+    /* 1. Shop Now Button (Initially: White Background, Red Text) */
+    .btn-white-custom {
+        background-color: #fff;
+        color: var(--pharma-red);
+        border: 2px solid #fff;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+        /* Hover: Becomes Transparent, White Text (Like Contact button default) */
+        .btn-white-custom:hover {
+            background-color: transparent;
+            color: #fff !important;
+            border-color: #fff;
+            text-decoration: none;
+            transform: none !important;
+        }
+
+    /* 2. Contact Us Button (Initially: Transparent, White Text) */
+    .btn-outline-white-custom {
+        background-color: transparent;
+        color: #fff !important;
+        border: 2px solid #fff;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+        /* Hover: Becomes White Background, Red Text (Like Shop button default) */
+        .btn-outline-white-custom:hover {
+            background-color: #fff;
+            color: var(--pharma-red) !important;
+            text-decoration: none;
+            transform: none !important;
+        }
+</style>
