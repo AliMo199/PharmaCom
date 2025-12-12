@@ -26,7 +26,7 @@ namespace PharmaCom.WebApp.Controllers
                 var user = await _userManager.GetUserAsync(User);
                 if (user == null)
                 {
-                    return RedirectToPage("/Account/Login", new { area = "Identity" });
+                    return RedirectToAction("Login","Account");
                 }
 
                 var cart = await _cartService.GetOrCreateUserCartAsync(user.Id);

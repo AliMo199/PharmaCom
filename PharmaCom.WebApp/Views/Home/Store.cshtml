@@ -1,145 +1,80 @@
-﻿    @model PharmaCom.Domain.Models.PagedResult<PharmaCom.Domain.Models.Product>
+﻿@using System.Linq
+@model PagedResult<Product>
 
 @{
     Layout = "~/Views/Shared/_MainThemeLayout.cshtml";
     ViewData["Title"] = "Store";
+    ViewBag.CurrentPage = "store";
 
-    // Get current filter values
+    // Filter Variables
     int? categoryId = ViewBag.CurrentCategory as int?;
     string? brand = ViewBag.CurrentBrand as string;
     string? form = ViewBag.CurrentForm as string;
-    bool? isRxRequired = ViewBag.CurrentRxRequired as bool?;
     decimal? minPrice = ViewBag.MinPrice as decimal?;
     decimal? maxPrice = ViewBag.MaxPrice as decimal?;
     string sortBy = ViewBag.SortBy as string ?? "Name";
     bool sortDesc = ViewBag.CurrentDesc ?? false;
-
-    // Build query string for pagination
-    var queryParams = new Dictionary<string, string>();
-    if (categoryId.HasValue) queryParams.Add("categoryId", categoryId.Value.ToString());
-    if (!string.IsNullOrEmpty(brand)) queryParams.Add("brand", brand);
-    if (!string.IsNullOrEmpty(form)) queryParams.Add("form", form);
-    if (isRxRequired.HasValue) queryParams.Add("rxRequired", isRxRequired.Value.ToString());
-    if (minPrice.HasValue) queryParams.Add("minPrice", minPrice.Value.ToString());
-    if (maxPrice.HasValue) queryParams.Add("maxPrice", maxPrice.Value.ToString());
-    if (!string.IsNullOrEmpty(sortBy)) queryParams.Add("sort", sortBy);
-    queryParams.Add("desc", sortDesc.ToString().ToLower());
-
-    string BuildQueryString(int page)
-    {
-        var @params = new Dictionary<string, string>(queryParams);
-        @@params["page"]
-        = page.ToString();
-        return "?" + string.Join("&", @params.Select(kvp => $"{kvp.Key}={Uri.EscapeDataString(kvp.Value)}"));
-    }
 }
 
-@* Main Content *@
-<div class="site-section">
+<div class="site-section bg-light">
     <div class="container">
 
-        @* Mobile Filter Toggle Button *@
         <div class="row mb-3 d-lg-none">
             <div class="col-12">
-                <button class="btn btn-primary btn-md btn-block" type="button" data-toggle="collapse" data-target="#filterSection" aria-expanded="false">
+                <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#filterSection" aria-expanded="false">
                     <span class="icon-filter"></span> Show Filters
                 </button>
             </div>
         </div>
 
-        @* Filters Section - Single Row *@
         <div class="collapse d-lg-block" id="filterSection">
-            <form asp-controller="Home" asp-action="Store" method="get" class="mb-4">
-                <div class="row gap-lg-1 align-items-end justify-content-center">
+            <form asp-controller="Home" asp-action="Store" method="get" class="mb-5 p-4 bg-white rounded shadow-sm">
+                <div class="row gap-3 align-items-end justify-content-center">
 
-                    @* Category Filter *@
-                    <div class="col-6 col-lg-1 mb-3 mb-lg-0">
-                        <label for="categoryId" class="text-black mb-2 d-block"><small><strong>Category</strong></small></label>
-                        <select name="categoryId" id="categoryId" class="form-control">
-                            <option value="">All</option>
-                            @if (ViewBag.Categories != null)
+                    <div class="col-md-6 col-lg mb-3 mb-lg-0">
+                        <label for="categoryId" class="text-black mb-2"><small><strong>Category</strong></small></label>
+                        <select name="categoryId" id="categoryId" class="form-select custom-red-dropdown">
+                            <option value="">All Categories</option>
+                            @foreach (var cat in ViewBag.Categories ?? new List<dynamic>())
                             {
-                                @foreach (var cat in ViewBag.Categories)
-                                {
-                                    <option value="@cat.Id" selected="@(categoryId == cat.Id)">@cat.Name</option>
-                                }
+                                <option value="@cat.Id" selected="@(categoryId == cat.Id)">@cat.Name</option>
                             }
                         </select>
                     </div>
 
-                    @* Brand Filter *@
-                    <div class="col-6 col-lg-1 mb-3 mb-lg-0">
-                        <label for="brand" class="text-black mb-2 d-block"><small><strong>Brand</strong></small></label>
-                        <select name="brand" id="brand" class="form-control">
-                            <option value="">All</option>
-                            @if (ViewBag.Brands != null)
+                    <div class="col-md-6 col-lg mb-3 mb-lg-0">
+                        <label for="brand" class="text-black mb-2"><small><strong>Brand</strong></small></label>
+                        <select name="brand" id="brand" class="form-select custom-red-dropdown">
+                            <option value="">All Brands</option>
+                            @foreach (var b in ViewBag.Brands ?? new List<string>())
                             {
-                                @foreach (var b in ViewBag.Brands)
-                                {
-                                    <option value="@b" selected="@(brand == b)">@b</option>
-                                }
+                                <option value="@b" selected="@(brand == b)">@b</option>
                             }
                         </select>
                     </div>
 
-                    @* Form Filter *@
-                    <div class="col-6 col-lg-1 mb-3 mb-lg-0">
-                        <label for="form" class="text-black mb-2 d-block"><small><strong>Form</strong></small></label>
-                        <select name="form" id="form" class="form-control">
-                            <option value="">All</option>
-                            @if (ViewBag.Forms != null)
+                    <div class="col-md-6 col-lg mb-3 mb-lg-0">
+                        <label for="form" class="text-black mb-2"><small><strong>Form</strong></small></label>
+                        <select name="form" id="form" class="form-select custom-red-dropdown">
+                            <option value="">All Forms</option>
+                            @foreach (var f in ViewBag.Forms ?? new List<string>())
                             {
-                                @foreach (var f in ViewBag.Forms)
-                                {
-                                    <option value="@f" selected="@(form == f)">@f</option>
-                                }
+                                <option value="@f" selected="@(form == f)">@f</option>
                             }
                         </select>
                     </div>
 
-                    @* Rx Required Filter *@
-                    <div class="col-6 col-lg-1 mb-3 mb-lg-0">
-                        <label for="rxRequired" class="text-black mb-2 d-block"><small><strong>Rx</strong></small></label>
-                        <select name="rxRequired" id="rxRequired" class="form-control">
-                            <option value="">All</option>
-                            <option value="true" selected="@(isRxRequired == true)">Yes</option>
-                            <option value="false" selected="@(isRxRequired == false)">No</option>
-                        </select>
-                    </div>
-
-                    @* Price Range Dropdown *@
-                    <div class="col-12 col-lg-2 mb-3 mb-lg-0">
-                        <label class="text-black mb-2 d-block"><small><strong>Price Range</strong></small></label>
-                        <div class="dropdown">
-                            <button class="form-control dropdown-toggle" type="button" id="priceDropdown" data-toggle="dropdown" aria-expanded="false">
-                                @if (minPrice.HasValue || maxPrice.HasValue)
-                                {
-                                    <span>$@(minPrice ?? 0) - $@(maxPrice?.ToString() ?? "∞")</span>
-                                }
-                                else
-                                {
-                                    <span>Any Price</span>
-                                }
-                            </button>
-                            <div class="dropdown-menu p-3" style="min-width: 250px;" onclick="event.stopPropagation();">
-                                <div class="form-group mb-2">
-                                    <label for="minPrice" class="text-black"><small>Min Price</small></label>
-                                    <input type="number" name="minPrice" id="minPrice" class="form-control form-control-sm"
-                                           placeholder="0.00" value="@minPrice" step="0.01" min="0">
-                                </div>
-                                <div class="form-group mb-0">
-                                    <label for="maxPrice" class="text-black"><small>Max Price</small></label>
-                                    <input type="number" name="maxPrice" id="maxPrice" class="form-control form-control-sm"
-                                           placeholder="No limit" value="@maxPrice" step="0.01" min="0">
-                                </div>
-                            </div>
+                    <div class="col-md-6 col-lg mb-3 mb-lg-0">
+                        <label class="text-black mb-2"><small><strong>Price Range</strong></small></label>
+                        <div class="d-flex gap-1">
+                            <input type="number" name="minPrice" class="form-control" placeholder="Min" value="@minPrice" min="0" />
+                            <input type="number" name="maxPrice" class="form-control" placeholder="Max" value="@maxPrice" min="0" />
                         </div>
                     </div>
 
-                    @* Combined Sort Dropdown *@
-                    <div class="col-12 col-lg-2 mb-3 mb-lg-0">
-                        <label for="sortOption" class="text-black mb-2 d-block"><small><strong>Sort By</strong></small></label>
-                        <select name="sortOption" id="sortOption" class="form-control">
+                    <div class="col-md-6 col-lg mb-3 mb-lg-0">
+                        <label for="sortOption" class="text-black mb-2"><small><strong>Sort By</strong></small></label>
+                        <select name="sortOption" id="sortOption" class="form-select custom-red-dropdown">
                             <option value="Name-false" selected="@(sortBy == "Name" && !sortDesc)">Name (A-Z)</option>
                             <option value="Name-true" selected="@(sortBy == "Name" && sortDesc)">Name (Z-A)</option>
                             <option value="Price-false" selected="@(sortBy == "Price" && !sortDesc)">Price (Low-High)</option>
@@ -148,63 +83,65 @@
                         </select>
                     </div>
 
-                    @* Action Buttons *@
-                    @*<div class="col-12 col-lg-2 row gap-1 justify-content-center mb-3 mb-lg-0">
-                        
+                    <div class="col-md-12 col-lg-auto d-flex gap-2 mb-3 mb-lg-0">
+                        <button type="submit" class="btn btn-primary px-4">Filter</button>
+                        <a asp-controller="Home" asp-action="Store" class="btn btn-outline-primary px-4">Reset</a>
                     </div>
-                    *@
-
-                    <button type="submit" class="col-11 col-lg-1 mb-3 mb-lg-0 btn py-lg-2 btn-primary btn-block">Filter</button>
-                    <a asp-controller="Home"
-                       asp-action="Store"
-                       asp-route-sort="@sortBy"
-                       asp-route-desc="@sortDesc"
-                       asp-route-page="1"
-                       class="col-11 col-lg-1 mb-lg-0 btn py-lg-2 btn-outline-info btn-block">
-                        Reset
-                    </a>
                 </div>
             </form>
         </div>
 
-        @* Results Summary *@
-        <div class="row mb-3">
-            <div class="col-12">
-                <p class="text-muted mb-1">
-                    Showing @((Model.PageNumber - 1) * Model.PageSize + 1) - @(Math.Min(Model.PageNumber * Model.PageSize, Model.TotalCount)) of @Model.TotalCount products
-                </p>
+        <div class="row mb-4">
+            <div class="col-12 text-center">
+                <span class="text-muted">
+                    Showing <strong>@((Model.PageNumber - 1) * Model.PageSize + 1) - @(Math.Min(Model.PageNumber * Model.PageSize, Model.TotalCount))</strong> of <strong>@Model.TotalCount</strong> products
+                </span>
             </div>
         </div>
 
-        @* Products Grid *@
         @if (Model.Items != null && Model.Items.Any())
         {
             <div class="row">
                 @foreach (var product in Model.Items)
                 {
-                    <div class="col-sm-6 col-lg-4 text-center item mb-4">
-                        <div class="product-card">
+                    <div class="col-md-6 col-lg-4 mb-5">
+                        <div class="card product-card h-100 border-0 position-relative">
                             @if (product.IsRxRequired)
                             {
-                                <span class="rx-badge">Rx</span>
+                                <div class="badge bg-danger rounded-pill position-absolute m-2" style="top:0; left:0; z-index:10;">Rx Required</div>
                             }
-                            <a asp-controller="Home" asp-action="ShowProduct" asp-route-id="@product.Id">
-                                <img src="@(product.ImageURLString ?? "/images/product_placeholder.png")"
-                                     alt="@product.Name" class="img-fluid">
-                            </a>
-                            <h3 class="text-dark">
-                                <a asp-controller="Home" asp-action="ShowProduct" asp-route-id="@product.Id">@product.Name</a>
-                            </h3>
-                            <p class="text-muted mb-1"><small>@product.Brand</small></p>
-                            <p class="price">$@product.Price.ToString("F2")</p>
-                            <form asp-controller="Cart" asp-action="AddItem" method="post" class="d-inline">
-                                <input type="hidden" name="productId" value="@product.Id" />
-                                <input type="hidden" name="quantity" value="1" />
-                                @Html.AntiForgeryToken()
-                                <button type="submit" class="btn btn-primary btn-sm px-4">
-                                    <span class="icon-shopping-bag"></span> Add to Cart
-                                </button>
-                            </form>
+
+                            <div class="card-img-wrapper p-3 text-center" style="height: 250px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                                <a asp-controller="Home" asp-action="ShowProduct" asp-route-id="@product.Id">
+                                    <img src="@(product.ImageURLString ?? "/images/product_placeholder.png")"
+                                         class="card-img-top img-fluid product-img"
+                                         alt="@product.Name"
+                                         onerror="this.onerror=null;this.src='/images/product_placeholder.png';" />
+                                </a>
+                            </div>
+
+                            <div class="card-body text-center d-flex flex-column pt-4">
+                                <h5 class="card-title mb-2">
+                                    <a asp-controller="Home" asp-action="ShowProduct" asp-route-id="@product.Id" class="text-dark fw-bold text-decoration-none">
+                                        @product.Name
+                                    </a>
+                                </h5>
+
+                                <div class="mt-auto">
+                                    <p class="price fs-5 fw-bold mb-3" style="color: var(--pharma-red);">
+                                        $@product.Price.ToString("F2")
+                                    </p>
+
+                                    <form asp-controller="Cart" asp-action="AddItem" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="productId" value="@product.Id" />
+                                        <input type="hidden" name="quantity" value="1" />
+                                        <button type="submit" class="btn btn-custom-red rounded-pill px-4 w-100">
+                                            Add to cart
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 }
@@ -221,68 +158,73 @@
             </div>
         }
 
-        @* Pagination *@
         @if (Model.TotalPages > 1)
         {
             <div class="row mt-5">
                 <div class="col-md-12 text-center">
                     <div class="site-block-27">
                         <ul>
-                            @* Previous Button *@
                             @if (Model.HasPrevious)
                             {
                                 <li>
-                                    <a href="@BuildQueryString(Model.PageNumber - 1)">&lt;</a>
+                                    <a asp-action="Store"
+                                       asp-route-page="@(Model.PageNumber - 1)"
+                                       asp-route-searchTerm="@ViewBag.SearchTerm"
+                                       asp-route-categoryId="@ViewBag.CurrentCategory"
+                                       asp-route-brand="@ViewBag.CurrentBrand"
+                                       asp-route-form="@ViewBag.CurrentForm"
+                                       asp-route-minPrice="@ViewBag.MinPrice"
+                                       asp-route-maxPrice="@ViewBag.MaxPrice"
+                                       asp-route-sort="@ViewBag.SortBy"
+                                       asp-route-desc="@ViewBag.CurrentDesc">&lt;</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="disabled"><span>&lt;</span></li>
+                            }
+
+                            @for (int i = 1; i <= Model.TotalPages; i++)
+                            {
+                                <li class="@(i == Model.PageNumber ? "active" : "")">
+                                    @if (i == Model.PageNumber)
+                                    {
+                                        <span>@i</span>
+                                    }
+                                    else
+                                    {
+                                        <a asp-action="Store"
+                                           asp-route-page="@i"
+                                           asp-route-searchTerm="@ViewBag.SearchTerm"
+                                           asp-route-categoryId="@ViewBag.CurrentCategory"
+                                           asp-route-brand="@ViewBag.CurrentBrand"
+                                           asp-route-form="@ViewBag.CurrentForm"
+                                           asp-route-minPrice="@ViewBag.MinPrice"
+                                           asp-route-maxPrice="@ViewBag.MaxPrice"
+                                           asp-route-sort="@ViewBag.SortBy"
+                                           asp-route-desc="@ViewBag.CurrentDesc">@i</a>
+                                    }
                                 </li>
                             }
 
-                            @* Page Numbers with Smart Display *@
-                            @{
-                                int startPage = Math.Max(1, Model.PageNumber - 2);
-                                int endPage = Math.Min(Model.TotalPages, Model.PageNumber + 2);
-
-                                // Always show first page
-                                if (startPage > 1)
-                                {
-                                    <li><a href="@BuildQueryString(1)">1</a></li>
-                                    if (startPage > 2)
-                                    {
-                                        <li class="disabled"><span>...</span></li>
-                                    }
-                                }
-
-                                // Show current page range
-                                for (int i = startPage; i <= endPage; i++)
-                                {
-                                    <li class="@(i == Model.PageNumber ? "active" : "")">
-                                        @if (i == Model.PageNumber)
-                                        {
-                                            <span>@i</span>
-                                        }
-                                        else
-                                        {
-                                            <a href="@BuildQueryString(i)">@i</a>
-                                        }
-                                    </li>
-                                }
-
-                                // Always show last page
-                                if (endPage < Model.TotalPages)
-                                {
-                                    if (endPage < Model.TotalPages - 1)
-                                    {
-                                        <li class="disabled"><span>...</span></li>
-                                    }
-                                    <li><a href="@BuildQueryString(Model.TotalPages)">@Model.TotalPages</a></li>
-                                }
-                            }
-
-                            @* Next Button *@
                             @if (Model.HasNext)
                             {
                                 <li>
-                                    <a href="@BuildQueryString(Model.PageNumber + 1)">&gt;</a>
+                                    <a asp-action="Store"
+                                       asp-route-page="@(Model.PageNumber + 1)"
+                                       asp-route-searchTerm="@ViewBag.SearchTerm"
+                                       asp-route-categoryId="@ViewBag.CurrentCategory"
+                                       asp-route-brand="@ViewBag.CurrentBrand"
+                                       asp-route-form="@ViewBag.CurrentForm"
+                                       asp-route-minPrice="@ViewBag.MinPrice"
+                                       asp-route-maxPrice="@ViewBag.MaxPrice"
+                                       asp-route-sort="@ViewBag.SortBy"
+                                       asp-route-desc="@ViewBag.CurrentDesc">&gt;</a>
                                 </li>
+                            }
+                            else
+                            {
+                                <li class="disabled"><span>&gt;</span></li>
                             }
                         </ul>
                     </div>
@@ -292,151 +234,21 @@
     </div>
 </div>
 
-@* Promo Banner *@
-@*
-@section PromoBanner {
-    <div class="site-section bg-secondary bg-image" style="background-image: url('/images/bg_2.jpg');">
-        <div class="container">
-            <div class="row align-items-stretch">
-                <div class="col-lg-6 mb-5 mb-lg-0">
-                    <a href="#" class="banner-1 h-100 d-flex" style="background-image: url('/images/bg_1.jpg');">
-                        <div class="banner-1-inner align-self-center">
-                            <h2>Pharma Products</h2>
-                            <p>Quality medications you can trust.</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-6 mb-5 mb-lg-0">
-                    <a href="#" class="banner-1 h-100 d-flex" style="background-image: url('/images/bg_2.jpg');">
-                        <div class="banner-1-inner ml-auto align-self-center">
-                            <h2>Rated by Experts</h2>
-                            <p>Trusted by healthcare professionals.</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-}
-*@
-
 @section Scripts {
     <script>
-        $(document).ready(function() {
-            // Handle combined sort dropdown
+        $(function() {
+            // Handle sort dropdown to split SortBy and Descending values
             $('#sortOption').on('change', function() {
-                var value = $(this).val();
-                if (value) {
-                    var parts = value.split('-');
+                var val = $(this).val();
+                if (val) {
+                    var parts = val.split('-');
                     var form = $(this).closest('form');
-
-                    // Remove old hidden inputs if exist
                     form.find('input[name="sort"]').remove();
                     form.find('input[name="desc"]').remove();
-
-                    // Add new hidden inputs
                     form.append('<input type="hidden" name="sort" value="' + parts[0] + '">');
                     form.append('<input type="hidden" name="desc" value="' + parts[1] + '">');
                 }
             });
-
-            // Keep price dropdown open when clicking inside
-            $('.dropdown-menu').on('click', function(e) {
-                e.stopPropagation();
-            });
-
-            // Mobile filter toggle
-            $('#filterSection').on('show.bs.collapse', function () {
-                $('.btn[data-target="#filterSection"]').html('<span class="icon-filter"></span> Hide Filters');
-            });
-
-            $('#filterSection').on('hide.bs.collapse', function () {
-                $('.btn[data-target="#filterSection"]').html('<span class="icon-filter"></span> Show Filters');
-            });
         });
     </script>
-}
-
-@section Styles {
-    <style>
-
-        .site-section {
-            padding: 1rem 0;
-        }
-
-        /* Product card wrapper */
-        .product-card {
-            position: relative;
-            transition: transform 0.3s ease;
-        }
-
-            .product-card:hover {
-                transform: translateY(-5px);
-            }
-
-        /* Rx Badge - Small flag at top-left */
-        .rx-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: #dc3545;
-            color: white;
-            padding: 2px 8px;
-            font-size: 0.7rem;
-            font-weight: bold;
-            border-radius: 3px;
-            z-index: 10;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-
-        /* Price dropdown styling */
-        .dropdown-menu {
-            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-        }
-
-            .dropdown-menu .form-control-sm {
-                font-size: 0.875rem;
-            }
-
-        /* Mobile responsive */
-        @@media (max-width: 991px) {
-            #filterSection {
-                background: #f8f9fa;
-                padding: 1rem;
-                border-radius: 0.25rem;
-                margin-bottom: 1rem;
-            }
-        }
-
-        /* Filter section spacing */
-        @@media (min-width: 992px) {
-            .row.align-items-end > [class*='col-'] {
-                padding-right: 0.5rem;
-                padding-left: 0.5rem;
-            }
-        }
-
-        /* Product grid improvements */
-        .item h3 {
-            font-size: 1.1rem;
-            margin-top: 0.75rem;
-            margin-bottom: 0.25rem;
-        }
-
-            .item h3 a {
-                color: #333;
-                text-decoration: none;
-            }
-
-                .item h3 a:hover {
-                    color: #007bff;
-                }
-
-        .item .price {
-            font-size: 1.25rem;
-            font-weight: bold;
-            color: #007bff;
-            margin-bottom: 0.75rem;
-        }
-    </style>
 }

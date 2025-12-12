@@ -16,12 +16,14 @@ namespace PharmaCom.WebApp
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Development");
+
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddDbContext<ApplicationDBContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("ali")));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("cs")));
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDBContext>()
             .AddDefaultTokenProviders();
@@ -86,7 +88,6 @@ namespace PharmaCom.WebApp
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
-
             app.Run();
         }
     }

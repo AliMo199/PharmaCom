@@ -301,7 +301,7 @@
                                     @await Component.InvokeAsync("PrescriptionNotificationBadge")
                                 </a>
                             </li>
-
+                            @if(User.IsInRole("Admin")){
                             <li class="nav-item">
                                 <a asp-controller="Dashboard" asp-action="ProductManagement" class="nav-link d-flex align-items-center gap-2">
                                     <svg class="bi" aria-hidden="true">
@@ -327,7 +327,7 @@
                                     Categories
                                 </a>
                             </li>
-                        
+                        }
                         </ul>
                         <ul class="nav flex-column mb-auto">
                             

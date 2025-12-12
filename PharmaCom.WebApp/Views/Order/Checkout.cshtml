@@ -1,4 +1,4 @@
-﻿@model PharmaCom.Domain.ViewModels.CheckoutViewModel
+﻿@model CheckoutViewModel
 
 @{
     Layout = "~/Views/Shared/_MainThemeLayout.cshtml";
@@ -6,14 +6,226 @@
     ViewBag.CurrentPage = "checkout";
 }
 
+@section Styles {
+    <style>
+        :root {
+            --pharma-red: #8B0000;
+        }
+
+        .custom-file-input {
+            display: none; 
+        }
+
+        /* === General Layout === */
+        .checkout-section {
+            background-color: #f8f9fa;
+            padding-bottom: 5rem;
+        }
+
+        .section-title {
+            font-weight: 700;
+            color: #212529;
+            letter-spacing: -0.5px;
+        }
+
+        /* === Order Summary Item === */
+        .order-summary-card {
+            background: #fff;
+            border: 1px solid #e9ecef;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .summary-item {
+            display: flex;
+            align-items: center;
+            padding: 1.25rem;
+            border-bottom: 1px solid #f1f3f5;
+            transition: background-color 0.2s;
+        }
+
+            .summary-item:last-child {
+                border-bottom: none;
+            }
+
+            .summary-item:hover {
+                background-color: #fafafa;
+            }
+
+        .product-thumb {
+            width: 70px;
+            height: 70px;
+            border-radius: 12px;
+            background-color: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 1px solid #eee;
+            margin-right: 1.25rem;
+            flex-shrink: 0;
+        }
+
+            .product-thumb img {
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: contain;
+            }
+
+        .item-details h6 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: #212529;
+        }
+
+        .price-tag {
+            font-weight: 700;
+            color: var(--pharma-red);
+        }
+
+        .qty-badge {
+            background-color: #e9ecef;
+            color: #495057;
+            font-size: 0.75rem;
+            padding: 0.2em 0.6em;
+            border-radius: 6px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .rx-badge {
+            font-size: 0.7rem;
+            color: #dc3545;
+            background-color: #ffebee;
+            padding: 2px 8px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
+        /* === Upload Zone === */
+        .upload-zone-card {
+            border: 2px dashed #dee2e6!important;
+            border-radius: 16px;
+            background-color: #fff;
+            transition: all 0.3s ease;
+        }
+
+            .upload-zone-card:hover {
+                border-color: var(--pharma-red)!important;
+                background-color: #fffbfc;
+            }
+
+        .custom-file-label {
+            border-radius: 50px;
+            height: auto;
+            padding: 0.75rem 1.5rem;
+            border: 1px solid #ced4da;
+            cursor: pointer;
+        }
+            .custom-file-label:hover{
+                border: 1px solid #8B0000;
+            }
+
+            .custom-file-label::after {
+                display: none;
+            }
+
+        /* === Totals Card === */
+        .totals-card {
+            background: #fff;
+            border: 1px solid #e9ecef;
+            border-radius: 16px;
+            padding: 2rem;
+            position: sticky;
+            top: 100px;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: #495057;
+        }
+
+        .final-total {
+            border-top: 2px dashed #e9ecef;
+            padding-top: 1.5rem;
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+            .final-total span {
+                font-size: 1.1rem;
+                font-weight: 700;
+                color: #212529;
+            }
+
+            .final-total strong {
+                font-size: 1.75rem;
+                color: var(--pharma-red);
+                font-weight: 800;
+            }
+
+        /* === Payment Button Styling (Red Theme) === */
+        .btn-primary {
+            background-color: var(--pharma-red) !important;
+            border-color: var(--pharma-red) !important;
+            color: #fff !important;
+            font-weight: 600;
+            padding: 1rem;
+            border-radius: 50px; /* Keep consistent roundness */
+            box-shadow: 0 4px 6px rgba(139, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+            .btn-primary:hover, .btn-primary:focus {
+                background-color: #fff !important;
+                color:#8B0000;
+                border-color: #680000 !important;
+                transform: translateY(-2px);
+                box-shadow: 0 6px 12px rgba(139, 0, 0, 0.25);
+            }
+
+            .btn-primary:disabled {
+                background-color: #6c757d !important;
+                border-color: #6c757d !important;
+                cursor: not-allowed;
+                transform: none;
+                box-shadow: none;
+            }
+
+        /* Loading animation */
+        .icon-loading {
+            display: inline-block;
+            animation: spin 1s linear infinite;
+        }
+
+        @@keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+}
+
 @section Breadcrumb {
     <div class="bg-light py-3">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 mb-0">
-                    <a asp-controller="Home" asp-action="Index">Home</a>
+                    <a asp-controller="Home" asp-action="Index" class="text-decoration-none text-muted">Home</a>
                     <span class="mx-2 mb-0">/</span>
-                    <a asp-controller="Cart" asp-action="Index">Cart</a>
+                    <a asp-controller="Cart" asp-action="Index" class="text-decoration-none text-muted">Cart</a>
                     <span class="mx-2 mb-0">/</span>
                     <strong class="text-black">Checkout</strong>
                 </div>
@@ -22,126 +234,94 @@
     </div>
 }
 
-<div class="site-section">
+<div class="site-section checkout-section pt-5">
     <div class="container">
         <div class="row mb-4">
             <div class="col-md-12">
-                <h2 class="text-black h3 text-uppercase">Checkout</h2>
+                <h2 class="h3 section-title text-uppercase">Checkout</h2>
             </div>
         </div>
 
         <div class="row">
-            <!-- Left Column - Order Summary & Prescription Upload -->
-            <div class="col-lg-8">
-                <!-- Order Summary -->
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-header bg-white border-bottom py-3">
-                        <h5 class="mb-0">
-                            <i class="icon-shopping-bag me-2"></i>Order Summary
-                        </h5>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table table-hover mb-0">
-                                <thead class="bg-light">
-                                    <tr>
-                                        <th class="border-0 py-3">Product</th>
-                                        <th class="border-0 py-3 text-center">Quantity</th>
-                                        <th class="border-0 py-3 text-right">Price</th>
-                                        <th class="border-0 py-3 text-right">Subtotal</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model.CartItems)
-                                    {
-                                        <tr>
-                                            <td class="align-middle py-3">
-                                                <strong>@item.Product.Name</strong>
-                                                @if (item.Product.IsRxRequired)
-                                                {
-                                                    <br>
-                                                    <span class="badge badge-danger badge-sm mt-1">
-                                                        <i class="icon-alert-circle"></i> Rx Required
-                                                    </span>
-                                                }
-                                            </td>
-                                            <td class="align-middle text-center py-3">
-                                                <span class="badge badge-secondary px-3 py-2 text-dark">@item.Quantity</span>
-                                            </td>
-                                            <td class="align-middle text-right py-3">
-                                                $@item.Product.Price.ToString("F2")
-                                            </td>
-                                            <td class="align-middle text-right py-3">
-                                                <strong>$@((item.Product.Price * item.Quantity).ToString("F2"))</strong>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
+            <div class="col-lg-7 mb-5 mb-lg-0">
+
+                <div class="mb-4">
+                    <h5 class="text-black mb-3 font-weight-bold">Order Summary</h5>
+                    <div class="order-summary-card shadow-sm">
+                        @foreach (var item in Model.CartItems)
+                        {
+                            <div class="summary-item">
+                                <div class="product-thumb">
+                                    <img src="@(item.Product.ImageURLString ?? "/images/product_placeholder.png")"
+                                         alt="@item.Product.Name">
+                                </div>
+
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <h6 class="mb-1">
+                                                @item.Product.Name
+                                                <span class="qty-badge">x @item.Quantity</span>
+                                            </h6>
+                                            @if (item.Product.IsRxRequired)
+                                            {
+                                                <span class="rx-badge">
+                                                    <i class="icon-file-text mr-1"></i> Rx Required
+                                                </span>
+                                            }
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="price-tag">$@((item.Product.Price * item.Quantity).ToString("F2"))</div>
+                                            <small class="text-muted d-block">$@item.Product.Price.ToString("F2") / unit</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
 
-                <!-- Prescription Upload (if needed) -->
                 @if (Model.RequiresPrescription)
                 {
-                    <div class="card border-0 shadow-sm mb-4">
-                        <div class="card-header bg-danger text-white py-3">
-                            <h5 class="mb-0">
-                                <i class="icon-alert-circle me-2"></i>Prescription Required
-                            </h5>
-                        </div>
-                        <div class="card-body p-4">
-                            <div class="alert alert-warning mb-4">
-                                <i class="icon-info me-2"></i>
-                                <strong>Important:</strong> Your order contains prescription-required medications.
-                                Please upload a valid prescription to complete your order.
+                    <div class="mt-5">
+                        <h5 class="text-black mb-3 font-weight-bold d-flex align-items-center text-danger">
+                            <span class="icon-alert-circle mr-2"></span> Prescription Required
+                        </h5>
+
+                        <div class="upload-zone-card p-4">
+                            <div class="text-center mb-4">
+                                <p class="text-muted mb-0">Some items in your cart require a valid prescription.</p>
+                                <p class="small text-muted">Please upload a clear photo or PDF.</p>
                             </div>
 
                             <form id="prescriptionUploadForm" enctype="multipart/form-data">
                                 @Html.AntiForgeryToken()
                                 <input type="hidden" id="tempPrescriptionId" name="tempPrescriptionId" value="" />
 
-                                <div class="form-group mb-3">
-                                    <label class="font-weight-bold">
-                                        Upload Prescription <span class="text-danger">*</span>
-                                    </label>
-                                    <div class="custom-file">
-                                        <input type="file"
-                                               class="custom-file-input"
-                                               id="prescriptionFile"
-                                               name="prescriptionFile"
-                                               accept=".jpg,.jpeg,.png,.pdf"
-                                               required>
-                                        <label class="custom-file-label" for="prescriptionFile">
-                                            Choose file...
+                                <div class="form-group mb-3 text-center">
+                                    <div class="custom-file" style="max-width: 400px; margin: 0 auto;">
+                                        <input type="file" class="custom-file-input" id="prescriptionFile" name="prescriptionFile" accept=".jpg,.jpeg,.png,.pdf" required>
+                                        <label class="custom-file-label text-left" for="prescriptionFile">
+                                            <i class="icon-upload mr-2 text-primary"></i> Choose file...
                                         </label>
                                     </div>
-                                    <small class="form-text text-muted">
-                                        Accepted formats: JPG, PNG, PDF (Max size: 5MB)
-                                    </small>
                                 </div>
 
-                                <!-- Preview Area -->
-                                <div id="prescriptionPreview" class="mb-3" style="display:none;">
-                                    <div class="card bg-light">
-                                        <div class="card-body p-3">
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <div>
-                                                    <i class="icon-file-text me-2"></i>
-                                                    <span id="fileName"></span>
-                                                    <span id="fileSize" class="text-muted ms-2"></span>
-                                                </div>
-                                                <button type="button" class="btn btn-sm btn-outline-danger" id="clearFile">
-                                                    <i class="icon-close"></i>
-                                                </button>
-                                            </div>
+                                <div id="prescriptionPreview" class="mt-3" style="display:none;">
+                                    <div class="d-flex align-items-center justify-content-center bg-light p-3 rounded-lg border">
+                                        <i class="icon-file-text mr-2 text-primary" style="font-size: 1.5rem;"></i>
+                                        <div>
+                                            <span id="fileName" class="font-weight-bold text-dark"></span>
+                                            <span id="fileSize" class="text-muted ml-2 small"></span>
                                         </div>
+                                        <button type="button" class="btn btn-sm text-danger ml-3" id="clearFile" title="Remove">
+                                            <i class="icon-close"></i>
+                                        </button>
                                     </div>
                                 </div>
 
                                 <div id="uploadStatus" class="mt-3" style="display:none;">
-                                    <div class="alert" id="uploadMessage"></div>
+                                    <div class="alert rounded-lg mb-0" id="uploadMessage"></div>
                                 </div>
                             </form>
                         </div>
@@ -149,67 +329,62 @@
                 }
             </div>
 
-            <!-- Right Column - Order Total & Actions -->
-            <div class="col-lg-4">
-                <!-- Shipping Address -->
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-header bg-white border-bottom py-3">
-                        <h5 class="mb-0">
-                            <i class="icon-location-arrow me-2"></i>Shipping Address
-                        </h5>
-                    </div>
-                    <div class="card-body p-4">
-                        <address class="mb-0">
-                            @Model.ShippingAddress.Line1<br>
-                            @Model.ShippingAddress.City<br>
-                            @Model.ShippingAddress.Governorate
-                        </address>
-                    </div>
-                </div>
+            <div class="col-lg-5">
+                <div class="totals-card shadow-sm">
+                    <h5 class="text-black mb-4 font-weight-bold">Payment Details</h5>
 
-                <!-- Order Total -->
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-header bg-white border-bottom py-3">
-                        <h5 class="mb-0">
-                            <i class="icon-credit-card me-2"></i>Order Total
-                        </h5>
-                    </div>
-                    <div class="card-body p-4">
-                        <div class="d-flex justify-content-between mb-3">
-                            <span>Subtotal:</span>
-                            <strong>$@Model.TotalAmount.ToString("F2")</strong>
+                    <div class="mb-4 pb-4 border-bottom">
+                        <h6 class="text-muted text-uppercase small font-weight-bold mb-3">Shipping To</h6>
+                        <div class="d-flex">
+                            <span class="icon-map-marker text-primary mt-1 mr-3"></span>
+                            <address class="mb-0 text-black">
+                                <strong>@Model.ShippingAddress.Line1</strong><br>
+                                @Model.ShippingAddress.City, @Model.ShippingAddress.Governorate
+                            </address>
                         </div>
-                        <hr>
-                        <div class="d-flex justify-content-between mb-4">
-                            <span class="h5 mb-0">Total:</span>
-                            <strong class="h4 text-primary mb-0">$@Model.TotalAmount.ToString("F2")</strong>
-                        </div>
+                    </div>
 
-                        <!-- ✅ FIXED: Form for checkout submission -->
-                        <form id="checkoutForm" asp-action="ProcessCheckout" asp-controller="Order" method="post">
-                            @Html.AntiForgeryToken()
-                            <input type="hidden" name="prescriptionId" id="hiddenPrescriptionId" value="" />
+                    <div class="total-row">
+                        <span>Subtotal</span>
+                        <span class="font-weight-bold text-black">$@Model.TotalAmount.ToString("F2")</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Shipping</span>
+                        <span class="text-success font-weight-bold">Free</span>
+                    </div>
 
-                            @if (Model.RequiresPrescription)
-                            {
-                                <button type="submit" id="proceedToPayment" class="btn btn-primary btn-lg btn-block" disabled>
-                                    <i class="icon-lock me-2"></i> Upload Prescription First
-                                </button>
-                                <small class="text-muted d-block text-center mt-2">
-                                    <i class="icon-info"></i> Prescription upload required
-                                </small>
-                            }
-                            else
-                            {
-                                <button type="submit" id="proceedToPayment" class="btn btn-primary btn-lg btn-block">
-                                    <i class="icon-credit-card me-2"></i> Proceed to Payment
-                                </button>
-                            }
-                        </form>
+                    <div class="final-total">
+                        <span>Total Amount</span>
+                        <strong>$@Model.TotalAmount.ToString("F2")</strong>
+                    </div>
 
-                        <a asp-controller="Cart" asp-action="Index" class="btn btn-outline-secondary btn-block mt-2">
-                            <i class="icon-arrow-left me-2"></i> Back to Cart
+                    <form id="checkoutForm" asp-action="ProcessCheckout" asp-controller="Order" method="post" class="mt-4">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="prescriptionId" id="hiddenPrescriptionId" value="" />
+
+                        @if (Model.RequiresPrescription)
+                        {
+                            <button type="submit" id="proceedToPayment" class="btn btn-primary btn-lg btn-block w-100" disabled>
+                                <i class="icon-lock me-2"></i> Upload Prescription First
+                            </button>
+                        }
+                        else
+                        {
+                            <button type="submit" id="proceedToPayment" class="btn btn-primary btn-lg btn-block w-100">
+                                <i class="icon-credit-card me-2"></i> Proceed to Payment
+                            </button>
+                        }
+                    </form>
+
+                    <div class="mt-4 text-center">
+                        <a asp-controller="Cart" asp-action="Index" class="text-muted text-decoration-none small">
+                            <i class="icon-arrow-left mr-1"></i> Return to Cart
                         </a>
+                        <div class="mt-3">
+                            <small class="text-muted">
+                                <i class="icon-shield mr-1"></i> Secure Encrypted Payment
+                            </small>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -223,42 +398,33 @@
             var requiresPrescription = @Model.RequiresPrescription.ToString().ToLower();
             var prescriptionUploaded = false;
 
-            console.log('Checkout page loaded. Requires prescription:', requiresPrescription);
-
-            // File input change handler
+            // Handle file selection
             $('#prescriptionFile').on('change', function() {
                 var file = this.files[0];
                 if (file) {
-                    console.log('File selected:', file.name, file.size);
-
-                    // Validate file size (5MB max)
                     if (file.size > 5 * 1024 * 1024) {
                         alert('File size must be less than 5MB');
                         this.value = '';
                         return;
                     }
 
-                    // Update custom file label
                     $(this).next('.custom-file-label').text(file.name);
-
-                    // Show preview
                     $('#fileName').text(file.name);
                     $('#fileSize').text('(' + (file.size / 1024).toFixed(2) + ' KB)');
                     $('#prescriptionPreview').slideDown();
 
-                    // Auto-upload
                     uploadPrescription();
                 }
             });
 
-            // Clear file button
+            // Clear file
             $('#clearFile').on('click', function() {
-                console.log('Clear file clicked');
                 $('#prescriptionFile').val('');
-                $('.custom-file-label').text('Choose file...');
+                $('.custom-file-label').html('<i class="icon-upload mr-2 text-primary"></i> Choose file...');
                 $('#prescriptionPreview').slideUp();
                 $('#tempPrescriptionId').val('');
                 $('#hiddenPrescriptionId').val('');
+                $('#uploadStatus').hide();
                 prescriptionUploaded = false;
                 updatePaymentButton();
             });
@@ -266,19 +432,13 @@
             function uploadPrescription() {
                 var formData = new FormData();
                 var file = $('#prescriptionFile')[0].files[0];
-
-                if (!file) {
-                    console.log('No file selected');
-                    return;
-                }
-
-                console.log('Starting prescription upload...');
+                if (!file) return;
 
                 formData.append('file', file);
                 formData.append('__RequestVerificationToken', $('input[name="__RequestVerificationToken"]').val());
 
                 $('#uploadStatus').show();
-                $('#uploadMessage').removeClass('alert-success alert-danger').addClass('alert-info').text('Uploading prescription...');
+                $('#uploadMessage').removeClass('alert-success alert-danger').addClass('alert-info').html('<i class="icon-loading mr-2"></i> Uploading...');
 
                 $.ajax({
                     url: '@Url.Action("UploadPrescriptionForCheckout", "Prescription")',
@@ -287,41 +447,22 @@
                     processData: false,
                     contentType: false,
                     success: function(response) {
-                        console.log('Upload response:', response);
-
                         if (response.success) {
                             $('#uploadMessage').removeClass('alert-info').addClass('alert-success')
-                                .html('<i class="icon-check-circle me-2"></i><strong>Success!</strong> Prescription uploaded successfully.');
+                                .html('<i class="icon-check mr-2"></i> Uploaded successfully');
 
                             prescriptionUploaded = true;
                             $('#tempPrescriptionId').val(response.prescriptionId);
                             $('#hiddenPrescriptionId').val(response.prescriptionId);
-
-                            console.log('Prescription ID set to:', response.prescriptionId);
-
                             updatePaymentButton();
-
-                            // Auto-hide success message after 5 seconds
-                            setTimeout(function() {
-                                $('#uploadStatus').slideUp();
-                            }, 5000);
                         } else {
-                            console.error('Upload failed:', response.message);
-                            $('#uploadMessage').removeClass('alert-info').addClass('alert-danger')
-                                .html('<i class="icon-alert-circle me-2"></i><strong>Error:</strong> ' + response.message);
+                            $('#uploadMessage').removeClass('alert-info').addClass('alert-danger').text(response.message);
                             prescriptionUploaded = false;
                             updatePaymentButton();
                         }
                     },
-                    error: function(xhr, status, error) {
-                        console.error('Upload error:', status, error);
-                        var errorMsg = 'An error occurred during upload';
-                        if (xhr.responseJSON && xhr.responseJSON.message) {
-                            errorMsg = xhr.responseJSON.message;
-                        }
-
-                        $('#uploadMessage').removeClass('alert-info').addClass('alert-danger')
-                            .html('<i class="icon-alert-circle me-2"></i><strong>Error:</strong> ' + errorMsg);
+                    error: function() {
+                        $('#uploadMessage').removeClass('alert-info').addClass('alert-danger').text('Upload failed. Try again.');
                         prescriptionUploaded = false;
                         updatePaymentButton();
                     }
@@ -330,45 +471,28 @@
 
             function updatePaymentButton() {
                 var $button = $('#proceedToPayment');
-
                 if (!requiresPrescription || prescriptionUploaded) {
-                    console.log('Enabling payment button');
-                    $button
-                        .prop('disabled', false)
-                        .removeClass('btn-secondary')
-                        .addClass('btn-primary')
-                        .html('<i class="icon-credit-card me-2"></i> Proceed to Payment');
+                    $button.prop('disabled', false)
+                           .html('<i class="icon-credit-card me-2"></i> Proceed to Payment');
                 } else {
-                    console.log('Disabling payment button - prescription required but not uploaded');
-                    $button
-                        .prop('disabled', true)
-                        .removeClass('btn-primary')
-                        .addClass('btn-secondary')
-                        .html('<i class="icon-lock me-2"></i> Upload Prescription First');
+                    $button.prop('disabled', true)
+                           .html('<i class="icon-lock me-2"></i> Upload Prescription First');
                 }
             }
 
-            // ✅ FIXED: Form submission handler
             $('#checkoutForm').on('submit', function(e) {
                 e.preventDefault();
-
                 var $button = $('#proceedToPayment');
                 var prescriptionId = $('#hiddenPrescriptionId').val();
 
-                console.log('Form submitting. Prescription ID:', prescriptionId);
-                console.log('Requires prescription:', requiresPrescription);
-                console.log('Prescription uploaded:', prescriptionUploaded);
-
-                // Validate prescription if required
                 if (requiresPrescription && !prescriptionId) {
-                    alert('Please upload a prescription before proceeding.');
+                    alert('Please upload a prescription.');
                     return false;
                 }
 
-                // Disable button and show loading
+                // Show processing state
                 $button.prop('disabled', true).html('<i class="icon-loading me-2"></i> Processing...');
 
-                // Submit via AJAX to handle redirect
                 $.ajax({
                     url: $(this).attr('action'),
                     type: 'POST',
@@ -377,78 +501,22 @@
                         __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
                     },
                     success: function(response) {
-                        console.log('Checkout response:', response);
-
                         if (response.success && response.redirectUrl) {
-                            console.log('Redirecting to:', response.redirectUrl);
                             window.location.href = response.redirectUrl;
                         } else {
-                            alert('Error: ' + (response.message || 'Failed to process checkout'));
-                            $button.prop('disabled', false)
-                                .html('<i class="icon-credit-card me-2"></i> Proceed to Payment');
+                            alert('Error: ' + response.message);
+                            // Reset button on error
+                            $button.prop('disabled', false).html('<i class="icon-credit-card me-2"></i> Proceed to Payment');
                         }
                     },
-                    error: function(xhr, status, error) {
-                        console.error('Checkout error:', status, error);
-                        alert('An error occurred. Please try again.');
-                        $button.prop('disabled', false)
-                            .html('<i class="icon-credit-card me-2"></i> Proceed to Payment');
+                    error: function() {
+                        alert('Connection error. Please try again.');
+                        $button.prop('disabled', false).html('<i class="icon-credit-card me-2"></i> Proceed to Payment');
                     }
                 });
-
-                return false;
             });
 
-            // Initialize button state
             updatePaymentButton();
-
-            console.log('Script initialization complete');
         });
     </script>
-}
-
-@section Styles {
-    <style>
-        .custom-file-label::after {
-            content: "Browse";
-        }
-
-        .card {
-            transition: all 0.3s ease;
-        }
-
-        .badge {
-            font-size: 0.75rem;
-            padding: 0.35em 0.65em;
-        }
-
-        address {
-            line-height: 1.8;
-        }
-
-        /* Loading animation */
-        .icon-loading {
-            display: inline-block;
-            animation: spin 1s linear infinite;
-        }
-
-        keyframes spin {
-            0%
-
-        {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
-        }
-
-        }
-
-        /* Button states */
-        #proceedToPayment:disabled {
-            cursor: not-allowed;
-            opacity: 0.6;
-        }
-    </style>
 }

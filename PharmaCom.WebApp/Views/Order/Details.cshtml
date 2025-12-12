@@ -6,14 +6,199 @@
     ViewBag.CurrentPage = "order";
 }
 
+@section Styles {
+    <style>
+        :root {
+            --pharma-red: #8B0000;
+        }
+
+        /* === General Layout === */
+        .site-section {
+            background-color: #f8f9fa;
+            padding: 3rem 0;
+        }
+
+        .badge-circle {
+            width: 32px; 
+            height: 32px;
+            border-radius: 50% !important; 
+            padding: 0 !important;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+
+        .section-header h2 {
+            font-weight: 800;
+            color: #212529;
+            letter-spacing: -0.5px;
+        }
+
+        /* === Modern Card Styling === */
+        .modern-card {
+            background: #fff;
+            border: 1px solid #e9ecef;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            .modern-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 24px rgba(139, 0, 0, 0.06);
+                border-color: rgba(139, 0, 0, 0.1);
+            }
+
+        .card-header-custom {
+            background-color: #fff;
+            border-bottom: 1px solid #f1f3f5;
+            padding: 1.25rem 1.5rem;
+            font-weight: 700;
+            color: #212529;
+            display: flex;
+            align-items: center;
+        }
+
+            .card-header-custom i {
+                color: var(--pharma-red);
+                margin-right: 0.75rem;
+                font-size: 1.2rem;
+            }
+
+        .card-body-custom {
+            padding: 1.5rem;
+        }
+
+        /* === Status Badges === */
+        .status-badge {
+            padding: 0.5em 1em;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .badge-success {
+            background-color: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .badge-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .badge-info {
+            background-color: #cff4fc;
+            color: #055160;
+        }
+
+        .badge-secondary {
+            background-color: #e2e3e5;
+            color: #383d41;
+        }
+
+        /* === Buttons (Reverse Hover Effect) === */
+
+        /* 1. Solid Red Button (Normal: Red Bg/White Text -> Hover: White Bg/Red Text) */
+        .btn-pharma-solid {
+            background-color: var(--pharma-red);
+            color: #ffffff!important;
+            border: 2px solid var(--pharma-red);
+            border-radius: 50px;
+            padding: 0.6rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+            .btn-pharma-solid:hover {
+                background-color: #ffffff!important;
+                color: var(--pharma-red);
+                border-color: var(--pharma-red);
+            }
+
+        /* 2. Outline Red Button (Normal: White Bg/Red Text -> Hover: Red Bg/White Text) */
+        .btn-pharma-outline {
+            background-color: #ffffff!important;
+            color: var(--pharma-red);
+            border: 2px solid var(--pharma-red);
+            border-radius: 50px;
+            padding: 0.6rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+            .btn-pharma-outline:hover {
+                background-color: var(--pharma-red)!important;
+                color: #ffffff!important;
+                border-color: var(--pharma-red);
+            }
+
+        /* 3. Danger Button (For Cancel) */
+        .btn-pharma-danger {
+            background-color: #fff;
+            color: #dc3545;
+            border: 2px solid #dc3545;
+            border-radius: 50px;
+            padding: 0.6rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+            .btn-pharma-danger:hover {
+                background-color: #dc3545;
+                color: #fff;
+            }
+
+        /* === Tables === */
+        .table thead th {
+            border-top: none;
+            border-bottom: 2px solid #f1f3f5;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            color: #868e96;
+            padding: 1rem;
+        }
+
+        .table td {
+            vertical-align: middle;
+            padding: 1rem;
+            border-top: 1px solid #f8f9fa;
+        }
+
+        .price-text {
+            font-weight: 700;
+            color: var(--pharma-red);
+        }
+
+        /* === Alerts === */
+        .alert-custom {
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+    </style>
+}
+
 @section Breadcrumb {
     <div class="bg-light py-3">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 mb-0">
-                    <a asp-controller="Home" asp-action="Index">Home</a>
+                    <a asp-controller="Home" asp-action="Index" class="text-decoration-none text-muted">Home</a>
                     <span class="mx-2 mb-0">/</span>
-                    <a asp-controller="Order" asp-action="Index">My Orders</a>
+                    <a asp-controller="Order" asp-action="Index" class="text-decoration-none text-muted">My Orders</a>
                     <span class="mx-2 mb-0">/</span>
                     <strong class="text-black">Order #@Model.Id</strong>
                 </div>
@@ -24,73 +209,46 @@
 
 <div class="site-section">
     <div class="container">
-        <!-- Page Header -->
-        <div class="row mb-4">
-            <div class="col-md-12">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h2 class="text-black h3 text-uppercase">Order Details</h2>
-                    <span class="badge badge-@GetStatusBadgeClass(Model.Status) p-3" style="font-size: 1rem;">
-                        @Model.Status
-                    </span>
-                </div>
+        <div class="row mb-4 align-items-center section-header">
+            <div class="col-md-6">
+                <h2 class="h3 mb-0">Order Details</h2>
+                <p class="text-muted mb-0">Placed on @Model.OrderDate.ToString("MMMM dd, yyyy")</p>
+            </div>
+            <div class="col-md-6 text-md-right mt-3 mt-md-0">
+                <span class="status-badge badge-@GetStatusBadgeClass(Model.Status)">
+                    @FormatStatus(Model.Status)
+                </span>
             </div>
         </div>
 
-        <!-- ✅ ADD CANCELLATION NOTICE -->
         @if (Model.Status == "Cancelled")
         {
-            <div class="row mb-4">
-                <div class="col-md-12">
-                    <div class="alert alert-secondary border-0 shadow-sm" role="alert">
-                        <div class="d-flex align-items-start">
-                            <span class="icon-x-circle mr-3 mt-1" style="font-size: 32px;"></span>
-                            <div class="flex-grow-1">
-                                <h5 class="alert-heading mb-2">
-                                    <i class="icon-info"></i> Order Cancelled
-                                </h5>
-                                <p class="mb-0">
-                                    This order has been cancelled. If you made a payment, a refund will be processed within 5-7 business days.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+            <div class="alert alert-danger alert-custom mb-4 d-flex align-items-center">
+                <i class="icon-x-circle mr-3" style="font-size: 2rem;"></i>
+                <div>
+                    <h5 class="alert-heading mb-1 font-weight-bold">Order Cancelled</h5>
+                    <p class="mb-0 small">This order has been cancelled. If you made a payment, a refund will be processed within 5-7 business days.</p>
                 </div>
             </div>
         }
 
-        <!-- Prescription Status Alerts (existing code) -->
         @if (ViewBag.Prescription != null)
         {
             var prescription = ViewBag.Prescription as PharmaCom.Domain.Models.Prescription;
 
             @if (prescription.Status == "Pending")
             {
-                <div class="row mb-4">
-                    <div class="col-md-12">
-                        <div class="alert alert-warning border-0 shadow-sm" role="alert">
-                            <div class="d-flex align-items-start">
-                                <span class="icon-clock mr-3 mt-1" style="font-size: 32px; color: #856404;"></span>
-                                <div class="flex-grow-1">
-                                    <h5 class="alert-heading mb-2">
-                                        <i class="icon-alert-circle"></i> Order Awaiting Prescription Approval
-                                    </h5>
-                                    <p class="mb-2">
-                                        Your prescription is currently being reviewed by our pharmacist.
-                                        Your order will be processed once the prescription is approved.
-                                    </p>
-                                    <hr class="my-2">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <strong>Prescription Status:</strong>
-                                            <span class="badge badge-warning me-2 text-dark">
-                                                <i class="icon-clock"></i> @prescription.Status
-                                            </span>
-                                        </div>
-                                        <a href="@prescription.FileUrl" target="_blank" class="btn btn-sm btn-outline-primary">
-                                            <i class="icon-eye"></i> View Prescription
-                                        </a>
-                                    </div>
-                                </div>
+                <div class="alert alert-warning alert-custom mb-4">
+                    <div class="d-flex align-items-start">
+                        <i class="icon-clock mr-3 mt-1" style="font-size: 24px; color: #856404;"></i>
+                        <div class="flex-grow-1">
+                            <h6 class="font-weight-bold mb-2">Awaiting Prescription Approval</h6>
+                            <p class="mb-2 small">Your prescription is being reviewed by our pharmacist.</p>
+                            <hr class="my-2 border-warning">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="@prescription.FileUrl" target="_blank" class="text-dark font-weight-bold small text-decoration-none">
+                                    View File <i class="icon-external-link ml-1"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -98,230 +256,150 @@
             }
             else if (prescription.Status == "Approved")
             {
-                <div class="row mb-4">
-                    <div class="col-md-12">
-                        <div class="alert alert-success border-0 shadow-sm" role="alert">
-                            <div class="d-flex align-items-start">
-                                <span class="icon-check-circle mr-3 mt-1" style="font-size: 32px; color: #155724;"></span>
-                                <div class="flex-grow-1">
-                                    <h5 class="alert-heading mb-2">
-                                        <i class="icon-check"></i> Prescription Approved
-                                    </h5>
-                                    <p class="mb-2">
-                                        Great news! Your prescription has been approved by our pharmacist.
-                                        Your order is being processed.
-                                    </p>
-                                    <hr class="my-2">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <strong>Prescription Status:</strong>
-                                            <span class="badge badge-success me-2">
-                                                <i class="icon-check-circle"></i> @prescription.Status
-                                            </span>
-                                            @if (prescription.VerificationDate.HasValue)
-                                            {
-                                                <span class="text-muted me-2">
-                                                    <small>Approved on @prescription.VerificationDate.Value.ToString("MMM dd, yyyy")</small>
-                                                </span>
-                                            }
-                                        </div>
-                                        <a href="@prescription.FileUrl" target="_blank" class="btn btn-sm btn-outline-success">
-                                            <i class="icon-eye"></i> View Prescription
-                                        </a>
-                                    </div>
-                                </div>
+                <div class="alert alert-success alert-custom mb-4">
+                    <div>
+                        <h6 class="font-weight-bold mb-1 text-success">Prescription Approved</h6>
+                        <p class="mb-2 small">Your order is now being processed.</p>
+                        @if (!string.IsNullOrWhiteSpace(prescription.Comments))
+                        {
+                            <div class="bg-white p-2 rounded mb-2 border border-danger">
+                                <small class="font-weight-bold text-danger">Pharmacist Note:</small>
+                                <p class="mb-0 small">@prescription.Comments</p>
                             </div>
+                        }
+                        <hr class="my-2" style="border-top-color: #155724;">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="@prescription.FileUrl" target="_blank" class="text-dark font-weight-bold small text-decoration-none">
+                                View File <i class="icon-external-link ml-1"></i>
+                            </a>
                         </div>
                     </div>
+
+                    
                 </div>
             }
+
             else if (prescription.Status == "Rejected")
             {
-                <div class="row mb-4">
-                    <div class="col-md-12">
-                        <div class="alert alert-danger border-0 shadow-sm" role="alert">
-                            <div class="d-flex align-items-start">
-                                <span class="icon-x-circle mr-3 mt-1" style="font-size: 32px; color: #721c24;"></span>
-                                <div class="flex-grow-1">
-                                    <h5 class="alert-heading mb-2">
-                                        <i class="icon-alert-circle"></i> Prescription Rejected
-                                    </h5>
-                                    <p class="mb-2">
-                                        Unfortunately, your prescription could not be approved. Please contact our support team or upload a new prescription.
-                                    </p>
-                                    @if (!string.IsNullOrWhiteSpace(prescription.Comments))
-                                    {
-                                        <div class="bg-white p-3 rounded mb-2">
-                                            <strong>Pharmacist Comments:</strong>
-                                            <p class="mb-0 mt-2">@prescription.Comments</p>
-                                        </div>
-                                    }
-                                    <hr class="my-2">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <strong>Prescription Status:</strong>
-                                            <span class="badge badge-danger me-2">
-                                                <i class="icon-x-circle"></i> @prescription.Status
-                                            </span>
-                                        </div>
-                                        <div>
-                                            <a href="@prescription.FileUrl" target="_blank" class="btn btn-sm btn-outline-danger me-2">
-                                                <i class="icon-eye"></i> View Prescription
-                                            </a>
-                                            <a asp-controller="Home" asp-action="Contact" class="btn btn-sm btn-primary">
-                                                <i class="icon-phone"></i> Contact Support
-                                            </a>
-                                        </div>
-                                    </div>
+                <div class="alert alert-danger alert-custom mb-4">
+                    <div class="d-flex align-items-start">
+                        <i class="icon-alert-circle mr-3 mt-1" style="font-size: 24px; color: #842029;"></i>
+                        <div class="flex-grow-1">
+                            <h6 class="font-weight-bold mb-2 text-danger">Prescription Rejected</h6>
+                            <p class="mb-2 small">Unfortunately, we could not approve your prescription.</p>
+                            @if (!string.IsNullOrWhiteSpace(prescription.Comments))
+                            {
+                                <div class="bg-white p-2 rounded mb-2 border border-danger">
+                                    <small class="font-weight-bold text-danger">Pharmacist Note:</small>
+                                    <p class="mb-0 small">@prescription.Comments</p>
                                 </div>
-                            </div>
+                            }
+                          
+
                         </div>
                     </div>
                 </div>
             }
-            else if (prescription.Status == "MoreInfoRequired")
-            {
+    else if (prescription.Status == "MoreInfoRequired")
+    {
                 <div class="row mb-4">
                     <div class="col-md-12">
-                        <div class="alert alert-info border-0 shadow-sm" role="alert">
+                        <div class="alert alert-secondary border-0 shadow-sm" role="alert">
                             <div class="d-flex align-items-start">
-                                <span class="icon-info mr-3 mt-1" style="font-size: 32px; color: #004085;"></span>
+                                <i class="icon-help-circle mr-3 mt-1" style="font-size: 24px; color: #383d41;"></i>
+
                                 <div class="flex-grow-1">
                                     <h5 class="alert-heading mb-2">
-                                        <i class="icon-alert-circle"></i> Additional Information Required
+                                        Additional Information Required
                                     </h5>
                                     <p class="mb-2">
                                         Our pharmacist needs additional information about your prescription. Please review the comments below.
                                     </p>
+
                                     @if (!string.IsNullOrWhiteSpace(prescription.Comments))
                                     {
-                                        <div class="bg-white p-3 rounded mb-2">
+                                        <div class="bg-white p-3 rounded mb-2 text-dark">
                                             <strong>Pharmacist Request:</strong>
                                             <p class="mb-0 mt-2">@prescription.Comments</p>
                                         </div>
                                     }
-                                    <hr class="my-2">
+
+
+                                    <hr class="my-2" style="border-top-color: rgba(56, 61, 65, 0.2);">
+
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <strong>Prescription Status:</strong>
-                                            <span class="badge badge-info me-2">
-                                                <i class="icon-info"></i> @prescription.Status
-                                            </span>
-                                        </div>
-                                        <div>
-                                            <a href="@prescription.FileUrl" target="_blank" class="btn btn-sm btn-outline-info me-2">
-                                                <i class="icon-eye"></i> View Prescription
-                                            </a>
-                                            <a asp-controller="Home" asp-action="Contact" class="btn btn-sm btn-primary">
-                                                <i class="icon-phone"></i> Contact Support
-                                            </a>
-                                        </div>
+                                        <a href="@prescription.FileUrl" target="_blank" class="text-dark font-weight-bold small text-decoration-none">
+                                            View File <i class="icon-external-link ml-1"></i>
+                                        </a>
+
+                                       
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            }
-        }
+    }
+    }
 
         <div class="row">
-            <!-- Order Information Card -->
-            <div class="col-lg-8 mb-4">
-                <div class="card border-0 shadow-sm">
-                    <div class="card-header bg-white border-bottom py-3">
-                        <h5 class="mb-0">
-                            <i class="icon-shopping-bag me-2"></i>Order Information
-                        </h5>
-                    </div>
-                    <div class="card-body p-4">
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <p class="mb-2">
-                                    <strong class="text-muted">Order Number:</strong><br>
-                                    <span class="text-black">#@Model.Id</span>
-                                </p>
-                            </div>
-                            <div class="col-md-6">
-                                <p class="mb-2">
-                                    <strong class="text-muted">Order Date:</strong><br>
-                                    <span class="text-black">@Model.OrderDate.ToString("MMMM dd, yyyy")</span>
-                                </p>
-                            </div>
-                        </div>
+            <div class="col-lg-8">
 
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <p class="mb-2">
-                                    <strong class="text-muted">Status:</strong><br>
-                                    <span class="badge badge-@GetStatusBadgeClass(Model.Status) text-dark">@Model.Status</span>
-                                </p>
-                            </div>
-                            <div class="col-md-6">
-                                <p class="mb-2">
-                                    <strong class="text-muted">Total Amount:</strong><br>
-                                    <span class="text-black h5 mb-0">$@Model.TotalAmount.ToString("F2")</span>
-                                </p>
-                            </div>
-                        </div>
+                <div class="modern-card">
+                    <div class="card-header-custom">
+                        <i class="icon-list"></i> Order Items
                     </div>
-                </div>
-
-                <!-- Order Items -->
-                <div class="card border-0 shadow-sm mt-4">
-                    <div class="card-header bg-white border-bottom py-3">
-                        <h5 class="mb-0">
-                            <i class="icon-list me-2"></i>Order Items
-                        </h5>
-                    </div>
-                    <div class="card-body p-0">
+                    <div class="card-body-custom p-0">
                         <div class="table-responsive">
-                            <table class="table table-hover mb-0">
-                                <thead class="bg-light">
+                            <table class="table mb-0">
+                                <thead>
                                     <tr>
-                                        <th class="border-0 py-3">Product</th>
-                                        <th class="border-0 py-3 text-center">Quantity</th>
-                                        <th class="border-0 py-3 text-right">Price</th>
-                                        <th class="border-0 py-3 text-right">Subtotal</th>
+                                        <th style="padding-left: 1.5rem;">Product</th>
+                                        <th class="text-center">Qty</th>
+                                        <th class="text-right">Price</th>
+                                        <th class="text-right" style="padding-right: 1.5rem;">Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (var item in Model.OrderItems)
                                     {
                                         <tr>
-                                            <td class="align-middle py-3">
-                                                <div class="d-flex align-items-center">
-                                                    <div>
-                                                        <strong class="text-black">@item.ProductName</strong>
-                                                        @if (item.IsRxRequired)
-                                                        {
-                                                            <br>
-                                                            <span class="badge badge-danger badge-sm mt-1">
-                                                                <i class="icon-alert-circle"></i> Rx Required
-                                                            </span>
-                                                        }
-                                                    </div>
+                                            <td style="padding-left: 1.5rem;">
+                                                <div class="d-flex flex-column">
+                                                    <span class="font-weight-bold text-dark">@item.ProductName</span>
+                                                   @if (item.IsRxRequired)
+                                                    {
+                                                      <span class="badge badge-danger mt-1 align-self-start"
+                                                            style="
+                                                                  font-size: 0.7rem;
+                                                                  color: #dc3545 !important;
+                                                                  background-color: #ffebee !important;
+                                                                  padding: 2px 8px;
+                                                                  border-radius: 12px;
+                                                                  display: inline-flex;
+                                                                  align-items: center;
+                                                                  margin-top: 4px;
+                                                                  font-weight: 600;
+                                                            ">
+                                                          Rx Required
+                                                      </span>
+                                                    }                                                   
+
                                                 </div>
                                             </td>
                                             <td class="align-middle text-center py-3">
-                                                <span class="badge badge-secondary px-3 py-2 text-dark">@item.Quantity</span>
+                                                <span class="badge badge-secondary text-dark badge-circle">@item.Quantity</span>
                                             </td>
-                                            <td class="align-middle text-right py-3">
-                                                <span class="text-black">$@item.Price.ToString("F2")</span>
-                                            </td>
-                                            <td class="align-middle text-right py-3">
-                                                <strong class="text-black">$@item.Subtotal.ToString("F2")</strong>
-                                            </td>
+                                            <td class="text-right text-muted">$@item.Price.ToString("F2")</td>
+                                            <td class="text-right font-weight-bold text-dark" style="padding-right: 1.5rem;">$@item.Subtotal.ToString("F2")</td>
                                         </tr>
                                     }
                                 </tbody>
-                                <tfoot class="bg-light">
+                                <tfoot style="background-color: #fcfcfc;">
                                     <tr>
-                                        <td colspan="3" class="text-right py-3">
-                                            <strong class="text-black">Total:</strong>
-                                        </td>
-                                        <td class="text-right py-3">
-                                            <strong class="text-primary h5 mb-0">$@Model.TotalAmount.ToString("F2")</strong>
+                                        <td colspan="3" class="text-right font-weight-bold py-4">Total Amount:</td>
+                                        <td class="text-right py-4" style="padding-right: 1.5rem;">
+                                            <span class="price-text h4 mb-0">$@Model.TotalAmount.ToString("F2")</span>
                                         </td>
                                     </tr>
                                 </tfoot>
@@ -331,77 +409,70 @@
                 </div>
             </div>
 
-            <!-- Shipping Address Card -->
-            <div class="col-lg-4 mb-4">
-                <div class="card border-0 shadow-sm">
-                    <div class="card-header bg-white border-bottom py-3">
-                        <h5 class="mb-0">
-                            <i class="icon-location-arrow me-2"></i>Shipping Address
-                        </h5>
+            <div class="col-lg-4">
+
+                <div class="modern-card">
+                    <div class="card-header-custom">
+                        <i class="icon-map-marker"></i> Shipping Address
                     </div>
-                    <div class="card-body p-4">
-                        <address class="mb-0">
-                            <strong class="text-black d-block mb-2">Delivery Address:</strong>
-                            <span class="text-muted">
-                                @Model.ShippingAddress.Line1<br>
-                                @Model.ShippingAddress.City<br>
-                                @Model.ShippingAddress.Governorate
-                            </span>
+                    <div class="card-body-custom">
+                        <address class="mb-0 text-muted">
+                            <strong class="text-dark d-block mb-2">@Model.ShippingAddress.Line1</strong>
+                            @Model.ShippingAddress.City, <br>
+                            @Model.ShippingAddress.Governorate
                         </address>
                     </div>
                 </div>
 
-                <!-- Actions Card -->
-                <div class="card border-0 shadow-sm mt-4">
-                    <div class="card-header bg-white border-bottom py-3">
-                        <h5 class="mb-0">
-                            <i class="icon-settings me-2"></i>Actions
-                        </h5>
+                <div class="modern-card">
+                    <div class="card-header-custom">
+                        <i class="icon-settings"></i> Actions
                     </div>
-                    <div class="card-body p-4">
-                        <a asp-controller="Order" asp-action="Index" class="btn btn-outline-primary btn-block mb-2">
-                            <i class="icon-arrow-left me-2"></i>Back to Orders
-                        </a>
-                        <a asp-controller="Home" asp-action="Store" class="btn btn-outline-secondary btn-block mb-2">
-                            <i class="icon-shopping-bag me-2"></i>Continue Shopping
+                    <div class="card-body-custom d-flex flex-column gap-3">
+
+                        <a asp-controller="Order" asp-action="Index" class="btn btn-pharma-outline btn-block mb-2 text-center">
+                            <i class="icon-arrow-left mr-2"></i> Back to Orders
                         </a>
 
-                        <!-- ✅ ADD CANCEL ORDER BUTTON -->
+                        <a asp-controller="Home" asp-action="Store" class="btn btn-pharma-solid btn-block mb-2 text-center">
+                            <i class="icon-shopping-bag mr-2"></i> Continue Shopping
+                        </a>
+
                         @{
                             var cancellableStatuses = new[] { "Pending", "Payment Received", "MoreInfoRequired" };
                         }
                         @if (cancellableStatuses.Contains(Model.Status))
                         {
-                            <hr class="my-3">
-                            <button type="button" class="btn btn-danger btn-block" id="cancelOrderBtn" data-order-id="@Model.Id">
-                                <i class="icon-x-circle me-2"></i>Cancel Order
+                            <hr class="w-100 my-3 border-light">
+                            <button type="button" class="btn btn-pharma-danger btn-block" id="cancelOrderBtn" data-order-id="@Model.Id">
+                                <i class="icon-x-circle mr-2"></i> Cancel Order
                             </button>
-                            <small class="text-muted d-block text-center mt-2">
-                                <i class="icon-info"></i> You can cancel before processing
+                            <small class="text-muted text-center d-block mt-2">
+                                <i class="icon-info"></i> Cancellation available
                             </small>
                         }
 
                         @if (Model.Status == "Rejected" || Model.Status == "MoreInfoRequired")
                         {
-                            <hr class="my-3">
-                            <a asp-controller="Home" asp-action="Contact" class="btn btn-primary btn-block">
-                                <i class="icon-phone me-2"></i>Contact Support
+                            <hr class="w-100 my-3 border-light">
+                            <a asp-controller="Home" asp-action="Contact" class="btn btn-pharma-outline btn-block text-center">
+                                <i class="icon-phone mr-2"></i> Contact Support
                             </a>
                         }
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
 </div>
 
-<!-- ✅ ADD CANCEL ORDER MODAL -->
-<div class="modal fade" id="cancelOrderModal" tabindex="-1" role="dialog" aria-labelledby="cancelOrderModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="cancelOrderModalLabel">
-                    <i class="icon-alert-circle me-2"></i>Cancel Order
+<div class="modal fade" id="cancelOrderModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 16px;">
+            <div class="modal-header border-bottom-0 pt-4 px-4">
+                <h5 class="modal-title font-weight-bold text-danger">
+                    <i class="icon-alert-triangle mr-2"></i> Cancel Order
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -411,30 +482,20 @@
                 @Html.AntiForgeryToken()
                 <input type="hidden" name="orderId" id="cancelOrderId" value="@Model.Id" />
 
-                <div class="modal-body">
-                    <div class="alert alert-warning">
-                        <i class="icon-info me-2"></i>
-                        <strong>Are you sure you want to cancel this order?</strong>
-                    </div>
+                <div class="modal-body px-4">
+                    <p class="text-muted">Are you sure you want to cancel Order <strong>#@Model.Id</strong>?</p>
+                    <p class="small text-muted bg-light p-3 rounded">
+                        <i class="icon-info mr-1"></i> If you've already paid, a refund will be initiated automatically.
+                    </p>
 
-                    <p>Order #@Model.Id will be cancelled. If you've already paid, a refund will be processed within 5-7 business days.</p>
-
-                    <div class="form-group">
-                        <label for="cancellationReason">Reason for Cancellation (Optional)</label>
-                        <textarea class="form-control"
-                                  id="cancellationReason"
-                                  name="reason"
-                                  rows="3"
-                                  placeholder="Let us know why you're cancelling..."></textarea>
+                    <div class="form-group mt-3">
+                        <label for="cancellationReason" class="font-weight-bold small text-uppercase text-muted">Reason (Optional)</label>
+                        <textarea class="form-control rounded-lg" id="cancellationReason" name="reason" rows="3" placeholder="Tell us why..."></textarea>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                        <i class="icon-arrow-left me-2"></i>Go Back
-                    </button>
-                    <button type="submit" class="btn btn-danger" id="confirmCancelBtn">
-                        <i class="icon-x-circle me-2"></i>Yes, Cancel Order
-                    </button>
+                <div class="modal-footer border-top-0 pb-4 px-4">
+                    <button type="button" class="btn btn-light rounded-pill px-4" data-dismiss="modal">Keep Order</button>
+                    <button type="submit" class="btn btn-danger rounded-pill px-4" id="confirmCancelBtn">Yes, Cancel</button>
                 </div>
             </form>
         </div>
@@ -442,6 +503,19 @@
 </div>
 
 @functions {
+    
+  
+    string FormatStatus(string status)
+    {
+        if (string.IsNullOrEmpty(status)) return status;
+        
+    
+        if (status == "MoreInfoRequired") return "More Info Required";
+        if (status == "PaymentReceived") return "Payment Received";
+        
+
+        return status;
+    }
     string GetStatusBadgeClass(string status)
     {
         return status switch
@@ -451,9 +525,9 @@
             "Approved" => "success",
             "Completed" => "success",
             "Rejected" => "danger",
-            "Cancelled" => "secondary",
-            "MoreInfoRequired" => "info",
-            _ => "secondary"
+            "Cancelled" => "danger",
+            "MoreInfoRequired" => "secondary"
+           
         };
     }
 }
@@ -461,71 +535,15 @@
 @section Scripts {
     <script>
         $(document).ready(function() {
-            // Cancel order button click
             $('#cancelOrderBtn').on('click', function() {
                 var orderId = $(this).data('order-id');
                 $('#cancelOrderId').val(orderId);
                 $('#cancelOrderModal').modal('show');
             });
 
-            // Form submission
             $('#cancelOrderForm').on('submit', function(e) {
-                $('#confirmCancelBtn').prop('disabled', true).html('<i class="icon-loading me-2"></i>Cancelling...');
+                $('#confirmCancelBtn').prop('disabled', true).html('<span class="spinner-border spinner-border-sm mr-2"></span>Processing...');
             });
         });
     </script>
-}
-
-@section Styles {
-    <style>
-        .card {
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-2px);
-        }
-
-        .badge {
-            font-size: 0.85rem;
-            padding: 0.5em 0.85em;
-        }
-
-        .table th {
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
-        }
-
-        .alert {
-            border-radius: 8px;
-        }
-
-        .alert hr {
-            border-top-color: rgba(0, 0, 0, 0.1);
-        }
-
-        address {
-            line-height: 1.8;
-        }
-
-        .modal-content {
-            border-radius: 8px;
-        }
-
-        media (max-width: 768px) {
-            .card-body {
-                padding: 1.5rem !important;
-            }
-
-            .table-responsive {
-                font-size: 0.9rem;
-            }
-
-            .h3, h3 {
-                font-size: 1.5rem;
-            }
-        }
-    </style>
 }

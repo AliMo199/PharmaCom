@@ -1,4 +1,4 @@
-﻿@model PharmaCom.Domain.Models.Product
+﻿@model Product
 @{
     Layout = "~/Views/Shared/_MainThemeLayout.cshtml";
     ViewData["Title"] = Model?.Name ?? "Product Details";
@@ -36,9 +36,9 @@
                 <p>
                     @if (hasDiscount)
                     {
-                        <del>@originalPrice.ToString("C")</del>
+                        <del>@originalPrice.ToString("N2")</del>
                     }
-                    <strong class="text-primary h4">@(Model.Price.ToString("C"))</strong>
+                    <strong class="text-primary h4">$@(Model.Price.ToString("N2"))</strong>
                 </p>
 
                 <!-- Quantity selector -->

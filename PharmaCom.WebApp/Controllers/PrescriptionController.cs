@@ -7,7 +7,6 @@ using System.Security.Claims;
 
 namespace PharmaCom.WebApp.Controllers
 {
-    [Authorize (Roles ="Admin, Pharmacist")]
     public class PrescriptionController : Controller
     {
         private readonly IPrescriptionService _prescriptionService;

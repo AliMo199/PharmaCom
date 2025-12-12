@@ -76,7 +76,6 @@
                         <th>Customer</th>
                         <th>Total</th>
                         <th>Status</th>
-                        <th>Prescription</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -95,34 +94,11 @@
                                     @order.Status
                                 </span>
                             </td>
-                        <td>
-                            @if (order.PrescriptionId.HasValue)
-                                {
-                                    <a href="@Url.Action("View", "Prescription", new { id = order.PrescriptionId })" class="btn btn-sm btn-info">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                }
-                                else if (order.OrderItems.Any(oi => oi.Product.IsRxRequired))
-                                {
-                                    <span class="badge bg-danger">Required</span>
-                                    <a href="@Url.Action("Upload", "Prescription", new { orderId = order.Id })" class="btn btn-sm btn-primary">
-                                        <i class="fas fa-upload"></i>
-                                    </a>
-                                }
-                                else
-                                {
-                                    <span class="text-muted">N/A</span>
-                                }
-                            </td>
                             <td>
                                 <div class="btn-group">
                                     <a href="/Order/Details/@order.Id" class="btn btn-sm btn-primary">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <button type="button" class="btn btn-sm btn-success update-status" 
-                                            data-id="@order.Id" data-status="@order.Status">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
                                 </div>
                             </td>
                         </tr>

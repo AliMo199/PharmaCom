@@ -92,10 +92,12 @@
                         <span class="fw-bold">Rx Required:</span> @Model.ProductStatistics.RxRequiredProducts
                     </div>
                 </div>
-                <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="/Dashboard/ProductManagement">View Details</a>
-                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                </div>
+                @if(User.IsInRole("Admin")){
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="/Dashboard/ProductManagement">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                }
             </div>
         </div>
 
@@ -115,39 +117,12 @@
                         <span class="fw-bold">This Month:</span> @Model.CustomerStatistics.NewCustomersThisMonth
                     </div>
                 </div>
-                <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="/UserManagement/Index">View Details</a>
-                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Charts Row -->
-    <div class="row">
-        <!-- Sales Trend Chart -->
-        <div class="col-xl-6">
-            <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-chart-area me-1"></i>
-                    Revenue Trend
-                </div>
-                <div class="card-body">
-                    <canvas id="revenueTrendChart" width="100%" height="40"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <!-- Product Categories Chart -->
-        <div class="col-xl-6">
-            <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-chart-pie me-1"></i>
-                    Products by Category
-                </div>
-                <div class="card-body">
-                    <canvas id="productsByCategoryChart" width="100%" height="40"></canvas>
-                </div>
+                @if (User.IsInRole("Admin")){
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="/UserManagement/Index">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                }
             </div>
         </div>
     </div>
@@ -191,9 +166,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="card-footer">
-                    <a href="/Dashboard/OrderManagement" class="btn btn-sm btn-primary">View All Orders</a>
-                </div>
+               
             </div>
         </div>
 
@@ -227,9 +200,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="card-footer">
-                    <a href="/Dashboard/ProductManagement" class="btn btn-sm btn-primary">View All Products</a>
-                </div>
+                
             </div>
         </div>
     </div>

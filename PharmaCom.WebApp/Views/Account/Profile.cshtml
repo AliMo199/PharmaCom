@@ -11,7 +11,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 mb-0">
-                    <a asp-controller="Home" asp-action="Index">Home</a>
+                    <a asp-controller="Home" asp-action="Index" class="text-decoration-none text-muted">Home</a>
                     <span class="mx-2 mb-0">/</span>
                     <strong class="text-black">My Profile</strong>
                 </div>
@@ -22,7 +22,6 @@
 
 <div class="site-section">
     <div class="container">
-        <!-- Page Header -->
         <div class="row mb-5">
             <div class="col-md-12">
                 <h2 class="text-black h3 mb-3 text-uppercase">My Profile</h2>
@@ -30,16 +29,15 @@
         </div>
 
         <div class="row">
-            <!-- Sidebar Navigation - Desktop -->
             <div class="col-lg-3 mb-4 d-none d-lg-block">
-                <div class="card border-0 shadow-sm">
+                <div class="card border-0 shadow-sm rounded-4">
                     <div class="card-body p-0">
                         <div class="profile-sidebar">
-                            <div class="text-center p-4 border-bottom bg-light">
+                            <div class="text-center p-4 border-bottom bg-light rounded-top-4">
                                 <div class="profile-avatar mb-3">
-                                    <span class="icon-user" style="font-size: 60px; color: #007bff;"></span>
+                                    <span class="icon-user" style="font-size: 50px; color: #8B0000;"></span>
                                 </div>
-                                <h5 class="text-black mb-1">@Model.FullName</h5>
+                                <h5 class="text-black mb-1 fw-bold">@Model.FullName</h5>
                                 <small class="text-muted">@Model.Email</small>
                             </div>
                             <ul class="list-unstyled mb-0">
@@ -54,7 +52,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#security" class="d-block p-3 profile-nav-link">
+                                    <a href="#security" class="d-block p-3 profile-nav-link rounded-bottom-4">
                                         <span class="icon-lock mr-2"></span> Security Settings
                                     </a>
                                 </li>
@@ -64,24 +62,21 @@
                 </div>
             </div>
 
-            <!-- Main Content -->
             <div class="col-lg-9">
-                <!-- Mobile Profile Header -->
-                <div class="card border-0 shadow-sm mb-4 d-lg-none">
+                <div class="card border-0 shadow-sm mb-4 d-lg-none rounded-4">
                     <div class="card-body text-center p-4">
                         <div class="profile-avatar mb-3">
-                            <span class="icon-user" style="font-size: 60px; color: #007bff;"></span>
+                            <span class="icon-user" style="font-size: 50px; color: #8B0000;"></span>
                         </div>
-                        <h5 class="text-black mb-1">@Model.FullName</h5>
+                        <h5 class="text-black mb-1 fw-bold">@Model.FullName</h5>
                         <small class="text-muted">@Model.Email</small>
                     </div>
                 </div>
 
-                <!-- Personal Information Section -->
-                <div class="card border-0 shadow-sm mb-4" id="personal-info">
-                    <div class="card-header bg-white border-bottom p-4">
-                        <h5 class="text-black mb-0 text-uppercase h6">
-                            <span class="icon-user mr-2"></span>
+                <div class="card border-0 shadow-sm mb-4 rounded-4" id="personal-info">
+                    <div class="card-header bg-white border-bottom p-4 rounded-top-4">
+                        <h5 class="text-black mb-0 text-uppercase h6 font-weight-bold">
+                            <span class="icon-user mr-2" style="color: #8B0000;"></span>
                             Personal Information
                         </h5>
                     </div>
@@ -91,27 +86,27 @@
                             <div class="row">
                                 <div class="col-md-6 mb-4">
                                     <label class="text-black font-weight-bold">First Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="FirstName" value="@Model.FirstName" required>
+                                    <input type="text" class="form-control rounded-pill" name="FirstName" value="@Model.FirstName" required>
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <label class="text-black font-weight-bold">Last Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="LastName" value="@Model.LastName" required>
+                                    <input type="text" class="form-control rounded-pill" name="LastName" value="@Model.LastName" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 mb-4">
                                     <label class="text-black font-weight-bold">Email Address</label>
-                                    <input type="email" class="form-control" value="@Model.Email" disabled>
-                                    <small class="text-muted">Contact support to change your email</small>
+                                    <input type="email" class="form-control rounded-pill" value="@Model.Email" disabled>
+                                    <small class="text-muted pl-2">Contact support to change your email</small>
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <label class="text-black font-weight-bold">Phone Number</label>
-                                    <input type="tel" class="form-control" name="PhoneNumber" value="@Model.PhoneNumber">
+                                    <input type="tel" class="form-control rounded-pill" name="PhoneNumber" value="@Model.PhoneNumber">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-12">
-                                    <button type="submit" class="btn btn-primary px-5">
+                                    <button type="submit" class="btn btn-primary px-5 rounded-pill" style="background-color: #8B0000; border-color: #8B0000;">
                                         <span class="icon-save mr-2"></span> Save Changes
                                     </button>
                                 </div>
@@ -120,15 +115,14 @@
                     </div>
                 </div>
 
-                <!-- Addresses Section -->
-                <div class="card border-0 shadow-sm mb-4" id="addresses">
-                    <div class="card-header bg-white border-bottom p-4">
+                <div class="card border-0 shadow-sm mb-4 rounded-4" id="addresses">
+                    <div class="card-header bg-white border-bottom p-4 rounded-top-4">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h5 class="text-black mb-0 text-uppercase h6">
-                                <span class="icon-location-arrow mr-2"></span>
+                            <h5 class="text-black mb-0 text-uppercase h6 font-weight-bold">
+                                <span class="icon-location-arrow mr-2" style="color: #8B0000;"></span>
                                 My Addresses
                             </h5>
-                            <a asp-action="AddAddress" class="btn btn-sm btn-primary">
+                            <a asp-action="AddAddress" class="btn btn-sm btn-outline-dark-red rounded-pill px-3">
                                 <span class="icon-plus mr-1"></span> Add New
                             </a>
                         </div>
@@ -140,35 +134,50 @@
                                 @foreach (var address in Model.Addresses)
                                 {
                                     <div class="col-md-6 mb-3">
-                                        <div class="address-card border rounded p-3 h-100">
-                                            <div class="d-flex justify-content-between align-items-start mb-2">
-                                                <h6 class="text-black mb-0">
-                                                    @if (address.IsDefault)
+                                        <div class="address-card h-100 d-flex flex-column position-relative p-4 text-center">
+
+                                            @if (address.IsDefault)
+                                            {
+                                                <div class="default-badge">
+                                                    <span class="icon-check mr-1"></span> Default
+                                                </div>
+                                            }
+
+                                            <div class="d-flex flex-column align-items-center mb-3">
+                                                <div class="address-icon-box mb-3 shadow-sm">
+                                                    <span class="icon-home" style="color: #8B0000; font-size: 1.5rem;"></span>
+                                                </div>
+
+                                                <h6 class="text-black font-weight-bold mb-1 text-break w-100">@address.Line1</h6>
+                                                <small class="text-muted d-block">
+                                                    @address.City, @address.Governorate
+                                                </small>
+                                            </div>
+
+                                            <div class="flex-grow-1"></div> <div class="card-actions mt-3 pt-3 border-top w-100 d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    @if (!address.IsDefault)
                                                     {
-                                                        <span class="badge badge-success mr-2">Default</span>
+                                                        <button type="button" class="btn btn-link btn-sm p-0 text-decoration-none font-weight-bold"
+                                                                style="color: #8B0000; font-size: 0.8rem;"
+                                                                onclick="setDefaultAddress(@address.Id)">
+                                                            Set Default
+                                                        </button>
                                                     }
-                                                    Address
-                                                </h6>
-                                                <div class="btn-group btn-group-sm">
+                                                </div>
+
+                                                <div class="action-buttons d-flex gap-2">
                                                     <a asp-action="EditAddress" asp-route-id="@address.Id"
-                                                       class="btn btn-outline-primary btn-sm">
-                                                        <span class="icon-edit"></span>
+                                                       class="btn-action btn-edit" title="Edit Address">
+                                                        <span class="icon-pencil"></span>
                                                     </a>
-                                                    <button type="button" class="btn btn-outline-danger btn-sm"
-                                                            onclick="deleteAddress(@address.Id)">
+                                                    <button type="button" class="btn-action btn-delete"
+                                                            onclick="deleteAddress(@address.Id)" title="Delete Address">
                                                         <span class="icon-trash"></span>
                                                     </button>
                                                 </div>
                                             </div>
-                                            <p class="mb-1"><strong>@address.Line1</strong></p>
-                                            <p class="mb-0 text-muted">@address.City, @address.Governorate</p>
-                                            @if (!address.IsDefault)
-                                            {
-                                                <button type="button" class="btn btn-link btn-sm p-0 mt-2"
-                                                        onclick="setDefaultAddress(@address.Id)">
-                                                    Set as Default
-                                                </button>
-                                            }
+
                                         </div>
                                     </div>
                                 }
@@ -177,9 +186,11 @@
                         else
                         {
                             <div class="text-center py-4">
-                                <span class="icon-location-arrow" style="font-size: 48px; color: #ccc;"></span>
-                                <p class="text-muted mt-3 mb-3">No addresses saved yet</p>
-                                <a asp-action="AddAddress" class="btn btn-primary btn-sm">
+                                <div class="mb-3">
+                                    <span class="icon-location-arrow display-4 text-muted opacity-25"></span>
+                                </div>
+                                <p class="text-muted mb-3">No addresses saved yet</p>
+                                <a asp-action="AddAddress" class="btn btn-outline-dark-red btn-sm rounded-pill px-4">
                                     <span class="icon-plus mr-2"></span> Add Your First Address
                                 </a>
                             </div>
@@ -187,11 +198,10 @@
                     </div>
                 </div>
 
-                <!-- Security Settings Section -->
-                <div class="card border-0 shadow-sm mb-4" id="security">
-                    <div class="card-header bg-white border-bottom p-4">
-                        <h5 class="text-black mb-0 text-uppercase h6">
-                            <span class="icon-lock mr-2"></span>
+                <div class="card border-0 shadow-sm mb-4 rounded-4" id="security">
+                    <div class="card-header bg-white border-bottom p-4 rounded-top-4">
+                        <h5 class="text-black mb-0 text-uppercase h6 font-weight-bold">
+                            <span class="icon-lock mr-2" style="color: #8B0000;"></span>
                             Security Settings
                         </h5>
                     </div>
@@ -201,22 +211,22 @@
                             <div class="row">
                                 <div class="col-md-12 mb-4">
                                     <label class="text-black font-weight-bold">Current Password <span class="text-danger">*</span></label>
-                                    <input type="password" class="form-control" name="CurrentPassword" required>
+                                    <input type="password" class="form-control rounded-pill" name="CurrentPassword" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 mb-4">
                                     <label class="text-black font-weight-bold">New Password <span class="text-danger">*</span></label>
-                                    <input type="password" class="form-control" name="NewPassword" required>
+                                    <input type="password" class="form-control rounded-pill" name="NewPassword" required>
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <label class="text-black font-weight-bold">Confirm New Password <span class="text-danger">*</span></label>
-                                    <input type="password" class="form-control" name="ConfirmPassword" required>
+                                    <input type="password" class="form-control rounded-pill" name="ConfirmPassword" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-12">
-                                    <button type="submit" class="btn btn-primary px-5">
+                                    <button type="submit" class="btn btn-primary px-5 rounded-pill" style="background-color: #8B0000; border-color: #8B0000;">
                                         <span class="icon-lock mr-2"></span> Change Password
                                     </button>
                                 </div>
@@ -225,13 +235,12 @@
                     </div>
                 </div>
 
-                <!-- Quick Links -->
                 <div class="row">
                     <div class="col-12">
-                        <a asp-controller="Order" asp-action="Index" class="btn btn-outline-primary btn-md mr-2 mb-2">
+                        <a asp-controller="Order" asp-action="Index" class="btn btn-outline-primary btn-md mr-2 mb-2 rounded-pill px-4">
                             <span class="icon-receipt mr-2"></span> My Orders
                         </a>
-                        <a asp-controller="Home" asp-action="Store" class="btn btn-outline-primary btn-md mb-2">
+                        <a asp-controller="Home" asp-action="Store" class="btn btn-outline-dark-red btn-md mb-2 rounded-pill px-4">
                             <span class="icon-shopping-bag mr-2"></span> Continue Shopping
                         </a>
                     </div>
@@ -244,16 +253,11 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
-            // Smooth scroll for sidebar navigation
             $('.profile-nav-link').on('click', function (e) {
                 e.preventDefault();
                 var target = $(this).attr('href');
-
-                // Update active state
                 $('.profile-nav-link').removeClass('active');
                 $(this).addClass('active');
-
-                // Smooth scroll
                 $('html, body').animate({
                     scrollTop: $(target).offset().top - 100
                 }, 500);
@@ -270,22 +274,16 @@
                         __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
                     },
                     success: function (response) {
-                        if (response.success) {
-                            location.reload();
-                        } else {
-                            alert('Error setting default address: ' + response.message);
-                        }
+                        if (response.success) { location.reload(); }
+                        else { alert('Error: ' + response.message); }
                     },
-                    error: function (xhr, status, error) {
-                        console.error('Error:', error);
-                        alert('Error setting default address. Please try again.');
-                    }
+                    error: function (xhr, status, error) { alert('Error. Please try again.'); }
                 });
             }
         }
 
         function deleteAddress(addressId) {
-            if (confirm('Are you sure you want to delete this address?')) {
+            if (confirm('Delete this address?')) {
                 $.ajax({
                     url: '@Url.Action("DeleteAddress", "Account")',
                     type: 'POST',
@@ -294,16 +292,10 @@
                         __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
                     },
                     success: function (response) {
-                        if (response.success) {
-                            location.reload();
-                        } else {
-                            alert('Error deleting address: ' + response.message);
-                        }
+                        if (response.success) { location.reload(); }
+                        else { alert('Error: ' + response.message); }
                     },
-                    error: function (xhr, status, error) {
-                        console.error('Error:', error);
-                        alert('Error deleting address. Please try again.');
-                    }
+                    error: function (xhr, status, error) { alert('Error. Please try again.'); }
                 });
             }
         }
@@ -312,10 +304,15 @@
 
 @section Styles {
     <style>
+        /* === Red Theme Color === */
+        :root {
+            --pharma-red: #8B0000;
+        }
+
         .profile-avatar {
             width: 100px;
             height: 100px;
-            border-radius: 50%;
+            border-radius: 15px;
             background-color: #f8f9fa;
             display: flex;
             align-items: center;
@@ -323,6 +320,7 @@
             margin: 0 auto;
         }
 
+        /* Sidebar Links */
         .profile-nav-link {
             color: #495057;
             text-decoration: none;
@@ -330,120 +328,130 @@
         }
 
             .profile-nav-link:hover {
-                background-color: #f8f9fa;
-                color: #007bff;
+                background-color: #fff5f5;
+                color: var(--pharma-red);
                 padding-left: 1.5rem !important;
             }
 
             .profile-nav-link.active {
-                background-color: #007bff;
-                color: #fff;
-                border-left: 4px solid #0056b3;
+                background-color: #fff0f0;
+                color: var(--pharma-red);
+                border-left: 4px solid var(--pharma-red);
+                font-weight: 600;
             }
 
-                .profile-nav-link.active:hover {
-                    background-color: #0056b3;
-                }
-
-        .card {
-            transition: all 0.3s ease;
-        }
-
-            .card:hover {
-                transform: translateY(-2px);
-            }
-
+        /* === Address Card Styling === */
         .address-card {
+            background: #fff;
+            border: 1px solid #e9ecef;
+            border-radius: 20px;
             transition: all 0.3s ease;
-            background-color: #f8f9fa;
+            position: relative;
         }
 
             .address-card:hover {
-                background-color: #fff;
-                box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+                border-color: var(--pharma-red);
+                box-shadow: 0 10px 20px rgba(139, 0, 0, 0.08);
+                transform: translateY(-3px);
             }
 
-        .badge-success {
-            background-color: #28a745;
+        .address-icon-box {
+            width: 55px;
+            height: 55px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #eee;
+        }
+
+        .default-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--pharma-red);
             color: #fff;
-            font-size: 0.7rem;
-            padding: 0.25rem 0.5rem;
+            font-size: 0.65rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            z-index: 2;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
-        .form-control:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        /* === Buttons Actions === */
+        .btn-action {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #eee;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            text-decoration: none;
+            background: #fff;
         }
 
-        label {
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+        .btn-edit {
+            color: var(--pharma-red);
         }
 
-        /* Responsive adjustments */
-        @@media (max-width: 991px) {
-            .card-body
-
-        {
-            padding: 1.5rem !important;
-        }
-
-        .card-header {
-            padding: 1rem !important;
-        }
-
-        }
-
-        @@media (max-width: 767px) {
-            .h3, h3
-
-        {
-            font-size: 1.5rem;
-        }
-
-        .h6, h6 {
-            font-size: 1rem;
-        }
-
-        .btn-group-sm > .btn {
-            padding: 0.25rem 0.5rem;
-            font-size: 0.875rem;
-        }
-
-        .address-card {
-            margin-bottom: 1rem;
-        }
-
-        .form-control {
-            font-size: 0.9rem;
-        }
-
-        }
-
-        @@media (max-width: 576px) {
-            .site-section
-
-        {
-            padding: 2rem 0;
-        }
-
-        .card-body {
-            padding: 1rem !important;
-        }
-
-        .btn {
-            font-size: 0.9rem;
-        }
-
-        .profile-avatar {
-            width: 80px;
-            height: 80px;
-        }
-
-            .profile-avatar .icon-user {
-                font-size: 48px !important;
+            .btn-edit:hover {
+                background-color: var(--pharma-red) !important;
+                border-color: var(--pharma-red) !important;
+                color: #ffffff !important;
             }
 
+                .btn-edit:hover span {
+                    color: #ffffff !important;
+                }
+
+        .btn-delete {
+            color: #dc3545;
+        }
+
+            .btn-delete:hover {
+                background-color: #dc3545;
+                border-color: #dc3545;
+                color: #fff;
+            }
+
+        /* === General Inputs === */
+        .form-control:focus {
+            border-color: var(--pharma-red);
+            box-shadow: 0 0 0 0.2rem rgba(139, 0, 0, 0.15);
+        }
+
+        /* === Custom Red Button (Add Address) === */
+        /* ده الزرار اللي كان فيه المشكلة */
+        .btn-outline-dark-red {
+            color: var(--pharma-red);
+            border: 1px solid var(--pharma-red);
+            background-color: transparent;
+            transition: all 0.3s ease;
+        }
+
+            /* التعديل هنا: إجبار النص يبقى أبيض */
+            .btn-outline-dark-red:hover {
+                background-color: var(--pharma-red) !important;
+                color: #ffffff !important;
+                border-color: var(--pharma-red) !important;
+                text-decoration: none;
+            }
+
+                /* ضمان إن الأيقونة كمان تبيض */
+                .btn-outline-dark-red:hover span {
+                    color: #ffffff !important;
+                }
+
+        @@media (max-width: 991px) {
+            .card-body {
+                padding: 1.5rem !important;
+            }
         }
     </style>
 }
