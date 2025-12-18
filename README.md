@@ -1,12 +1,12 @@
-# PharmaCom
+# HealX
 
-PharmaCom is an ASP.NET Core MVC e-commerce pharmacy application that allows customers to browse and buy pharmaceutical products, upload prescriptions, and track their orders. The system includes management UIs for administrators and pharmacists to verify prescriptions, manage products and orders, and handle customer accounts.
+HealX is an ASP.NET Core MVC e-commerce pharmacy application that allows customers to browse and buy pharmaceutical products, upload prescriptions, and track their orders. The system includes management UIs for administrators and pharmacists to verify prescriptions, manage products and orders, and handle customer accounts.
 
 ---
 
 ## Quick Project Description
 
-PharmaCom is built with Clean Architecture principles and consists of the following layers:
+HealX is built with Clean Architecture principles and consists of the following layers:
 
 - `PharmaCom.Domain` — domain models, view models, repository interfaces, constants
 - `PharmaCom.DataInfrastructure` — EF Core DbContext, repository implementations, data seeding
@@ -52,7 +52,7 @@ Follow these steps to run the project locally.
 ### Configuration
 
 1. Clone the repository:
-   git clone https://github.com/your-org/PharmaCom.git
+   git clone https://github.com/AliMo199/HealX
 
 2. Copy `appsettings.json` or set environment variables for:
 
@@ -88,17 +88,17 @@ The project contains a data seeder that seeds required roles and (optionally) de
 
 - Admin
   - username: `admin`
-  - email: `admin@pharmacom.com`
+  - email: `admin@healx.com`
   - password: `Admin@123`
   - role: `Admin`
 - Pharmacist
   - username: `pharmacist`
-  - email: `pharmacist@pharmacom.com`
+  - email: `pharmacist@healx.com`
   - password: `Pharmacist@123`
   - role: `Pharmacist`
 - Customer
   - username: `customer`
-  - email: `customer@pharmacom.com`
+  - email: `customer@healx.com`
   - password: `Customer@123`
   - role: `Customer`
 
